@@ -1,0 +1,98 @@
+#title{
+	text-align:center;
+	font-size:6mm;
+	font-weight:bold;
+}
+
+table{
+	border-collapse:collapse;
+	margin-left:15pt;
+	margin-top:5mm;
+}
+
+table, th, td, tr{
+	border: 1pt solid black;
+}
+
+caption{
+	font-size:5mm;
+}
+
+td, th{
+	text-align:center;
+	width:.35in;
+	height:2.51mm;
+	font-size:2mm;
+}
+
+#January, #February, #March{
+	margin-top:0mm;
+}
+
+#April, #May, #June{
+	margin-top:2mm;
+}
+
+#July, #August, #September{
+	margin-top:18mm;
+}
+
+#October, #November, #December{
+	
+}
+
+#January{
+	float:left;
+}
+
+#February{
+	float:left;
+}
+
+#March{
+	float:left;
+	clear:right;
+}
+
+#April{
+	float:left;
+	clear:left;
+
+}
+
+#May{
+	float:left;
+}
+
+#June{
+	float:left;
+	clear:right;
+}
+
+#July{
+	float:left;
+	clear:left;
+}
+
+#August{
+	float:left;
+}
+
+#September{
+	float:left;
+	clear:right;
+}
+
+#October{
+	float:left;
+	clear:left;
+}
+
+#November{
+	float:left;
+}
+
+#December{
+	float:left;
+	clear:right;
+}

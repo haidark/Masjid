@@ -1,0 +1,20 @@
+<div class="wrap">
+<div id="header">
+	<div class="logo"> <a href="index.php"></a> </div>
+	<ul id="navigation">
+	<li> <a href="index.php">Home</a> </li>
+	<li> <a href="prayer.htm">Prayer Times(Year)</a> </li>
+	<li> <a href="getMonth.php">Prayer Times(Month)</a> </li>
+	<li><a href="news.php">News</a></li>
+	<?php
+		if($loggedin){
+			echo "<li> <a href=\"newpost.php\">New Post</a> </li>";
+			echo "<li> <a href=\"gentimes.php\">Generate Times</a> </li>";
+			echo "<li> <a href=\"setjummah.php\">Set Jummah</a> </li>";
+			echo "<li> <a href=\"logout.php\">Logout</a> </li>";
+		} else{
+			echo "<li> <a href=\"login.php\">Login</a> </li>";
+		}
+	?>
+	</ul>
+</div>

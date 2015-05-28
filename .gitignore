@@ -1,3 +1,10 @@
+# Microsoft Office files
+*.docx
+*.doc
+
+# sql config file
+sqlconf.cfg
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
