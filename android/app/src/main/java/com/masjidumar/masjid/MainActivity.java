@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
         int month = cal.get(Calendar.MONTH) + 1;
         Document doc = null;
         try {
-            FileInputStream xmlFile = new FileInputStream(new File(getFilesDir(), "j"+month+".xml"));
+            FileInputStream xmlFile = new FileInputStream(new File(getCacheDir(), "j"+month+".xml"));
             //Build a DOM
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -61,6 +61,7 @@ public class MainActivity extends ActionBarActivity {
             xmlFile.close();
         } catch(FileNotFoundException f){
             //if the file is not found, download it.
+            Log.d("IO", "File not found");
             new DownloadTimingsXML().execute();
         } catch(Exception e) {
             e.printStackTrace();
@@ -108,18 +109,10 @@ public class MainActivity extends ActionBarActivity {
     private class DownloadTimingsXML extends AsyncTask<Void, Void, Document> {
         String xmlJURL = getString(R.string.jamaat_URL);
         String xmlPURL = getString(R.string.prayer_URL);
+
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-/*            //create a progressbar
-            pDialog = new ProgressDialog(MainActivity.this);
-            // set the title
-            pDialog.setTitle("Updating jamaat times");
-            // Set the progressbar message
-            pDialog.setMessage("Loading...");
-            pDialog.setIndeterminate(false); //what does this do???
-            //Show the progressbar
-            pDialog.show();*/
         }
 
         @Override
@@ -144,7 +137,7 @@ public class MainActivity extends ActionBarActivity {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 DOMSource docSource = new DOMSource(doc);
-                StreamResult outFile = new StreamResult(new File(getFilesDir(), "j"+month+".xml"));
+                StreamResult outFile = new StreamResult(new File(getCacheDir(), "j"+month+".xml"));
                 transformer.transform(docSource, outFile);
 
                 Log.d("XML:","Done saving file!");
@@ -166,7 +159,6 @@ public class MainActivity extends ActionBarActivity {
                 txt = "ERROR!";
             }
 
-//            pDialog.dismiss();
             TextView tView = (TextView) findViewById(R.id.xmlView);
             tView.setText(txt);
         }
@@ -188,27 +180,27 @@ public class MainActivity extends ActionBarActivity {
 
         NodeList fajr = dateElem.getElementsByTagName("fajr");
         String fajrJTime = fajr.item(0).getChildNodes().item(0).getNodeValue();
-        txt = txt + getString(R.string.fajr) + ":" + fajrJTime + "\n";
+        txt = txt + getString(R.string.fajr) + ": " + fajrJTime + "\n";
 
         NodeList sunrise = dateElem.getElementsByTagName("sunrise");
         String sunriseTime = sunrise.item(0).getChildNodes().item(0).getNodeValue();
-        txt = txt + getString(R.string.sunrise) + ":" + sunriseTime + "\n";
+        txt = txt + getString(R.string.sunrise) + ": " + sunriseTime + "\n";
 
         NodeList dhuhr = dateElem.getElementsByTagName("dhuhr");
         String dhuhrJTime = dhuhr.item(0).getChildNodes().item(0).getNodeValue();
-        txt = txt + getString(R.string.dhuhr) + ":" + dhuhrJTime  + "\n";
+        txt = txt + getString(R.string.dhuhr) + ": " + dhuhrJTime  + "\n";
 
         NodeList asr = dateElem.getElementsByTagName("asr");
         String asrJTime = asr.item(0).getChildNodes().item(0).getNodeValue();
-        txt = txt + getString(R.string.asr) + ":" + asrJTime + "\n";
+        txt = txt + getString(R.string.asr) + ": " + asrJTime + "\n";
 
         NodeList maghrib = dateElem.getElementsByTagName("maghrib");
         String maghribJTime = maghrib.item(0).getChildNodes().item(0).getNodeValue();
-        txt = txt + getString(R.string.maghrib) + ":" + maghribJTime + "\n";
+        txt = txt + getString(R.string.maghrib) + ": " + maghribJTime + "\n";
 
         NodeList isha = dateElem.getElementsByTagName("isha");
         String ishaJTime = isha.item(0).getChildNodes().item(0).getNodeValue();
-        txt = txt + getString(R.string.isha) + ":" + ishaJTime + "\n";
+        txt = txt + getString(R.string.isha) + ": " + ishaJTime + "\n";
         return txt;
     }
 }
