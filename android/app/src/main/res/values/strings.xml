@@ -3,5 +3,16 @@
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_display_message">My Message</string>
+
+    <string name="jamaat_URL">http://www.masjidumar.com/files/timings/j</string>
+    <string name="prayer_URL">http://www.masjidumar.com/files/timings/p</string>
+
+    <string name="fajr">Fajr</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="dhuhr">Dhuhr</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
+
     <string name="hello_world">Hello world!</string>
 </resources>
