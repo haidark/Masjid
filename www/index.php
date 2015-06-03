@@ -38,7 +38,7 @@
 							//get prayer times data for today and display it
 							$month = date("n");
 							$day = date("j");
-							$daynum = intval($day);
+							$daynum = intval($day)-1;
 							//open the p{$month}.xml file
 							$treep = simplexml_load_file($spath.'p'.$month.".xml") or die("Error: Cannot create object");
 							echo "<td>".$treep->date[$daynum]->fajr."</td>";
@@ -57,7 +57,7 @@
 						<?php	
 							$month = $tomm->format("n");
 							$day = $tomm->format("j");
-							$daynum = intval($day);
+							$daynum = intval($day)-1;
 							//open the p{$month}.xml file
 							$treep = simplexml_load_file($spath.'p'.$month.".xml") or die("Error: Cannot create object");
 							echo "<td>".$treep->date[$daynum]->fajr."</td>";
@@ -88,7 +88,7 @@
 							//get jamaat times data and display it
 							$month = date("n");
 							$day = date("j");
-							$daynum = intval($day);
+							$daynum = intval($day)-1;
 							//open the j{$month}.xml file
 							$treej = simplexml_load_file($spath.'j'.$month.".xml") or die("Error: Cannot create object");
 							echo "<td>".$treej->date[$daynum]->fajr."</td>";
@@ -107,7 +107,7 @@
 						<?php	
 							$month = $tomm->format("n");
 							$day = $tomm->format("j");
-							$daynum = intval($day);
+							$daynum = intval($day)-1;
 							//open the j{$month}.xml file
 							$treej = simplexml_load_file($spath.'j'.$month.".xml") or die("Error: Cannot create object");
 							echo "<td>".$treej->date[$daynum]->fajr."</td>";
