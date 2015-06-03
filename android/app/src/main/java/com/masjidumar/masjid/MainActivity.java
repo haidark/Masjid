@@ -19,12 +19,19 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -61,13 +68,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void refreshTimings(){
-        Calendar cal = new GregorianCalendar();
-        int month = cal.get(Calendar.MONTH)+1; //add 1 since it starts at 0
-        new DownloadTimingsXML().execute(xmlURL + Integer.toString(month)+".xml");
+        new DownloadTimingsXML().execute();
     }
 
-    private class DownloadTimingsXML extends AsyncTask<String, Void, NodeList> {
-
+    private class DownloadTimingsXML extends AsyncTask<Void, Void, Document> {
+        String xmlJURL = "http://www.masjidumar.com/files/timings/j";
+        String xmlPURL = "http://www.masjidumar.com/files/timings/p";
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
@@ -83,27 +89,58 @@ public class MainActivity extends ActionBarActivity {
         }
 
         @Override
-        protected NodeList doInBackground(String... xmlUrl){
-            NodeList nodelist = null;
+        protected Document doInBackground(Void... Params){
+            Document doc = null;
             try{
-                URL url = new URL(xmlUrl[0]);
+                //get this month
+                Calendar cal = new GregorianCalendar();
+                int month = cal.get(Calendar.MONTH)+1; //add 1 since it starts at 0
+
+                //Form the URL for this month
+                URL url = new URL(xmlJURL+Integer.toString(month)+".xml");
+
+                //Build a DOM
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
+
                 // Download the XML file
-                Document doc = db.parse(new InputSource(url.openStream()));
-                doc.getDocumentElement().normalize(); //???
-                //locate the date tags
-                nodelist = doc.getElementsByTagName("date");
+                doc = db.parse(new InputSource(url.openStream()));
+
+                // save the XML file for future use.
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                DOMSource docSource = new DOMSource(doc);
+                StreamResult outFile = new StreamResult(new File(getFilesDir(), "j"+month+".xml"));
+                transformer.transform(docSource, outFile);
+
+                Log.d("XML:","Done saving file!");
+
             } catch(Exception e){
                 Log.e("ERROR", e.getMessage());
                 e.printStackTrace();
             }
-            return nodelist;
+            return doc;
         }
 
         @Override
-        protected void onPostExecute(NodeList nodes){
-            //Extract timings.
+        protected void onPostExecute(Document doc){
+            String txt;
+            if(doc != null) {
+                txt = extractTimings(doc);
+            }else{
+                txt = "ERROR!";
+            }
+
+//            pDialog.dismiss();
+            TextView tView = (TextView) findViewById(R.id.xmlView);
+            tView.setText(txt);
+        }
+
+        protected String extractTimings(Document doc) {
+            doc.getDocumentElement().normalize(); //???
+            // get all the date elements
+            NodeList nodes = doc.getElementsByTagName("date");
+            //extract timings.
             String txt = "";
             Calendar cal = new GregorianCalendar();
             int j = cal.get(Calendar.DAY_OF_MONTH)-1;
@@ -112,33 +149,29 @@ public class MainActivity extends ActionBarActivity {
             txt = txt + "Last Updated: " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE) + "\n";
 
             NodeList fajr = dateElem.getElementsByTagName("fajr");
-
             String fajrJTime = fajr.item(0).getChildNodes().item(0).getNodeValue();
-            txt = txt + "Fajr: " + fajrJTime + "\n";
+            txt = txt + "Fajr:\t\t" + fajrJTime + "\n";
 
             NodeList sunrise = dateElem.getElementsByTagName("sunrise");
             String sunriseTime = sunrise.item(0).getChildNodes().item(0).getNodeValue();
-            txt = txt + "Sunrise: " + sunriseTime + "\n";
+            txt = txt + "Sunrise:\t\t" + sunriseTime + "\n";
 
             NodeList dhuhr = dateElem.getElementsByTagName("dhuhr");
             String dhuhrJTime = dhuhr.item(0).getChildNodes().item(0).getNodeValue();
-            txt = txt + "Dhuhr: " + dhuhrJTime  + "\n";
+            txt = txt + "Dhuhr:\t\t" + dhuhrJTime  + "\n";
 
             NodeList asr = dateElem.getElementsByTagName("asr");
             String asrJTime = asr.item(0).getChildNodes().item(0).getNodeValue();
-            txt = txt + "Asr: " + asrJTime + "\n";
+            txt = txt + "Asr:\t\t" + asrJTime + "\n";
 
             NodeList maghrib = dateElem.getElementsByTagName("maghrib");
             String maghribJTime = maghrib.item(0).getChildNodes().item(0).getNodeValue();
-            txt = txt + "Maghrib: " + maghribJTime + "\n";
+            txt = txt + "Maghrib:\t\t" + maghribJTime + "\n";
 
             NodeList isha = dateElem.getElementsByTagName("isha");
             String ishaJTime = isha.item(0).getChildNodes().item(0).getNodeValue();
-            txt = txt + "Isha: " + ishaJTime + "\n";
-
-//            pDialog.dismiss();
-            TextView tView = (TextView) findViewById(R.id.xmlView);
-            tView.setText(txt);
+            txt = txt + "Isha:\t\t" + ishaJTime + "\n";
+            return txt;
         }
     }
 }
