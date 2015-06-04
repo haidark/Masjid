@@ -1588,7 +1588,7 @@ containing a value of this type.
         public static final int none=0x7f0c000e;
         public static final int normal=0x7f0c000a;
         public static final int parentPanel=0x7f0c002d;
-        public static final int pickDate=0x7f0c0050;
+        public static final int pickedDate=0x7f0c0050;
         public static final int progress_circular=0x7f0c0005;
         public static final int progress_horizontal=0x7f0c0006;
         public static final int radio=0x7f0c003a;
@@ -1712,10 +1712,12 @@ containing a value of this type.
         public static final int isha=0x7f060018;
         public static final int jamaat_URL=0x7f060019;
         public static final int maghrib=0x7f06001a;
-        public static final int prayer_URL=0x7f06001b;
-        public static final int status_bar_notification_info_overflow=0x7f06001c;
-        public static final int sunrise=0x7f06001d;
-        public static final int title_activity_display_message=0x7f06001e;
+        public static final int pick_date=0x7f06001b;
+        public static final int prayer_URL=0x7f06001c;
+        public static final int status_bar_notification_info_overflow=0x7f06001d;
+        public static final int sunrise=0x7f06001e;
+        public static final int title_activity_display_message=0x7f06001f;
+        public static final int today_date=0x7f060020;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f080073;
