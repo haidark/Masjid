@@ -32,6 +32,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.masjidumar.masjid.MainActivity" />
         </activity>
+
+        <receiver android:name="com.masjidumar.masjid.AlarmBroadcastReceiver" />
     </application>
 
 </manifest>

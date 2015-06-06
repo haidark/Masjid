@@ -1,10 +1,14 @@
 package com.masjidumar.masjid;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.DocumentsContract;
@@ -20,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,6 +58,9 @@ public class MainActivity extends ActionBarActivity {
     static int month;
     static int day;
     static int year;
+    static int once = 0;
+
+    private AlarmBroadcastReceiver alarmBR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void updateTimings(){
         new UpdateTimingsXML().execute();
+        setOneTime();
     }
 
     private class UpdateTimingsXML extends AsyncTask<Void, Void, Document> {
@@ -276,6 +285,12 @@ public class MainActivity extends ActionBarActivity {
         month = cal.get(Calendar.MONTH) + 1;
         day = cal.get(Calendar.DAY_OF_MONTH);
         updateTimings();
+    }
+
+    public void setOneTime(){
+        Context context = this.getApplicationContext();
+        alarmBR = new AlarmBroadcastReceiver();
+        alarmBR.setNextAlarm(context);
     }
 
 }
