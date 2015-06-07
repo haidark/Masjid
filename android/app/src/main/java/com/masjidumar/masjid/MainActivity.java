@@ -38,8 +38,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -58,9 +62,6 @@ public class MainActivity extends ActionBarActivity {
     static int month;
     static int day;
     static int year;
-    static int once = 0;
-
-    private AlarmBroadcastReceiver alarmBR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
         //try to load timings from the previously downloaded file
         Calendar cal = new GregorianCalendar();
         year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH) + 1;
+        month = cal.get(Calendar.MONTH) + 1;    //switches from zero-indexed to the sane way
         day = cal.get(Calendar.DAY_OF_MONTH);
 
         TextView datepicked = (TextView) findViewById(R.id.pickedDate);
@@ -101,141 +102,93 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void refreshTimings(){
-        new DownloadTimingsXML().execute();
+        new DownloadTimingsXMLTask().execute();
     }
 
     public void updateTimings(){
-        new UpdateTimingsXML().execute();
-        setOneTime();
+        new UpdateTimingsXMLTask().execute();
     }
 
-    private class UpdateTimingsXML extends AsyncTask<Void, Void, Document> {
+    private class UpdateTimingsXMLTask extends AsyncTask<Void, Void, Document> {
 
         @Override
         protected Document doInBackground(Void... Params){
-            try {
-                FileInputStream xmlFile = new FileInputStream(new File(getCacheDir(), "j"+month+".xml"));
-                //Build a DOM
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-
-                // Open the XML file
-                Document doc = db.parse(new InputSource(xmlFile));
-                xmlFile.close();
-                return doc;
-            } catch(Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+            // Uses an instance of TimingsParser to return the saved xml document
+            return new TimingsParser().updateXMLTimings(getCacheDir(), year, month);
         }
 
         @Override
         protected void onPostExecute(Document doc){
             if(doc != null) {
-                extractTimings(doc);
+                displayTimings(new TimingsParser().extractTimings(doc, year, month, day));
             } else{
-                new DownloadTimingsXML().execute();
+                new DownloadTimingsXMLTask().execute();
             }
         }
-
     }
 
-    private class DownloadTimingsXML extends AsyncTask<Void, Void, Document> {
-        String xmlJURL = getString(R.string.jamaat_URL);
-        String xmlPURL = getString(R.string.prayer_URL);
-
+    private class DownloadTimingsXMLTask extends AsyncTask<Void, Void, Document> {
         @Override
         protected Document doInBackground(Void... Params){
-            try{
-                //Form the URL for this month
-                URL url = new URL(xmlJURL+Integer.toString(month)+".xml");
-
-                //Build a DOM
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-
-                // Download the XML file
-                Document doc = db.parse(new InputSource(url.openStream()));
-
-                // save the XML file for future use.
-                Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                DOMSource docSource = new DOMSource(doc);
-                StreamResult outFile = new StreamResult(new File(getCacheDir(), "j"+month+".xml"));
-                transformer.transform(docSource, outFile);
-
-                Log.d("XML:","Done saving file!");
-                return doc;
-            } catch(Exception e){
-                Log.e("ERROR", e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
+            // Uses an instance of TimingsParser to download and save the XML file,
+            // also returns the document
+            String xmlJURL = getString(R.string.jamaat_URL);
+            return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), year, month);
         }
 
         @Override
         protected void onPostExecute(Document doc){
             if(doc != null) {
-                extractTimings(doc);
+                displayTimings(new TimingsParser().extractTimings(doc, year, month, day));
             }
         }
     }
 
-    public void extractTimings(Document doc) {
-        doc.getDocumentElement().normalize(); //???
-        // get all the date elements
-        NodeList nodes = doc.getElementsByTagName("date");
-        //extract timings.
-        String txt;
+    public void displayTimings(HashMap<String, GregorianCalendar> timings){
         TextView view;
-
-        int j = day-1;
-        Element dateElem = (Element) nodes.item(j);
+        //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
+        SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance();
+        GregorianCalendar jCal;
 
         //Fajr
-        NodeList fajr = dateElem.getElementsByTagName("fajr");
-        String fajrJTime = fajr.item(0).getChildNodes().item(0).getNodeValue();
-        txt = fajrJTime + "\n";
+        jCal = timings.get("fajr");
+        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.fajrTime);
-        view.setText(txt);
+        view.setText(format.format(jCal.getTime()));
 
-        //sunrise
-        NodeList sunrise = dateElem.getElementsByTagName("sunrise");
-        String sunriseTime = sunrise.item(0).getChildNodes().item(0).getNodeValue();
-        txt = sunriseTime + "\n";
+        //Sunrise
+        jCal = timings.get("sunrise");
+        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.sunriseTime);
-        view.setText(txt);
+        view.setText(format.format(jCal.getTime()));
 
-        //dhuhr
-        NodeList dhuhr = dateElem.getElementsByTagName("dhuhr");
-        String dhuhrJTime = dhuhr.item(0).getChildNodes().item(0).getNodeValue();
-        txt = dhuhrJTime  + "\n";
+        //Dhuhr
+        jCal = timings.get("dhuhr");
+        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.dhuhrTime);
-        view.setText(txt);
+        view.setText(format.format(jCal.getTime()));
 
-        //asr
-        NodeList asr = dateElem.getElementsByTagName("asr");
-        String asrJTime = asr.item(0).getChildNodes().item(0).getNodeValue();
-        txt = asrJTime + "\n";
+        //Asr
+        jCal = timings.get("asr");
+        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.asrTime);
-        view.setText(txt);
+        view.setText(format.format(jCal.getTime()));
 
-        //maghrib
-        NodeList maghrib = dateElem.getElementsByTagName("maghrib");
-        String maghribJTime = maghrib.item(0).getChildNodes().item(0).getNodeValue();
-        txt = maghribJTime + "\n";
+        //Maghrib
+        jCal = timings.get("maghrib");
+        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.maghribTime);
-        view.setText(txt);
+        view.setText(format.format(jCal.getTime()));
 
-        //isha
-        NodeList isha = dateElem.getElementsByTagName("isha");
-        String ishaJTime = isha.item(0).getChildNodes().item(0).getNodeValue();
-        txt = ishaJTime + "\n";
+        //Isha
+        jCal = timings.get("isha");
+        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.ishaTime);
-        view.setText(txt);
+        view.setText(format.format(jCal.getTime()));
 
-        TextView datepicked = (TextView) findViewById(R.id.pickedDate);
-        datepicked.setText(month + "/" + day);
+        //display date
+        view = (TextView) findViewById(R.id.pickedDate);
+        view.setText(month + "/" + day);
     }
 
     /* Date Picker Fragment */
@@ -285,9 +238,11 @@ public class MainActivity extends ActionBarActivity {
         month = cal.get(Calendar.MONTH) + 1;
         day = cal.get(Calendar.DAY_OF_MONTH);
         updateTimings();
+        setOneTime();
     }
 
     public void setOneTime(){
+        AlarmBroadcastReceiver alarmBR;
         Context context = this.getApplicationContext();
         alarmBR = new AlarmBroadcastReceiver();
         alarmBR.setNextAlarm(context);
