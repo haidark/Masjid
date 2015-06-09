@@ -4,7 +4,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_display_message">Settings</string>
 
-    <string name="jamaat_URL">http://www.masjidumar.com/files/timings/j</string>
+    <string name="jamaat_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
     <string name="prayer_URL">http://www.masjidumar.com/files/timings/p</string>
 
     <string name="pick_date">Pick Date</string>

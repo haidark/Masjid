@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -109,37 +110,47 @@ public class MainActivity extends ActionBarActivity {
         new UpdateTimingsXMLTask().execute();
     }
 
-    private class UpdateTimingsXMLTask extends AsyncTask<Void, Void, Document> {
+    private class UpdateTimingsXMLTask extends AsyncTask<Void, Void, HashMap<String, GregorianCalendar> > {
 
         @Override
-        protected Document doInBackground(Void... Params){
+        protected HashMap<String, GregorianCalendar> doInBackground(Void... Params){
             // Uses an instance of TimingsParser to return the saved xml document
-            return new TimingsParser().updateXMLTimings(getCacheDir(), year, month);
+            try {
+                 return new TimingsParser().updateXMLTimings(getCacheDir(), year, month, day);
+            } catch(IOException e){
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(Document doc){
-            if(doc != null) {
-                displayTimings(new TimingsParser().extractTimings(doc, year, month, day));
+        protected void onPostExecute(HashMap<String, GregorianCalendar> timings){
+            if(timings != null) {
+                displayTimings(timings);
             } else{
                 new DownloadTimingsXMLTask().execute();
             }
         }
     }
 
-    private class DownloadTimingsXMLTask extends AsyncTask<Void, Void, Document> {
+    private class DownloadTimingsXMLTask extends AsyncTask<Void, Void, HashMap<String, GregorianCalendar> > {
         @Override
-        protected Document doInBackground(Void... Params){
+        protected HashMap<String, GregorianCalendar> doInBackground(Void... Params){
             // Uses an instance of TimingsParser to download and save the XML file,
             // also returns the document
             String xmlJURL = getString(R.string.jamaat_URL);
-            return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), year, month);
+            try {
+                return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), year, month, day);
+            } catch(IOException e){
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(Document doc){
-            if(doc != null) {
-                displayTimings(new TimingsParser().extractTimings(doc, year, month, day));
+        protected void onPostExecute(HashMap<String, GregorianCalendar> timings){
+            if(timings != null) {
+                displayTimings(timings);
             }
         }
     }
