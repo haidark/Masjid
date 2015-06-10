@@ -45,7 +45,7 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class TimingsParser {
 
-    public HashMap<String, GregorianCalendar> downloadXMLTimings(String urlStr, File cacheDir, int year, int month, int day)
+    public HashMap<String, GregorianCalendar> downloadXMLTimings(String urlStr, File cacheDir, GregorianCalendar pickedDate)
             throws IOException{
         //Form the URL
         URL url = new URL(urlStr);
@@ -64,21 +64,27 @@ public class TimingsParser {
         oStream.close();
         urlStream.close();
 
-        return updateXMLTimings(cacheDir, year, month, day);
+        return updateXMLTimings(cacheDir, pickedDate);
     }
 
-    public HashMap<String, GregorianCalendar> updateXMLTimings(File cacheDir, int year, int month, int day)
+    public HashMap<String, GregorianCalendar> updateXMLTimings(File cacheDir, GregorianCalendar pickedDate)
             throws IOException{
 
         FileInputStream xmlStream = new FileInputStream(new File(cacheDir, "jamaat_timings.xml"));
-        HashMap<String, GregorianCalendar> timings = parseTimings(xmlStream, year, month, day);
+        HashMap<String, GregorianCalendar> timings = parseTimings(xmlStream, pickedDate);
         xmlStream.close();
 
         return timings;
     }
 
-    public HashMap<String, GregorianCalendar> parseTimings(InputStream inStream, int year, int month, int day)
+    public HashMap<String, GregorianCalendar> parseTimings(InputStream inStream, GregorianCalendar pickedDate)
             throws IOException{
+
+        //get the year, month, and day from the pickedDate
+        int year = pickedDate.get(GregorianCalendar.YEAR);
+        int month = pickedDate.get(GregorianCalendar.MONTH)+1;
+        int day = pickedDate.get(GregorianCalendar.DAY_OF_MONTH);
+
         //create the hashmap and populate it with null values
         HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
         String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};

@@ -60,21 +60,14 @@ import javax.xml.transform.stream.StreamResult;
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE="com.masjidumar.masjid.MESSAGE";
 
-    static int month;
-    static int day;
-    static int year;
+    static GregorianCalendar pickedDate;
     static HashMap<String, GregorianCalendar> todayTimings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //try to load timings from the previously downloaded file
-        GregorianCalendar gCal = new GregorianCalendar();
-        synchronized (this) {
-            year = gCal.get(GregorianCalendar.YEAR);
-            month = gCal.get(GregorianCalendar.MONTH) + 1;//switches from zero-indexed to the sane way
-            day = gCal.get(GregorianCalendar.DAY_OF_MONTH);
-        }
+        pickedDate = new GregorianCalendar();
         updateTimings();
     }
 
@@ -102,44 +95,48 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void refreshTimings(){
-        new DownloadTimingsXMLTask().execute(year, month, day);
+        new DownloadTimingsXMLTask().execute(pickedDate);
     }
 
     public void updateTimings(){
-        new UpdateTimingsXMLTask().execute(year, month, day);
+        new UpdateTimingsXMLTask().execute(pickedDate);
     }
 
-    private class UpdateTimingsXMLTask extends AsyncTask<Integer, Void, HashMap<String, GregorianCalendar> > {
+    private class UpdateTimingsXMLTask extends AsyncTask<GregorianCalendar, Void, HashMap<String, GregorianCalendar> > {
 
         @Override
-        protected HashMap<String, GregorianCalendar> doInBackground(Integer... Params){
+        protected HashMap<String, GregorianCalendar> doInBackground(GregorianCalendar... Params){
             // Uses an instance of TimingsParser to return the saved xml document
             try {
-                return new TimingsParser().updateXMLTimings(getCacheDir(), Params[0], Params[1], Params[2]);
+                return new TimingsParser().updateXMLTimings(getCacheDir(), Params[0]);
             } catch(IOException e){
                 e.printStackTrace();
-                return null;
+                // if we fail to find the saved XML Document, pass the year, month, and day to PostExecute
+                HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
+                timings.put("fileNotFound", Params[0]);
+                return timings;
             }
         }
 
         @Override
         protected void onPostExecute(HashMap<String, GregorianCalendar> timings){
-            if(timings != null) {
-                displayTimings(timings);
+            // if file was not found, then pickedDate will be set
+            if(timings.containsKey("fileNotFound")) {
+                new DownloadTimingsXMLTask().execute(timings.get("fileNotFound"));
             } else{
-                new DownloadTimingsXMLTask().execute();
+                displayTimings(timings);
             }
         }
     }
 
-    private class DownloadTimingsXMLTask extends AsyncTask<Integer, Void, HashMap<String, GregorianCalendar> > {
+    private class DownloadTimingsXMLTask extends AsyncTask<GregorianCalendar, Void, HashMap<String, GregorianCalendar> > {
         @Override
-        protected HashMap<String, GregorianCalendar> doInBackground(Integer... Params){
+        protected HashMap<String, GregorianCalendar> doInBackground(GregorianCalendar... Params){
             // Uses an instance of TimingsParser to download and save the XML file,
             // also returns the document
             String xmlJURL = getString(R.string.jamaat_URL);
             try {
-                return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), Params[0], Params[1], Params[2]);
+                return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), Params[0]);
             } catch(IOException e){
                 e.printStackTrace();
                 return null;
@@ -176,11 +173,9 @@ public class MainActivity extends ActionBarActivity {
 
         //format the date
         format = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
-        synchronized (this){
-            gCal = new GregorianCalendar(year, month-1, day);
-        }
+        gCal = pickedDate;
         format.setCalendar(gCal);
-        String pickedDate = format.format(gCal.getTime());
+        String pickedDateStr = format.format(gCal.getTime());
 
         //get views and display
 
@@ -204,7 +199,7 @@ public class MainActivity extends ActionBarActivity {
 
         //display date
         view = (TextView) findViewById(R.id.pickedDate);
-        view.setText(pickedDate);
+        view.setText(pickedDateStr);
     }
 
     /* Date Picker Fragment */
@@ -222,8 +217,14 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
+
+            //get the year, month, and day from the pickedDate
+            int year = pickedDate.get(GregorianCalendar.YEAR);
+            int month = pickedDate.get(GregorianCalendar.MONTH);
+            int day = pickedDate.get(GregorianCalendar.DAY_OF_MONTH);
+
             // Use the current set date as the default date in the picker
-            return new DatePickerDialog(getActivity(), onDateSetListener, year, month-1, day);
+            return new DatePickerDialog(getActivity(), onDateSetListener, year, month, day);
         }
 
         private void setOnDateSetListener(DatePickerDialog.OnDateSetListener listener) {
@@ -234,9 +235,8 @@ public class MainActivity extends ActionBarActivity {
     /* Listener for onDateSet */
     public DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int pickedYear, int pickedMonth, int pickedDay) {
-            year = pickedYear;
-            month = pickedMonth+1;
-            day = pickedDay;
+            //update the pickedDate variable
+            pickedDate.set(pickedYear, pickedMonth, pickedDay);
             updateTimings();
         }
     };
@@ -247,10 +247,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void setDateToday(View v) {
-        Calendar cal = new GregorianCalendar();
-        year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH) + 1;
-        day = cal.get(Calendar.DAY_OF_MONTH);
+        pickedDate = new GregorianCalendar();
         updateTimings();
         setOneTime();
     }
@@ -259,7 +256,8 @@ public class MainActivity extends ActionBarActivity {
         AlarmBroadcastReceiver alarmBR;
         Context context = this.getApplicationContext();
         alarmBR = new AlarmBroadcastReceiver();
-        alarmBR.setNextAlarm(context);
+        alarmBR.setNextAlarm(context, alarmBR.getTargetTime(getString(R.string.jamaat_URL), getCacheDir()));
+        //alarmBR.setNextAlarm(context, new GregorianCalendar());
     }
 
 }
