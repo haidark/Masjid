@@ -106,9 +106,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             if (gCalToday.before(availableTimings.get(i))) {
                 // return this time as the next target time
                 availableTimings.get(i).add(GregorianCalendar.MINUTE, -10);
+                Log.d("Alarm: ", availableTimings.get(i).toString());
                 return availableTimings.get(i);
             }
         }
+        Log.d("Alarm: ", "Failed to find time!");
         return null;
     }
 }

@@ -117,7 +117,7 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
+            jCal.set(year, month-1, day);
             timings.put(pName, jCal);
 
             //Sunrise
@@ -126,7 +126,7 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
+            jCal.set(year, month-1, day);
             timings.put(pName, jCal);
 
             //Dhuhr
@@ -135,7 +135,7 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
+            jCal.set(year, month-1, day);
             //Dhuhr AM-PM is tricky since its on the cusp, here is some logic to work around
             //permanent solution is to embed this information in the XML files
             int dhuhrHour = jCal.get(GregorianCalendar.HOUR);
@@ -151,7 +151,7 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
+            jCal.set(year, month-1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
 
@@ -161,7 +161,7 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
+            jCal.set(year, month-1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
 
@@ -171,7 +171,7 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
+            jCal.set(year, month-1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
 
