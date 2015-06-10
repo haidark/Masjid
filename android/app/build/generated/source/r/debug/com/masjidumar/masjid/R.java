@@ -1710,14 +1710,15 @@ containing a value of this type.
         public static final int fajr=0x7f060016;
         public static final int hello_world=0x7f060017;
         public static final int isha=0x7f060018;
-        public static final int jamaat_URL=0x7f060019;
-        public static final int maghrib=0x7f06001a;
-        public static final int pick_date=0x7f06001b;
-        public static final int prayer_URL=0x7f06001c;
-        public static final int status_bar_notification_info_overflow=0x7f06001d;
-        public static final int sunrise=0x7f06001e;
-        public static final int title_activity_display_message=0x7f06001f;
-        public static final int today_date=0x7f060020;
+        public static final int jamaat=0x7f060019;
+        public static final int jamaat_URL=0x7f06001a;
+        public static final int maghrib=0x7f06001b;
+        public static final int pick_date=0x7f06001c;
+        public static final int prayer_URL=0x7f06001d;
+        public static final int status_bar_notification_info_overflow=0x7f06001e;
+        public static final int sunrise=0x7f06001f;
+        public static final int title_activity_display_message=0x7f060020;
+        public static final int today_date=0x7f060021;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f080073;

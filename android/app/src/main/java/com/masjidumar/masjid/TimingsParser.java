@@ -79,14 +79,12 @@ public class TimingsParser {
 
     public HashMap<String, GregorianCalendar> parseTimings(InputStream inStream, int year, int month, int day)
             throws IOException{
-        //create the hashmap and populate it with dummy values
+        //create the hashmap and populate it with null values
         HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
-        timings.put("fajr", null);
-        timings.put("sunrise", null);
-        timings.put("dhuhr", null);
-        timings.put("asr", null);
-        timings.put("maghrib", null);
-        timings.put("isha", null);
+        String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
+        for( String pName : pNames) {
+            timings.put(pName, null);
+        }
 
         // instantiate the parser
         XmlPullParser parser = Xml.newPullParser();
@@ -171,113 +169,14 @@ public class TimingsParser {
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
 
-        } catch (ParseException | XmlPullParserException e) {
+        } catch (ParseException | XmlPullParserException | TimingsParserException e) {
             e.printStackTrace();
-        }
-        return timings;
-    }
-
-    public HashMap<String, GregorianCalendar> extractTimings(Document doc, int year, int month, int day) {
-
-        HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
-
-        doc.getDocumentElement().normalize(); //???
-
-        /*TODO add code for finding the proper year, month, and day*/
-
-        NodeList yearNodes = doc.getElementsByTagName("year");
-
-
-        // get all the date elements
-        NodeList nodes = doc.getElementsByTagName("date");
-
-        //extract timings for this day
-        Element dateElem = (Element) nodes.item(day-1);
-
-        //initialize formatter
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        NodeList node;
-        String jTime;
-        GregorianCalendar jCal;
-        String pName;
-
-        try {
-            //Fajr
-            pName="fajr";
-            node = dateElem.getElementsByTagName(pName);
-            jTime = node.item(0).getChildNodes().item(0).getNodeValue();
-            jCal = new GregorianCalendar();
-            jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
-            timings.put(pName, jCal);
-
-            //Sunrise
-            pName="sunrise";
-            node = dateElem.getElementsByTagName(pName);
-            jTime = node.item(0).getChildNodes().item(0).getNodeValue();
-            jCal = new GregorianCalendar();
-            jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
-            timings.put(pName, jCal);
-
-            //Dhuhr
-            pName="dhuhr";
-            node = dateElem.getElementsByTagName(pName);
-            jTime = node.item(0).getChildNodes().item(0).getNodeValue();
-            jCal = new GregorianCalendar();
-            jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
-            //Dhuhr AM-PM is tricky since its on the cusp, here is some logic to work around
-            //permanent solution is to embed this information in the XML files
-            int dhuhrHour = jCal.get(GregorianCalendar.HOUR);
-            System.out.println(dhuhrHour);
-            if(dhuhrHour >= 9 && dhuhrHour <= 11){  // if dhuhr is between 9 and 11 it is AM
-                // dont add 12 hours
-            } else {                                // otherwise it should be PM
-                jCal.add(GregorianCalendar.HOUR, 12);
-            }
-            timings.put(pName, jCal);
-
-            //Asr
-            pName="asr";
-            node = dateElem.getElementsByTagName(pName);
-            jTime = node.item(0).getChildNodes().item(0).getNodeValue();
-            jCal = new GregorianCalendar();
-            jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
-            jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
-            timings.put(pName, jCal);
-
-            //Maghrib
-            pName="maghrib";
-            node = dateElem.getElementsByTagName(pName);
-            jTime = node.item(0).getChildNodes().item(0).getNodeValue();
-            jCal = new GregorianCalendar();
-            jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
-            jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
-            timings.put(pName, jCal);
-
-            //Isha
-            pName="isha";
-            node = dateElem.getElementsByTagName(pName);
-            jTime = node.item(0).getChildNodes().item(0).getNodeValue();
-            jCal = new GregorianCalendar();
-            jCal.setTime(format.parse(jTime));
-            jCal.set(year, month, day);
-            jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
-            timings.put(pName, jCal);
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            //TODO: Put null in timings?
         }
         return timings;
     }
 
     public XmlPullParser getTag(XmlPullParser parser, String tag)
-            throws XmlPullParserException, IOException{
+            throws XmlPullParserException, IOException, TimingsParserException{
         if( parser != null) {
             int event = parser.getEventType();
             // while the document has not ended
@@ -292,12 +191,14 @@ public class TimingsParser {
                  }
                 event = parser.next();
             }
+        } else {
+            throw new TimingsParserException();
         }
         return null;
     }
 
     public XmlPullParser getTag(XmlPullParser parser, String tag, String attr, String value)
-            throws XmlPullParserException, IOException{
+            throws XmlPullParserException, IOException, TimingsParserException{
         if( parser != null) {
             int event = parser.getEventType();
             // while the document has not ended
@@ -313,6 +214,13 @@ public class TimingsParser {
                 event = parser.next();
             }
         }
+        else{
+            throw new TimingsParserException();
+        }
         return null;
+    }
+
+    private class TimingsParserException extends Exception{
+
     }
 }

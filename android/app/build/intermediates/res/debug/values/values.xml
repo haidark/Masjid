@@ -206,6 +206,7 @@
     <string name="fajr">Fajr</string>
     <string name="hello_world">Hello world!</string>
     <string name="isha">Isha</string>
+    <string name="jamaat">Iqamah Times</string>
     <string name="jamaat_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
     <string name="maghrib">Maghrib</string>
     <string name="pick_date">Pick Date</string>

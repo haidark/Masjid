@@ -59,23 +59,22 @@ import javax.xml.transform.stream.StreamResult;
 
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE="com.masjidumar.masjid.MESSAGE";
-    ProgressDialog pDialog;
+
     static int month;
     static int day;
     static int year;
-
+    static HashMap<String, GregorianCalendar> todayTimings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //try to load timings from the previously downloaded file
-        Calendar cal = new GregorianCalendar();
-        year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH) + 1;    //switches from zero-indexed to the sane way
-        day = cal.get(Calendar.DAY_OF_MONTH);
-
-        TextView datepicked = (TextView) findViewById(R.id.pickedDate);
-        datepicked.setText(month + "/" + day);
+        GregorianCalendar gCal = new GregorianCalendar();
+        synchronized (this) {
+            year = gCal.get(GregorianCalendar.YEAR);
+            month = gCal.get(GregorianCalendar.MONTH) + 1;//switches from zero-indexed to the sane way
+            day = gCal.get(GregorianCalendar.DAY_OF_MONTH);
+        }
         updateTimings();
     }
 
@@ -103,20 +102,20 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void refreshTimings(){
-        new DownloadTimingsXMLTask().execute();
+        new DownloadTimingsXMLTask().execute(year, month, day);
     }
 
     public void updateTimings(){
-        new UpdateTimingsXMLTask().execute();
+        new UpdateTimingsXMLTask().execute(year, month, day);
     }
 
-    private class UpdateTimingsXMLTask extends AsyncTask<Void, Void, HashMap<String, GregorianCalendar> > {
+    private class UpdateTimingsXMLTask extends AsyncTask<Integer, Void, HashMap<String, GregorianCalendar> > {
 
         @Override
-        protected HashMap<String, GregorianCalendar> doInBackground(Void... Params){
+        protected HashMap<String, GregorianCalendar> doInBackground(Integer... Params){
             // Uses an instance of TimingsParser to return the saved xml document
             try {
-                 return new TimingsParser().updateXMLTimings(getCacheDir(), year, month, day);
+                return new TimingsParser().updateXMLTimings(getCacheDir(), Params[0], Params[1], Params[2]);
             } catch(IOException e){
                 e.printStackTrace();
                 return null;
@@ -133,14 +132,14 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private class DownloadTimingsXMLTask extends AsyncTask<Void, Void, HashMap<String, GregorianCalendar> > {
+    private class DownloadTimingsXMLTask extends AsyncTask<Integer, Void, HashMap<String, GregorianCalendar> > {
         @Override
-        protected HashMap<String, GregorianCalendar> doInBackground(Void... Params){
+        protected HashMap<String, GregorianCalendar> doInBackground(Integer... Params){
             // Uses an instance of TimingsParser to download and save the XML file,
             // also returns the document
             String xmlJURL = getString(R.string.jamaat_URL);
             try {
-                return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), year, month, day);
+                return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), Params[0], Params[1], Params[2]);
             } catch(IOException e){
                 e.printStackTrace();
                 return null;
@@ -149,57 +148,63 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, GregorianCalendar> timings){
-            if(timings != null) {
-                displayTimings(timings);
-            }
+            displayTimings(timings);
         }
     }
 
     public void displayTimings(HashMap<String, GregorianCalendar> timings){
         TextView view;
+
         //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
+        GregorianCalendar gCal;
         SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance();
-        GregorianCalendar jCal;
 
-        //Fajr
-        jCal = timings.get("fajr");
-        format.setCalendar(jCal);
+        //format the timings
+        HashMap<String, String> timeStrings = new HashMap<String, String>();
+        String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
+
+        for (String pName : pNames){
+            timeStrings.put(pName, "--:--:-- --");
+            if(timings != null) {
+                gCal = timings.get(pName);
+                if (gCal != null) {
+                    format.setCalendar(gCal);
+                    timeStrings.put(pName, format.format(gCal.getTime()));
+                }
+            }
+        }
+
+        //format the date
+        format = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+        synchronized (this){
+            gCal = new GregorianCalendar(year, month-1, day);
+        }
+        format.setCalendar(gCal);
+        String pickedDate = format.format(gCal.getTime());
+
+        //get views and display
+
         view = (TextView) findViewById(R.id.fajrTime);
-        view.setText(format.format(jCal.getTime()));
+        view.setText(timeStrings.get("fajr"));
 
-        //Sunrise
-        jCal = timings.get("sunrise");
-        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.sunriseTime);
-        view.setText(format.format(jCal.getTime()));
+        view.setText(timeStrings.get("sunrise"));
 
-        //Dhuhr
-        jCal = timings.get("dhuhr");
-        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.dhuhrTime);
-        view.setText(format.format(jCal.getTime()));
+        view.setText(timeStrings.get("dhuhr"));
 
-        //Asr
-        jCal = timings.get("asr");
-        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.asrTime);
-        view.setText(format.format(jCal.getTime()));
+        view.setText(timeStrings.get("asr"));
 
-        //Maghrib
-        jCal = timings.get("maghrib");
-        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.maghribTime);
-        view.setText(format.format(jCal.getTime()));
+        view.setText(timeStrings.get("maghrib"));
 
-        //Isha
-        jCal = timings.get("isha");
-        format.setCalendar(jCal);
         view = (TextView) findViewById(R.id.ishaTime);
-        view.setText(format.format(jCal.getTime()));
+        view.setText(timeStrings.get("isha"));
 
         //display date
         view = (TextView) findViewById(R.id.pickedDate);
-        view.setText(month + "/" + day);
+        view.setText(pickedDate);
     }
 
     /* Date Picker Fragment */
@@ -218,10 +223,7 @@ public class MainActivity extends ActionBarActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
             // Use the current set date as the default date in the picker
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), onDateSetListener, year, month-1, day);
-            datePickerDialog.getDatePicker().setMinDate(new GregorianCalendar(year, Calendar.JANUARY, 1).getTimeInMillis());
-            datePickerDialog.getDatePicker().setMaxDate(new GregorianCalendar(year, Calendar.DECEMBER, 31).getTimeInMillis());
-            return datePickerDialog;
+            return new DatePickerDialog(getActivity(), onDateSetListener, year, month-1, day);
         }
 
         private void setOnDateSetListener(DatePickerDialog.OnDateSetListener listener) {
@@ -231,16 +233,17 @@ public class MainActivity extends ActionBarActivity {
 
     /* Listener for onDateSet */
     public DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            month = monthOfYear+1;
-            day = dayOfMonth;
+        public void onDateSet(DatePicker view, int pickedYear, int pickedMonth, int pickedDay) {
+            year = pickedYear;
+            month = pickedMonth+1;
+            day = pickedDay;
             updateTimings();
         }
     };
 
     public void pickDate(View v){
         DialogFragment newFragment = DatePickerFragment.newInstance(onDateSetListener);
-        newFragment.show(getFragmentManager(), "datePicker");
+        newFragment.show(getFragmentManager(), "DayDatePicker");
     }
 
     public void setDateToday(View v) {

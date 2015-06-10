@@ -9,6 +9,7 @@
 
     <string name="pick_date">Pick Date</string>
     <string name="today_date">Today</string>
+    <string name="jamaat">Iqamah Times</string>
 
     <string name="fajr">Fajr</string>
     <string name="sunrise">Sunrise</string>

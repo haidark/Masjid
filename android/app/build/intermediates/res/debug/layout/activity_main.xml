@@ -21,106 +21,102 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
-
-    <TextView android:id="@+id/pickedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <!--- Fajr Row -->
-    <LinearLayout
+    <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/fajr"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/fajrTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_height="fill_parent"
+        android:stretchColumns="0, 1">
 
-    <!--- Sunrise Row -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/sunrise"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/sunriseTime"
+        <!--- Header Row -->
+        <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
 
-    <!--- Dhuhr Row -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/dhuhr"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/dhuhrTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView android:id="@+id/pickedDate"/>
 
-    <!--- Asr Row -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/asr"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/asrTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView android:text="@string/jamaat"/>
+        </TableRow>
 
-    <!--- Maghrib Row -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/maghrib"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/maghribTime"
+        <!--- Fajr Row -->
+        <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
 
-    <!--- Isha Row -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/isha"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/ishaTime"
+            <CheckBox
+                android:text="@string/fajr" />
+            <TextView
+                android:id="@+id/fajrTime" />
+
+        </TableRow>
+
+        <!--- Sunrise Row -->
+        <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
+
+            <CheckBox
+                android:text="@string/sunrise" />
+            <TextView
+                android:id="@+id/sunriseTime" />
+
+        </TableRow>
+
+        <!--- Dhuhr Row -->
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
+
+            <CheckBox
+                android:text="@string/dhuhr" />
+            <TextView
+                android:id="@+id/dhuhrTime" />
+
+        </TableRow>
+
+        <!--- Asr Row -->
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
+
+            <CheckBox
+                android:text="@string/asr" />
+
+            <TextView
+                android:id="@+id/asrTime" />
+
+        </TableRow>
+
+        <!--- Maghrib Row -->
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
+
+            <CheckBox
+                android:text="@string/maghrib" />
+            <TextView
+                android:id="@+id/maghribTime"/>
+
+        </TableRow>
+
+        <!--- Isha Row -->
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
+
+            <CheckBox
+                android:text="@string/isha" />
+            <TextView
+                android:id="@+id/ishaTime" />
+
+        </TableRow>
+
+    </TableLayout>
 
 </LinearLayout>
 <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/layout/activity_main.xml -->
