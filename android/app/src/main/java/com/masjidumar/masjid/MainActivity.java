@@ -59,7 +59,7 @@ import javax.xml.transform.stream.StreamResult;
 
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE="com.masjidumar.masjid.MESSAGE";
-
+    private ProgressDialog progressDialog;
     static GregorianCalendar pickedDate;
     static HashMap<String, GregorianCalendar> todayTimings;
     @Override
@@ -69,6 +69,19 @@ public class MainActivity extends ActionBarActivity {
         //try to load timings from the previously downloaded file
         pickedDate = new GregorianCalendar();
         updateTimings();
+
+        //initialize progress dialog
+        progressDialog = new ProgressDialog(this);
+
+        //Set the Alarm
+        AlarmBroadcastReceiver alarmBR;
+        Context context = this.getApplicationContext();
+        alarmBR = new AlarmBroadcastReceiver();
+        //get target time
+        TargetTime targetTime = alarmBR.getTargetTime(getString(R.string.jamaat_URL), getCacheDir());
+        // set the next alarm
+        //TODO check if the alarm is set already??
+        alarmBR.setNextAlarm(context, targetTime, getString(R.string.jamaat_URL), getCacheDir());
     }
 
     @Override
@@ -130,6 +143,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private class DownloadTimingsXMLTask extends AsyncTask<GregorianCalendar, Void, HashMap<String, GregorianCalendar> > {
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Downloading file...");
+            //progressDialog.show();
+        }
+
         @Override
         protected HashMap<String, GregorianCalendar> doInBackground(GregorianCalendar... Params){
             // Uses an instance of TimingsParser to download and save the XML file,
@@ -146,6 +166,9 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(HashMap<String, GregorianCalendar> timings){
             displayTimings(timings);
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
         }
     }
 
@@ -240,24 +263,14 @@ public class MainActivity extends ActionBarActivity {
             updateTimings();
         }
     };
-
+    /* On-Click function for picking a date, creates a datepicker fragement */
     public void pickDate(View v){
         DialogFragment newFragment = DatePickerFragment.newInstance(onDateSetListener);
         newFragment.show(getFragmentManager(), "DayDatePicker");
     }
-
+    /* On-click function for resetting date to today */
     public void setDateToday(View v) {
         pickedDate = new GregorianCalendar();
         updateTimings();
-        setOneTime();
     }
-
-    public void setOneTime(){
-        AlarmBroadcastReceiver alarmBR;
-        Context context = this.getApplicationContext();
-        alarmBR = new AlarmBroadcastReceiver();
-        alarmBR.setNextAlarm(context, alarmBR.getTargetTime(getString(R.string.jamaat_URL), getCacheDir()));
-        //alarmBR.setNextAlarm(context, new GregorianCalendar());
-    }
-
 }
