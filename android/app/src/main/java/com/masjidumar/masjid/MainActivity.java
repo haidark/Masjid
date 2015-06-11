@@ -68,40 +68,19 @@ public class MainActivity extends ActionBarActivity {
     //view IDs
     int[] viewIDs = {R.id.fajrTime, R.id.sunriseTime, R.id.dhuhrTime, R.id.asrTime,
             R.id.maghribTime, R.id.ishaTime};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //try to load timings from the previously downloaded file
-        pickedDate = new GregorianCalendar();
-        updateTimings();
+        setDateToday();
 
         //initialize progress dialog
         progressDialog = new ProgressDialog(this);
 
-        //Set the Alarm
-        AlarmBroadcastReceiver alarmBR;
-        Context context = this.getApplicationContext();
-        alarmBR = new AlarmBroadcastReceiver();
-        //TODO: Move this coe to an Async Task
-        //get target time
-        TargetTime targetTime = alarmBR.getTargetTime(getString(R.string.jamaat_URL), getCacheDir());
-        if(targetTime != null) {
-            // set the next alarm
-            alarmBR.setNextAlarm(context, targetTime, getString(R.string.jamaat_URL), getCacheDir());
-
-            //update nextAlarm TextView
-            // Get target time as a string
-            GregorianCalendar targetCal = targetTime.getCal();
-            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateTimeInstance();
-            format.setCalendar(targetCal);
-            String nextText = "Next alarm on: " + format.format(targetCal.getTime())
-                    + " for "+capFirst(targetTime.getLabel())+".";
-            //Update view to let the user know an alarm has been set
-            TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
-            nextAlarm.setText(nextText);
-        }
-
+        //set the next alarm in the background
+        new updateAlarmTask().execute();
     }
 
     @Override
@@ -133,6 +112,39 @@ public class MainActivity extends ActionBarActivity {
 
     public void updateTimings(){
         new UpdateTimingsXMLTask().execute(pickedDate);
+    }
+
+    private class updateAlarmTask extends AsyncTask<Void, Void, TargetTime>{
+        @Override
+        protected TargetTime doInBackground(Void... params) {
+            String urlStr = getString(R.string.jamaat_URL);
+            //Set the Alarm
+            AlarmBroadcastReceiver alarmBR = new AlarmBroadcastReceiver();
+            //get target time
+
+            TargetTime targetTime = alarmBR.getTargetTime(urlStr, getCacheDir());
+            // set the next alarm
+            alarmBR.setNextAlarm(getApplicationContext(), targetTime, urlStr, getCacheDir());
+            // return the target time to update the view
+            return targetTime;
+        }
+
+        @Override
+        protected void onPostExecute(TargetTime targetTime) {
+            super.onPostExecute(targetTime);
+            //update nextAlarm TextView
+            if(targetTime != null) {
+                // Get target time as a string
+                GregorianCalendar targetCal = targetTime.getCal();
+                SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT);
+                format.setCalendar(targetCal);
+                String nextText = "Next alarm on: " + format.format(targetCal.getTime())
+                        + " for "+capFirst(targetTime.getLabel())+".";
+                //Update view to let the user know an alarm has been set
+                TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
+                nextAlarm.setText(nextText);
+            }
+        }
     }
 
     private class UpdateTimingsXMLTask extends AsyncTask<GregorianCalendar, Void, HashMap<String, GregorianCalendar> > {
@@ -199,7 +211,7 @@ public class MainActivity extends ActionBarActivity {
             TextView view;
             //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
             GregorianCalendar gCal;
-            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance();
+            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
 
             //get the available timings for this date and display them
             // if a timing is not available, blank it out.
@@ -216,7 +228,7 @@ public class MainActivity extends ActionBarActivity {
             }
 
             //format the date
-            format = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+            format = (SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
             gCal = pickedDate;
             format.setCalendar(gCal);
             String pickedDateStr = format.format(gCal.getTime());
@@ -225,7 +237,7 @@ public class MainActivity extends ActionBarActivity {
             view = (TextView) findViewById(R.id.pickedDate);
             view.setText(pickedDateStr);
         } else{
-            Toast.makeText(this, "Unable to load timings for this date.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unable to load timings for this masjid.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -273,7 +285,11 @@ public class MainActivity extends ActionBarActivity {
         newFragment.show(getFragmentManager(), "DayDatePicker");
     }
     /* On-click function for resetting date to today */
-    public void setDateToday(View v) {
+    public void setDateTodayCallback(View v) {
+        setDateToday();
+    }
+
+    public void setDateToday(){
         pickedDate = new GregorianCalendar();
         updateTimings();
     }

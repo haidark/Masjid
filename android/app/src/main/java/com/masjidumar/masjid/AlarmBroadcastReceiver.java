@@ -26,13 +26,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public final static int ALARM_ID = 787;
     @Override
     public void onReceive(Context context, Intent intent) {
-
         //make a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.notification_template_icon_bg)
-                        .setContentTitle("Its Prayer Time")
-                        .setContentText("Get to the masjid baddie!");
+                        .setContentTitle("Its Prayer Time!")
+                        .setContentText("Get to the Masjid baddie!");
 
         // Gets an instance of the NotificationManager service
         NotificationManager mNotifyMgr =
@@ -127,11 +126,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             // if gCalToday is before a timing and we are interested in an alarm for it
             if (gCalToday.before(availableTimings.get(i).getCal())) {
                 // return this time as the next target time
-                Log.d("Alarm: ", availableTimings.get(i).toString());
                 return availableTimings.get(i);
             }
         }
-        Log.d("Alarm: ", "Failed to find time!");
         return null;
     }
 }

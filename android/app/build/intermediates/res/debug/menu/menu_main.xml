@@ -8,7 +8,7 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="100" app:showAsAction="ifRoom" />
 
 </menu>
 <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/menu/menu_main.xml -->
