@@ -21,8 +21,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
-    public final static String URL_EXTRA = "URL_STRING";
-    public final static String CACHEDIR_EXTRA = "CACHEDIR_FILE";
+    public final static String URL_EXTRA = "com.masjidumar.masjid.URL_STRING";
+    public final static String CACHEDIR_EXTRA = "com.masjidumar.masjid.CACHEDIR_FILE";
     public final static int ALARM_ID = 787;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,7 +52,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     public void setNextAlarm(Context context, TargetTime targetTime, String urlStr, File cacheDir) {
-        String toastText;
         if(targetTime != null) {
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
@@ -61,17 +60,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             PendingIntent pIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0);
             GregorianCalendar targetCal = targetTime.getCal();
             am.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pIntent);
-
-            // Get target time as a string
-            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateTimeInstance();
-            format.setCalendar(targetCal);
-            //Toast to let the user know an alarm has been set
-            toastText = targetTime.getLabel() + " alarm set at: " + format.format(targetCal.getTime());
         } else{
             //Toast to let the user know the alarm failed to set
-            toastText = "Unable to set alarm.";
+            Toast.makeText(context, "Unable to set alarm.", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
+
     }
 
     public TargetTime getTargetTime(String urlStr, File cacheDir){
@@ -105,15 +98,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        ArrayList<GregorianCalendar> availableTimings = new ArrayList<GregorianCalendar>(12);
-        ArrayList<String> availableLabels = new ArrayList<String>(12);
+        ArrayList<TargetTime> availableTimings = new ArrayList<TargetTime>(12);
+        //modifier how many minutes before the user wants to be reminded
+        int modifier = -10;
         //add timings from today to available timings in order
         if(timingsToday != null) {
             for (String pName : pNames) {
                 GregorianCalendar jCal = timingsToday.get(pName);
                 if (jCal != null) {
-                    availableTimings.add(jCal);
-                    availableLabels.add(pName);
+                    jCal.add(GregorianCalendar.MINUTE, modifier);
+                    availableTimings.add(new TargetTime(pName, jCal));
                 }
             }
         }
@@ -122,8 +116,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             for (String pName : pNames) {
                 GregorianCalendar jCal = timingsTmrw.get(pName);
                 if (jCal != null) {
-                    availableTimings.add(jCal);
-                    availableLabels.add(pName);
+                    jCal.add(GregorianCalendar.MINUTE, modifier);
+                    availableTimings.add(new TargetTime(pName, jCal));
                 }
             }
         }
@@ -131,11 +125,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         //progress to available timings until the next jamaat that needs an alarm is found
         for( int i = 0; i < availableTimings.size(); i++){
             // if gCalToday is before a timing and we are interested in an alarm for it
-            if (gCalToday.before(availableTimings.get(i))) {
+            if (gCalToday.before(availableTimings.get(i).getCal())) {
                 // return this time as the next target time
-                availableTimings.get(i).add(GregorianCalendar.MINUTE, -10);
                 Log.d("Alarm: ", availableTimings.get(i).toString());
-                return new TargetTime(availableLabels.get(i), availableTimings.get(i));
+                return availableTimings.get(i);
             }
         }
         Log.d("Alarm: ", "Failed to find time!");

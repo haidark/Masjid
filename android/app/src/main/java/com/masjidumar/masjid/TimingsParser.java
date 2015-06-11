@@ -46,23 +46,27 @@ import javax.xml.transform.stream.StreamResult;
 public class TimingsParser {
 
     public HashMap<String, GregorianCalendar> downloadXMLTimings(String urlStr, File cacheDir, GregorianCalendar pickedDate)
-            throws IOException{
+        throws IOException{
         //Form the URL
-        URL url = new URL(urlStr);
-        InputStream urlStream = url.openStream();
-        synchronized(this) {
-            // save the file locally
-            OutputStream oStream = new FileOutputStream(new File(cacheDir, "jamaat_timings.xml"));
+        try {
+            URL url = new URL(urlStr);
+            InputStream urlStream = url.openStream();
+            synchronized (this) {
+                // save the file locally
+                OutputStream oStream = new FileOutputStream(new File(cacheDir, "jamaat_timings.xml"));
 
-            byte[] b = new byte[2048];
-            int length;
+                byte[] b = new byte[2048];
+                int length;
 
-            while ((length = urlStream.read(b)) != -1) {
-                oStream.write(b, 0, length);
+                while ((length = urlStream.read(b)) != -1) {
+                    oStream.write(b, 0, length);
+                }
+
+                oStream.close();
+                urlStream.close();
             }
-
-            oStream.close();
-            urlStream.close();
+        } catch (IOException e){
+            e.printStackTrace();
         }
         return updateXMLTimings(cacheDir, pickedDate);
     }
@@ -96,7 +100,7 @@ public class TimingsParser {
 
         // instantiate the parser
         XmlPullParser parser = Xml.newPullParser();
-
+        
         //initialize formatter
         SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
         String jTime;

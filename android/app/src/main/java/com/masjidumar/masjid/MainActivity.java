@@ -58,10 +58,16 @@ import javax.xml.transform.stream.StreamResult;
 
 
 public class MainActivity extends ActionBarActivity {
-    public final static String EXTRA_MESSAGE="com.masjidumar.masjid.MESSAGE";
+
     private ProgressDialog progressDialog;
+    // Cal with date picked by user to show
     static GregorianCalendar pickedDate;
-    static HashMap<String, GregorianCalendar> todayTimings;
+
+    //prayer names
+    String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
+    //view IDs
+    int[] viewIDs = {R.id.fajrTime, R.id.sunriseTime, R.id.dhuhrTime, R.id.asrTime,
+            R.id.maghribTime, R.id.ishaTime};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,9 +85,22 @@ public class MainActivity extends ActionBarActivity {
         alarmBR = new AlarmBroadcastReceiver();
         //get target time
         TargetTime targetTime = alarmBR.getTargetTime(getString(R.string.jamaat_URL), getCacheDir());
-        // set the next alarm
-        //TODO check if the alarm is set already??
-        alarmBR.setNextAlarm(context, targetTime, getString(R.string.jamaat_URL), getCacheDir());
+        if(targetTime != null) {
+            // set the next alarm
+            alarmBR.setNextAlarm(context, targetTime, getString(R.string.jamaat_URL), getCacheDir());
+
+            //update nextAlarm TextView
+            // Get target time as a string
+            GregorianCalendar targetCal = targetTime.getCal();
+            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateTimeInstance();
+            format.setCalendar(targetCal);
+            String nextText = "Next alarm on: " + format.format(targetCal.getTime())
+                    + " for "+capFirst(targetTime.getLabel())+".";
+            //Update view to let the user know an alarm has been set
+            TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
+            nextAlarm.setText(nextText);
+        }
+
     }
 
     @Override
@@ -173,56 +192,40 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void displayTimings(HashMap<String, GregorianCalendar> timings){
-        TextView view;
+        //Only update views if some timings were available
+        // if no timings are available, Toast the user to let them know it failed
+        if(timings != null) {
+            TextView view;
+            //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
+            GregorianCalendar gCal;
+            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance();
 
-        //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
-        GregorianCalendar gCal;
-        SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance();
-
-        //format the timings
-        HashMap<String, String> timeStrings = new HashMap<String, String>();
-        String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
-
-        for (String pName : pNames){
-            timeStrings.put(pName, "--:--:-- --");
-            if(timings != null) {
-                gCal = timings.get(pName);
+            //get the available timings for this date and display them
+            // if a timing is not available, blank it out.
+            for (int i = 0; i < pNames.length; i++) {
+                //get view
+                view = (TextView) findViewById(viewIDs[i]);
+                gCal = timings.get(pNames[i]);
                 if (gCal != null) {
                     format.setCalendar(gCal);
-                    timeStrings.put(pName, format.format(gCal.getTime()));
+                    view.setText(format.format(gCal.getTime()));
+                } else {
+                    view.setText("--:--:-- --");
                 }
             }
+
+            //format the date
+            format = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+            gCal = pickedDate;
+            format.setCalendar(gCal);
+            String pickedDateStr = format.format(gCal.getTime());
+
+            //display date
+            view = (TextView) findViewById(R.id.pickedDate);
+            view.setText(pickedDateStr);
+        } else{
+            Toast.makeText(this, "Unable to load timings for this date.", Toast.LENGTH_LONG).show();
         }
-
-        //format the date
-        format = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
-        gCal = pickedDate;
-        format.setCalendar(gCal);
-        String pickedDateStr = format.format(gCal.getTime());
-
-        //get views and display
-
-        view = (TextView) findViewById(R.id.fajrTime);
-        view.setText(timeStrings.get("fajr"));
-
-        view = (TextView) findViewById(R.id.sunriseTime);
-        view.setText(timeStrings.get("sunrise"));
-
-        view = (TextView) findViewById(R.id.dhuhrTime);
-        view.setText(timeStrings.get("dhuhr"));
-
-        view = (TextView) findViewById(R.id.asrTime);
-        view.setText(timeStrings.get("asr"));
-
-        view = (TextView) findViewById(R.id.maghribTime);
-        view.setText(timeStrings.get("maghrib"));
-
-        view = (TextView) findViewById(R.id.ishaTime);
-        view.setText(timeStrings.get("isha"));
-
-        //display date
-        view = (TextView) findViewById(R.id.pickedDate);
-        view.setText(pickedDateStr);
     }
 
     /* Date Picker Fragment */
@@ -272,5 +275,12 @@ public class MainActivity extends ActionBarActivity {
     public void setDateToday(View v) {
         pickedDate = new GregorianCalendar();
         updateTimings();
+    }
+
+    /* function to capitalize first letter of a String */
+    public String capFirst(String original){
+        if(original.length() == 0)
+            return original;
+        return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
 }
