@@ -83,6 +83,7 @@ public class MainActivity extends ActionBarActivity {
         AlarmBroadcastReceiver alarmBR;
         Context context = this.getApplicationContext();
         alarmBR = new AlarmBroadcastReceiver();
+        //TODO: Move this coe to an Async Task
         //get target time
         TargetTime targetTime = alarmBR.getTargetTime(getString(R.string.jamaat_URL), getCacheDir());
         if(targetTime != null) {

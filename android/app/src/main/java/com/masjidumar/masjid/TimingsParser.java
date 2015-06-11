@@ -1,5 +1,6 @@
 package com.masjidumar.masjid;
 
+import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 import android.util.Xml;
 
@@ -65,7 +66,7 @@ public class TimingsParser {
                 oStream.close();
                 urlStream.close();
             }
-        } catch (IOException e){
+        } catch (IOException  e){
             e.printStackTrace();
         }
         return updateXMLTimings(cacheDir, pickedDate);
