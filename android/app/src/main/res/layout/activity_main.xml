@@ -5,29 +5,35 @@
     android:orientation="vertical"
     android:id="@+id/mainActivity">
     <LinearLayout
+        android:id="@+id/buttonRow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/pickDateButton"
             android:onClick="pickDate"
             android:text="@string/pick_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
         <Button
+            android:id="@+id/setDateTodayButton"
             android:onClick="setDateTodayCallback"
             android:text="@string/today_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
+
     <TableLayout
+        android:id="@+id/timingsTable"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:stretchColumns="0, 1">
 
-        <!--- Header Row -->
+        <!--- Alarm Row -->
         <TableRow
+            android:id="@+id/alarmRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
@@ -38,94 +44,108 @@
 
         <!--- Header Row -->
         <TableRow
+            android:id="@+id/headerRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <TextView android:id="@+id/pickedDate"/>
 
-            <TextView android:text="@string/jamaat"/>
+            <TextView  android:id="@+id/iqamahText"
+                android:text="@string/jamaat"/>
         </TableRow>
 
         <!--- Fajr Row -->
         <TableRow
+            android:id="@+id/fajrRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <CheckBox
+                android:id="@+id/fajrCheck"
                 android:text="@string/fajr" />
             <TextView
                 android:id="@+id/fajrTime" />
-
         </TableRow>
 
         <!--- Sunrise Row -->
         <TableRow
+            android:id="@+id/sunriseRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <CheckBox
+                android:id="@+id/sunriseCheck"
                 android:text="@string/sunrise" />
             <TextView
                 android:id="@+id/sunriseTime" />
-
         </TableRow>
 
         <!--- Dhuhr Row -->
         <TableRow
+            android:id="@+id/dhuhrRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <CheckBox
+                android:id="@+id/dhuhrCheck"
                 android:text="@string/dhuhr" />
             <TextView
                 android:id="@+id/dhuhrTime" />
-
         </TableRow>
 
         <!--- Asr Row -->
         <TableRow
+            android:id="@+id/asrRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <CheckBox
+                android:id="@+id/asrCheck"
                 android:text="@string/asr" />
 
             <TextView
                 android:id="@+id/asrTime" />
-
         </TableRow>
 
         <!--- Maghrib Row -->
         <TableRow
+            android:id="@+id/maghribRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <CheckBox
+                android:id="@+id/maghribCheck"
                 android:text="@string/maghrib" />
             <TextView
                 android:id="@+id/maghribTime"/>
-
         </TableRow>
 
         <!--- Isha Row -->
         <TableRow
+            android:id="@+id/ishaRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <CheckBox
+                android:id="@+id/ishaCheck"
                 android:text="@string/isha" />
             <TextView
                 android:id="@+id/ishaTime" />
-
         </TableRow>
-
     </TableLayout>
+
+    <TextView
+        android:id="@+id/version"
+        android:text="@string/version"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

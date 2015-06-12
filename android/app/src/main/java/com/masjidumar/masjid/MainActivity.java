@@ -62,6 +62,9 @@ public class MainActivity extends ActionBarActivity {
     private ProgressDialog progressDialog;
     // Cal with date picked by user to show
     static GregorianCalendar pickedDate;
+    UpdateAlarmTask alarmTask;
+    UpdateTimingsXMLTask updateTask;
+    DownloadTimingsXMLTask downloadTask;
 
     //prayer names
     String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
@@ -73,14 +76,34 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //try to load timings from the previously downloaded file
+        //set the picked date to today
         setDateToday();
-
         //initialize progress dialog
         progressDialog = new ProgressDialog(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         //set the next alarm in the background
-        new updateAlarmTask().execute();
+        alarmTask = new UpdateAlarmTask();
+        alarmTask.execute();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        //cancel all background tasks
+        if(alarmTask != null){
+            alarmTask.cancel(true);
+        }
+        if(updateTask != null){
+            updateTask.cancel(true);
+        }
+        if(downloadTask != null){
+            downloadTask.cancel(true);
+        }
     }
 
     @Override
@@ -107,14 +130,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void refreshTimings(){
-        new DownloadTimingsXMLTask().execute(pickedDate);
+        downloadTask = new DownloadTimingsXMLTask();
+        downloadTask.execute(pickedDate);
     }
 
     public void updateTimings(){
-        new UpdateTimingsXMLTask().execute(pickedDate);
+        updateTask = new UpdateTimingsXMLTask();
+        updateTask.execute(pickedDate);
     }
 
-    private class updateAlarmTask extends AsyncTask<Void, Void, TargetTime>{
+    private class UpdateAlarmTask extends AsyncTask<Void, Void, TargetTime>{
         @Override
         protected TargetTime doInBackground(Void... params) {
             String urlStr = getString(R.string.jamaat_URL);
