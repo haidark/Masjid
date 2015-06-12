@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-public class DisplayMessageActivity extends ActionBarActivity {
+public class SettingsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

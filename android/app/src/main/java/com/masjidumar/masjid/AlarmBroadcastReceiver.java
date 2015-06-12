@@ -38,7 +38,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         String contentTitle = context.getString(R.string.jamaat_time);
         if(extrasBundle.containsKey(ALARMPRAYER_EXTRA)){
             contentTitle = context.getString(intent.getIntExtra(ALARMPRAYER_EXTRA, 0))
-                    + context.getString(R.string.jamaat_time);
+                    + " " + context.getString(R.string.jamaat_time);
         }
         /* Now make the notification */
         //Define sound URI
@@ -74,8 +74,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         // Silence the device
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        // AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        // audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
     }
 

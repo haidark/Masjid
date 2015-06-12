@@ -26,8 +26,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.masjidumar.masjid.DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
+            android:name="com.masjidumar.masjid.SettingsActivity"
+            android:label="@string/title_activity_settings"
             android:parentActivityName="com.masjidumar.masjid.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
