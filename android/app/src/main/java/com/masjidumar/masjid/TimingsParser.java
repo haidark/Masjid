@@ -189,14 +189,14 @@ public class TimingsParser {
             timings.put(pName, jCal);
             Log.v("ParseXML:", "Got Isha Time");
 
-        } catch (ParseException | XmlPullParserException | TimingsParserException e) {
+        } catch (ParseException | XmlPullParserException | NoSuchFieldException e) {
             Log.w("ParseXML:", e.getMessage());
         }
         return timings;
     }
 
     public XmlPullParser getTag(XmlPullParser parser, String tag)
-            throws XmlPullParserException, IOException, TimingsParserException{
+            throws XmlPullParserException, IOException, NoSuchFieldException{
         if( parser != null) {
             int event = parser.getEventType();
             // while the document has not ended
@@ -212,13 +212,13 @@ public class TimingsParser {
                 event = parser.next();
             }
         } else {
-            throw new TimingsParserException();
+            throw new NoSuchFieldException("Could not get tag: <" + tag + ">");
         }
         return null;
     }
 
     public XmlPullParser getTag(XmlPullParser parser, String tag, String attr, String value)
-            throws XmlPullParserException, IOException, TimingsParserException{
+            throws XmlPullParserException, IOException, NoSuchFieldException{
         if( parser != null) {
             int event = parser.getEventType();
             // while the document has not ended
@@ -235,12 +235,8 @@ public class TimingsParser {
             }
         }
         else{
-            throw new TimingsParserException();
+            throw new NoSuchFieldException("Could not get tag: <" + tag + "> with attribute: "+attr);
         }
         return null;
-    }
-
-    private class TimingsParserException extends Exception{
-
     }
 }
