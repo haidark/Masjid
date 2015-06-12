@@ -4,26 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/mainActivity">
-    <LinearLayout
-        android:id="@+id/buttonRow"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/pickDateButton"
-            android:onClick="pickDate"
-            android:text="@string/pick_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <Button
-            android:id="@+id/setDateTodayButton"
-            android:onClick="setDateTodayCallback"
-            android:text="@string/today_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
 
     <TableLayout
         android:id="@+id/timingsTable"
@@ -49,7 +29,8 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <TextView android:id="@+id/pickedDate"/>
+            <Button android:id="@+id/pickDateButton"
+                android:onClick="pickDate" />
 
             <TextView  android:id="@+id/iqamahText"
                 android:text="@string/jamaat"/>

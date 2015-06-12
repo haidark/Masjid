@@ -72,6 +72,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         HashMap<String, GregorianCalendar> timingsToday = null;
         HashMap<String, GregorianCalendar> timingsTmrw = null;
         String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
+        int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr,
+                R.string.maghrib, R.string.isha};
         // get today's timings
         try{
             timingsToday = new TimingsParser().updateXMLTimings(cacheDir, gCalToday);
@@ -98,21 +100,25 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         int modifier = -10;
         //add timings from today to available timings in order
         if(timingsToday != null) {
-            for (String pName : pNames) {
+            for (int i = 0; i < pNames.length; i++) {
+                String pName = pNames[i];
+                int pID = stringIDs[i];
                 GregorianCalendar jCal = timingsToday.get(pName);
                 if (jCal != null) {
                     jCal.add(GregorianCalendar.MINUTE, modifier);
-                    availableTimings.add(new TargetTime(pName, jCal));
+                    availableTimings.add(new TargetTime(pName, jCal, pID));
                 }
             }
         }
         //add timings from tomorrow to available timings in order
         if(timingsTmrw != null) {
-            for (String pName : pNames) {
+            for (int i = 0; i < pNames.length; i++) {
+                String pName = pNames[i];
+                int pID = stringIDs[i];
                 GregorianCalendar jCal = timingsTmrw.get(pName);
                 if (jCal != null) {
                     jCal.add(GregorianCalendar.MINUTE, modifier);
-                    availableTimings.add(new TargetTime(pName, jCal));
+                    availableTimings.add(new TargetTime(pName, jCal, pID));
                 }
             }
         }

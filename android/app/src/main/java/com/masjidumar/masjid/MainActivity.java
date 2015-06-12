@@ -15,6 +15,7 @@ import android.provider.DocumentsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,6 +73,9 @@ public class MainActivity extends ActionBarActivity {
     int[] viewIDs = {R.id.fajrTime, R.id.sunriseTime, R.id.dhuhrTime, R.id.asrTime,
             R.id.maghribTime, R.id.ishaTime};
 
+    int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr,
+            R.string.maghrib, R.string.isha};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +84,7 @@ public class MainActivity extends ActionBarActivity {
         setDateToday();
         //initialize progress dialog
         progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.jamaat_URL));
     }
 
     @Override
@@ -119,6 +124,9 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
+            case R.id.action_today:
+                setDateToday();
+                return true;
             case R.id.action_refresh:
                 refreshTimings();
                 return true;
@@ -161,16 +169,20 @@ public class MainActivity extends ActionBarActivity {
             if(targetTime != null) {
                 // Get target time as a string
                 GregorianCalendar targetCal = targetTime.getCal();
-                SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT);
+                SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
                 format.setCalendar(targetCal);
-                String nextText = "Next alarm on: " + format.format(targetCal.getTime())
-                        + " for "+capFirst(targetTime.getLabel())+".";
+
+                String relativeTime = (String) DateUtils.getRelativeTimeSpanString(targetCal.getTimeInMillis(),
+                        new GregorianCalendar().getTimeInMillis(), DateUtils.DAY_IN_MILLIS);
+
+                String nextText = getString(R.string.next_alarm) + " " + relativeTime + ", " + format.format(targetCal.getTime())
+                        + " " + getString(R.string._for_) + " " + capFirst(getString(targetTime.getID()))+".";
                 //Update view to let the user know an alarm has been set
                 TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
                 nextAlarm.setText(nextText);
             } else{
                 //Toast to let the user know the alarm failed to set
-                Toast.makeText(getApplicationContext(), "Unable to set alarm.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.unable_alarm, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -206,7 +218,6 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("Downloading file...");
             progressDialog.show();
         }
 
@@ -233,14 +244,23 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void displayTimings(HashMap<String, GregorianCalendar> timings){
+        //format the date
+        SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
+        GregorianCalendar gCal = pickedDate;
+        format.setCalendar(gCal);
+        String pickedDateStr = format.format(gCal.getTime());
+        Button buttonView;
+        //display date
+        buttonView = (Button) findViewById(R.id.pickDateButton);
+        buttonView.setText(pickedDateStr);
+
         //Only update views if some timings were available
         // if no timings are available, Toast the user to let them know it failed
         boolean noFailure = true;
         if(timings != null) {
             TextView view;
             //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
-            GregorianCalendar gCal;
-            SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
+            format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
 
             //get the available timings for this date and display them
             // if a timing is not available, blank it out.
@@ -252,27 +272,16 @@ public class MainActivity extends ActionBarActivity {
                     format.setCalendar(gCal);
                     view.setText(format.format(gCal.getTime()));
                 } else {
-                    view.setText("--:--:-- --");
+                    view.setText(R.string.empty_time);
                     noFailure = false;
                 }
             }
-
-            //format the date
-            format = (SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
-            gCal = pickedDate;
-            format.setCalendar(gCal);
-            String pickedDateStr = format.format(gCal.getTime());
-
-            //display date
-            view = (TextView) findViewById(R.id.pickedDate);
-            view.setText(pickedDateStr);
-
             //if some timings were unavailable, let the user know
             if(!noFailure) {
-                Toast.makeText(this, "Some timings are unavailable for this date.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.timings_unavailable, Toast.LENGTH_LONG).show();
             }
         } else{
-            Toast.makeText(this, "Unable to load timings for this masjid.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.masjid_unavailable, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -314,14 +323,11 @@ public class MainActivity extends ActionBarActivity {
             updateTimings();
         }
     };
+
     /* On-Click function for picking a date, creates a datepicker fragement */
     public void pickDate(View v){
         DialogFragment newFragment = DatePickerFragment.newInstance(onDateSetListener);
         newFragment.show(getFragmentManager(), "DayDatePicker");
-    }
-    /* On-click function for resetting date to today */
-    public void setDateTodayCallback(View v) {
-        setDateToday();
     }
 
     /* Sets the picked Date to today */
