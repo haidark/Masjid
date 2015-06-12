@@ -26,7 +26,7 @@
     <string name="empty_time">--:-- --</string>
     <string name="_for_">for</string>
 
-    <string name="version">Version: 0.0.6</string>
+    <string name="version">Version: 0.0.7</string>
 
     <string name="hello_world">Hello world!</string>
 </resources>
