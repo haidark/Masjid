@@ -59,11 +59,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             PendingIntent pIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0);
             GregorianCalendar targetCal = targetTime.getCal();
             am.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pIntent);
-        } else{
-            //Toast to let the user know the alarm failed to set
-            Toast.makeText(context, "Unable to set alarm.", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public TargetTime getTargetTime(String urlStr, File cacheDir){

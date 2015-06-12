@@ -219,7 +219,7 @@
     <string name="sunrise">Sunrise</string>
     <string name="title_activity_display_message">Settings</string>
     <string name="today_date">Today</string>
-    <string name="version">Version: 0.0.1</string>
+    <string name="version">Version: 0.0.2</string>
     <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

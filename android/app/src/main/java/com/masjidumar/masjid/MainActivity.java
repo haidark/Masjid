@@ -168,6 +168,9 @@ public class MainActivity extends ActionBarActivity {
                 //Update view to let the user know an alarm has been set
                 TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
                 nextAlarm.setText(nextText);
+            } else{
+                //Toast to let the user know the alarm failed to set
+                Toast.makeText(getApplicationContext(), "Unable to set alarm.", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -204,7 +207,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Downloading file...");
-            //progressDialog.show();
+            progressDialog.show();
         }
 
         @Override
@@ -232,6 +235,7 @@ public class MainActivity extends ActionBarActivity {
     public void displayTimings(HashMap<String, GregorianCalendar> timings){
         //Only update views if some timings were available
         // if no timings are available, Toast the user to let them know it failed
+        boolean noFailure = true;
         if(timings != null) {
             TextView view;
             //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
@@ -249,6 +253,7 @@ public class MainActivity extends ActionBarActivity {
                     view.setText(format.format(gCal.getTime()));
                 } else {
                     view.setText("--:--:-- --");
+                    noFailure = false;
                 }
             }
 
@@ -261,6 +266,11 @@ public class MainActivity extends ActionBarActivity {
             //display date
             view = (TextView) findViewById(R.id.pickedDate);
             view.setText(pickedDateStr);
+
+            //if some timings were unavailable, let the user know
+            if(!noFailure) {
+                Toast.makeText(this, "Some timings are unavailable for this date.", Toast.LENGTH_LONG).show();
+            }
         } else{
             Toast.makeText(this, "Unable to load timings for this masjid.", Toast.LENGTH_LONG).show();
         }
@@ -314,6 +324,7 @@ public class MainActivity extends ActionBarActivity {
         setDateToday();
     }
 
+    /* Sets the picked Date to today */
     public void setDateToday(){
         pickedDate = new GregorianCalendar();
         updateTimings();

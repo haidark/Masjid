@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -66,7 +67,7 @@ public class TimingsParser {
                 oStream.close();
                 urlStream.close();
             }
-        } catch (IOException  e){
+        } catch (IOException e){
             e.printStackTrace();
         }
         return updateXMLTimings(cacheDir, pickedDate);
