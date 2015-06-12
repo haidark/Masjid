@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.notification_template_icon_bg)
                     .setContentTitle(contentTitle)
-                    .setContentText("Get to the Masjid!")
+                    .setContentText("Get to the Masjid! Your device has been silenced.")
                     .setAutoCancel(true)
                     .setSound(soundUri);
 
@@ -71,6 +72,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             TargetTime targetTime = getTargetTime(urlStr, cacheDir);
             setNextAlarm(context, targetTime, urlStr, cacheDir);
         }
+
+        // Silence the device
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
     }
 
