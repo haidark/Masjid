@@ -195,8 +195,8 @@ public class MainActivity extends ActionBarActivity {
             try {
                 return new TimingsParser().updateXMLTimings(getCacheDir(), Params[0]);
             } catch(IOException e){
-                e.printStackTrace();
-                // if we fail to find the saved XML Document, pass the year, month, and day to PostExecute
+                Log.w("updateTask:", e.getMessage());
+                // if we fail to find the saved XML Document, pass the calendar object to PostExecute
                 HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
                 timings.put("fileNotFound", Params[0]);
                 return timings;
@@ -229,7 +229,7 @@ public class MainActivity extends ActionBarActivity {
             try {
                 return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), Params[0]);
             } catch(IOException e){
-                e.printStackTrace();
+                Log.w("DownloadTask:", e.getMessage());
                 return null;
             }
         }
@@ -280,6 +280,9 @@ public class MainActivity extends ActionBarActivity {
             if(!noFailure) {
                 Toast.makeText(this, R.string.timings_unavailable, Toast.LENGTH_LONG).show();
             }
+            //set the next alarm in the background (for the day)
+            alarmTask = new UpdateAlarmTask();
+            alarmTask.execute();
         } else{
             Toast.makeText(this, R.string.masjid_unavailable, Toast.LENGTH_LONG).show();
         }

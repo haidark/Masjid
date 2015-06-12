@@ -605,8 +605,8 @@ int string empty_time 0x7f060018
 int string fajr 0x7f060019
 int string hello_world 0x7f06001a
 int string isha 0x7f06001b
-int string jamaat 0x7f06001c
-int string jamaat_URL 0x7f06001d
+int string jamaat_URL 0x7f06001c
+int string jamaat_time 0x7f06001d
 int string maghrib 0x7f06001e
 int string masjid_unavailable 0x7f06001f
 int string next_alarm 0x7f060020

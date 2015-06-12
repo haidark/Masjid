@@ -1,6 +1,7 @@
 package com.masjidumar.masjid;
 
-/* Broadcast Receiver - code that runs when the alarm is triggered (time hits) */
+/* Alarm Broadcast Receiver - code that runs when the alarm is triggered (time hits)
+ * Contains helper functions to set the next Alarm  and get the next desired alert time (target time)*/
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -8,6 +9,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -23,24 +26,45 @@ import java.util.HashMap;
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public final static String URL_EXTRA = "com.masjidumar.masjid.URL_STRING";
     public final static String CACHEDIR_EXTRA = "com.masjidumar.masjid.CACHEDIR_FILE";
+    public final static String ALARMPRAYER_EXTRA = "com.masjidumar.masjid.ALARM_PRAYERT";
+
     public final static int ALARM_ID = 787;
+    public final static int notifyID = 878;
     @Override
     public void onReceive(Context context, Intent intent) {
+        //extract the extras from the intent
+        Bundle extrasBundle = intent.getExtras();
+        String contentTitle = context.getString(R.string.jamaat_time);
+        if(extrasBundle.containsKey(ALARMPRAYER_EXTRA)){
+            contentTitle = context.getString(intent.getIntExtra(ALARMPRAYER_EXTRA, 0))
+                    + context.getString(R.string.jamaat_time);
+        }
+        /* Now make the notification */
+        //Define sound URI
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
         //make a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.notification_template_icon_bg)
-                        .setContentTitle("Its Prayer Time!")
-                        .setContentText("Get to the Masjid baddie!");
+                    .setSmallIcon(R.drawable.notification_template_icon_bg)
+                    .setContentTitle(contentTitle)
+                    .setContentText("Get to the Masjid!")
+                    .setAutoCancel(true)
+                    .setSound(soundUri);
+
+        //Set the notification to open the App when clicked
+        Intent resultIntent = new Intent(context, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
 
         // Gets an instance of the NotificationManager service
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // Builds the notification and issues it.
-        mNotifyMgr.notify(1, mBuilder.build());
+        mNotifyMgr.notify(notifyID, mBuilder.build());
 
-        //extract the extras from the intent and set the next alarm
-        Bundle extrasBundle = intent.getExtras();
+        // set the next alarm
         if(extrasBundle.containsKey(URL_EXTRA) && extrasBundle.containsKey(CACHEDIR_EXTRA)) {
             String urlStr = intent.getStringExtra(URL_EXTRA);
             File cacheDir = (File) intent.getSerializableExtra(CACHEDIR_EXTRA);
@@ -56,6 +80,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
             intent.putExtra(URL_EXTRA, urlStr);
             intent.putExtra(CACHEDIR_EXTRA, cacheDir);
+            intent.putExtra(ALARMPRAYER_EXTRA, targetTime.getID());
             PendingIntent pIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0);
             GregorianCalendar targetCal = targetTime.getCal();
             am.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pIntent);
@@ -81,7 +106,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             try {
                 timingsToday = new TimingsParser().downloadXMLTimings(urlStr, cacheDir, gCalToday);
             } catch (IOException ie){
-                ie.printStackTrace();
+                Log.w("getTargetTimeToday:", ie.getMessage());
             }
         }
         //get tomorrow's timings
@@ -91,7 +116,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             try {
                 timingsTmrw = new TimingsParser().downloadXMLTimings(urlStr, cacheDir, gCalTmrw);
             } catch (IOException ie){
-                ie.printStackTrace();
+                Log.w("getTargetTimeTomorrow:", ie.getMessage());
             }
         }
 

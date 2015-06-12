@@ -1732,8 +1732,8 @@ containing a value of this type.
         public static final int fajr=0x7f060019;
         public static final int hello_world=0x7f06001a;
         public static final int isha=0x7f06001b;
-        public static final int jamaat=0x7f06001c;
-        public static final int jamaat_URL=0x7f06001d;
+        public static final int jamaat_URL=0x7f06001c;
+        public static final int jamaat_time=0x7f06001d;
         public static final int maghrib=0x7f06001e;
         public static final int masjid_unavailable=0x7f06001f;
         public static final int next_alarm=0x7f060020;

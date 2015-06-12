@@ -10,7 +10,7 @@
 
     <string name="pick_date">Pick Date</string>
     <string name="today_date">Today</string>
-    <string name="jamaat">Iqamah Times</string>
+    <string name="jamaat_time">Jamaat Time</string>
 
     <string name="fajr">Fajr</string>
     <string name="sunrise">Sunrise</string>
@@ -26,7 +26,7 @@
     <string name="empty_time">--:-- --</string>
     <string name="_for_">for</string>
 
-    <string name="version">Version: 0.0.4</string>
+    <string name="version">Version: 0.0.6</string>
 
     <string name="hello_world">Hello world!</string>
 </resources>

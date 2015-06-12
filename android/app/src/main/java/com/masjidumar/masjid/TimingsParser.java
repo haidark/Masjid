@@ -68,7 +68,8 @@ public class TimingsParser {
                 urlStream.close();
             }
         } catch (IOException e){
-            e.printStackTrace();
+            Log.w("DownloadXML:", e.getMessage());
+            Log.i("DownloadXML:", "Failed to download the XML timings, handle gracefully and return cached copy");
         }
         return updateXMLTimings(cacheDir, pickedDate);
     }
@@ -81,7 +82,6 @@ public class TimingsParser {
             timings = parseTimings(xmlStream, pickedDate);
             xmlStream.close();
         }
-
         return timings;
     }
 
@@ -125,8 +125,9 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month-1, day);
+            jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
+            Log.v("ParseXML:", "Got Fajr Time");
 
             //Sunrise
             pName="sunrise";
@@ -134,8 +135,9 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month-1, day);
+            jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
+            Log.v("ParseXML:", "Got Sunrise Time");
 
             //Dhuhr
             pName="dhuhr";
@@ -152,6 +154,7 @@ public class TimingsParser {
                 jCal.add(GregorianCalendar.HOUR, 12);
             }
             timings.put(pName, jCal);
+            Log.v("ParseXML:", "Got Dhuhr Time");
 
             //Asr
             pName="asr";
@@ -159,9 +162,10 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month-1, day);
+            jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
+            Log.v("ParseXML:", "Got Asr Time");
 
             //Maghrib
             pName="maghrib";
@@ -169,9 +173,10 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month-1, day);
+            jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
+            Log.v("ParseXML:", "Got Maghrib Time");
 
             //Isha
             pName="isha";
@@ -179,12 +184,13 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month-1, day);
+            jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
+            Log.v("ParseXML:", "Got Isha Time");
 
         } catch (ParseException | XmlPullParserException | TimingsParserException e) {
-            e.printStackTrace();
+            Log.w("ParseXML:", e.getMessage());
         }
         return timings;
     }

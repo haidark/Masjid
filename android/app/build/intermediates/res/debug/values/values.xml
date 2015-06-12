@@ -213,8 +213,8 @@
     <string name="fajr">Fajr</string>
     <string name="hello_world">Hello world!</string>
     <string name="isha">Isha</string>
-    <string name="jamaat">Iqamah Times</string>
     <string name="jamaat_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
+    <string name="jamaat_time">Jamaat Time</string>
     <string name="maghrib">Maghrib</string>
     <string name="masjid_unavailable">Unable to load timings for this masjid.</string>
     <string name="next_alarm">Next alarm:</string>
@@ -230,7 +230,7 @@
     <string name="title_activity_display_message">Settings</string>
     <string name="today_date">Today</string>
     <string name="unable_alarm">Unable to set alarm.</string>
-    <string name="version">Version: 0.0.4</string>
+    <string name="version">Version: 0.0.5</string>
     <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

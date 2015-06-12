@@ -30,10 +30,13 @@
             android:padding="10dp" >
 
             <Button android:id="@+id/pickDateButton"
-                android:onClick="pickDate" />
+                android:onClick="pickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
 
             <TextView  android:id="@+id/iqamahText"
-                android:text="@string/jamaat"/>
+                android:text="@string/jamaat_time"/>
         </TableRow>
 
         <!--- Fajr Row -->
