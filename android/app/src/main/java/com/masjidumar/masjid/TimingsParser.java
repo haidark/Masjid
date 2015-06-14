@@ -50,26 +50,21 @@ public class TimingsParser {
     public HashMap<String, GregorianCalendar> downloadXMLTimings(String urlStr, File cacheDir, GregorianCalendar pickedDate)
         throws IOException{
         //Form the URL
-        try {
-            URL url = new URL(urlStr);
-            InputStream urlStream = url.openStream();
-            synchronized (this) {
-                // save the file locally
-                OutputStream oStream = new FileOutputStream(new File(cacheDir, "jamaat_timings.xml"));
+        URL url = new URL(urlStr);
+        InputStream urlStream = url.openStream();
+        synchronized (this) {
+            // save the file locally
+            OutputStream oStream = new FileOutputStream(new File(cacheDir, "jamaat_timings.xml"));
 
-                byte[] b = new byte[2048];
-                int length;
+            byte[] b = new byte[2048];
+            int length;
 
-                while ((length = urlStream.read(b)) != -1) {
-                    oStream.write(b, 0, length);
-                }
-
-                oStream.close();
-                urlStream.close();
+            while ((length = urlStream.read(b)) != -1) {
+                oStream.write(b, 0, length);
             }
-        } catch (IOException e){
-            Log.w("DownloadXML:", e.getMessage());
-            Log.i("DownloadXML:", "Failed to download the XML timings, handle gracefully and return cached copy");
+
+            oStream.close();
+            urlStream.close();
         }
         return updateXMLTimings(cacheDir, pickedDate);
     }

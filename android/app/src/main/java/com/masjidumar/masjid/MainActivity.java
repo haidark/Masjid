@@ -1,5 +1,7 @@
 package com.masjidumar.masjid;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -14,6 +16,7 @@ import android.os.AsyncTask;
 import android.provider.DocumentsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -58,7 +61,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     // Cal with date picked by user to show
@@ -83,8 +86,9 @@ public class MainActivity extends ActionBarActivity {
         //set the picked date to today
         setDateToday();
         //initialize progress dialog
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.jamaat_URL));
+        progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setIndeterminate(true);
+
     }
 
     @Override
@@ -157,7 +161,9 @@ public class MainActivity extends ActionBarActivity {
             AlarmBroadcastReceiver alarmBR = new AlarmBroadcastReceiver();
             //get target time
 
-            TargetTime targetTime = alarmBR.getTargetTime(urlStr, getCacheDir());
+            TargetTime targetTime = alarmBR.getTargetTime(getApplicationContext(), urlStr, getCacheDir());
+            //test Alarm
+            //targetTime = new TargetTime("test", new GregorianCalendar(), R.string.dhuhr);
             // set the next alarm
             alarmBR.setNextAlarm(getApplicationContext(), targetTime, urlStr, getCacheDir());
             // return the target time to update the view
@@ -174,11 +180,18 @@ public class MainActivity extends ActionBarActivity {
                 SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
                 format.setCalendar(targetCal);
 
+                //get Today or Tomorrow
                 String relativeTime = (String) DateUtils.getRelativeTimeSpanString(targetCal.getTimeInMillis(),
                         new GregorianCalendar().getTimeInMillis(), DateUtils.DAY_IN_MILLIS);
-
-                String nextText = getString(R.string.next_alarm) + " " + relativeTime + ", " + format.format(targetCal.getTime())
-                        + " " + getString(R.string._for_) + " " + capFirst(getString(targetTime.getID()))+".";
+                //get time string
+                String timeString = format.format(targetCal.getTime());
+                //get label if provided
+                String alarmLabel = "";
+                if(targetTime.getID() != -1) {
+                    alarmLabel = " " + getString(R.string._for_) + " " + capFirst(getString(targetTime.getID()));
+                }
+                // put the text together
+                String nextText = getString(R.string.next_alarm) + " " + relativeTime + ", " + timeString + alarmLabel +".";
                 //Update view to let the user know an alarm has been set
                 TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
                 nextAlarm.setText(nextText);
@@ -220,6 +233,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
+            progressDialog.setMessage(getString(R.string.downloading_masjid));
             progressDialog.show();
         }
 
@@ -238,10 +252,15 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, GregorianCalendar> timings){
-            displayTimings(timings);
-            if(progressDialog.isShowing()){
+            if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
+            if(timings != null) {
+                displayTimings(timings);
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 

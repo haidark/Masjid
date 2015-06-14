@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="play_sound"
+        android:title="@string/play_sound_title"
+        android:summary="@string/play_sound_summary"
+        android:defaultValue="true" />
+
+    <ListPreference
+        android:key="time_before"
+        android:title="@string/time_before"
+        android:dialogTitle="@string/time_before_title"
+        android:entries="@array/time_before_entries"
+        android:entryValues="@array/time_before_entries_values"
+        android:defaultValue="@string/time_before_default" />
+
+    <ListPreference
+        android:key="audio_state"
+        android:title="@string/audio_state"
+        android:dialogTitle="@string/audio_state_title"
+        android:entries="@array/audio_state_entries"
+        android:entryValues="@array/audio_state_entries_values"
+        android:defaultValue="@string/audio_state_default" />
+
+    <ListPreference
+        android:key="time_duration"
+        android:title="@string/time_duration"
+        android:dialogTitle="@string/time_duration_title"
+        android:entries="@array/time_duration_entries"
+        android:entryValues="@array/time_duration_entries_values"
+        android:defaultValue="@string/time_duration_default" />
+
+    <PreferenceScreen
+        android:key="advanced_settings"
+        android:title="@string/advanced_settings"
+        android:persistent="false">
+        <CheckBoxPreference
+            android:key="geolocation"
+            android:title="@string/geolocation_title"
+            android:summary="@string/geolocation_summary"
+            android:defaultValue="true" />
+    </PreferenceScreen>
+
+</PreferenceScreen><!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/xml/preferences.xml -->

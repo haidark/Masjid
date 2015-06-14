@@ -9,10 +9,12 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public final static String URL_EXTRA = "com.masjidumar.masjid.URL_STRING";
     public final static String CACHEDIR_EXTRA = "com.masjidumar.masjid.CACHEDIR_FILE";
-    public final static String ALARMPRAYER_EXTRA = "com.masjidumar.masjid.ALARM_PRAYERT";
+    public final static String ALARMPRAYER_EXTRA = "com.masjidumar.masjid.ALARM_PRAYER";
 
     public final static int ALARM_ID = 787;
     public final static int notifyID = 878;
@@ -35,23 +37,58 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //extract the extras from the intent
         Bundle extrasBundle = intent.getExtras();
+        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
+
+        /* Set the device audio state */
+        int state = AudioManager.RINGER_MODE_NORMAL;
+        String audioState = sP.getString("audio_state", "1");
+        if(audioState != null) {
+            switch (audioState) {
+                case "1":
+                    state = AudioManager.RINGER_MODE_NORMAL;
+                    audioState = "normal";
+                    break;
+                case "2":
+                    state = AudioManager.RINGER_MODE_VIBRATE;
+                    audioState = "vibrate";
+                    break;
+                case "3":
+                    state = AudioManager.RINGER_MODE_SILENT;
+                    audioState = "silent";
+                    break;
+                default:
+                    state = AudioManager.RINGER_MODE_NORMAL;
+                    audioState = "normal";
+                    break;
+            }
+        }
+
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setRingerMode(state);
+        /* Now make the notification */
+
+        // get the title string
         String contentTitle = context.getString(R.string.jamaat_time);
         if(extrasBundle.containsKey(ALARMPRAYER_EXTRA)){
             contentTitle = context.getString(intent.getIntExtra(ALARMPRAYER_EXTRA, 0))
-                    + " " + context.getString(R.string.jamaat_time);
+                    +" " + context.getString(R.string.jamaat_time);
         }
-        /* Now make the notification */
+
         //Define sound URI
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         //make a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.notification_template_icon_bg)
-                    .setContentTitle(contentTitle)
-                    .setContentText("Get to the Masjid! Your device has been silenced.")
-                    .setAutoCancel(true)
-                    .setSound(soundUri);
+                        .setContentTitle(contentTitle)
+                        .setContentText("Get to the Masjid!")
+                        .setSubText("Your device is set to " + audioState + " mode.")
+                        .setAutoCancel(true);
+
+        if(sP.getBoolean("play_sound", true)){
+            mBuilder.setSound(soundUri);
+        }
 
         //Set the notification to open the App when clicked
         Intent resultIntent = new Intent(context, MainActivity.class);
@@ -69,13 +106,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         if(extrasBundle.containsKey(URL_EXTRA) && extrasBundle.containsKey(CACHEDIR_EXTRA)) {
             String urlStr = intent.getStringExtra(URL_EXTRA);
             File cacheDir = (File) intent.getSerializableExtra(CACHEDIR_EXTRA);
-            TargetTime targetTime = getTargetTime(urlStr, cacheDir);
+            TargetTime targetTime = getTargetTime(context, urlStr, cacheDir);
             setNextAlarm(context, targetTime, urlStr, cacheDir);
         }
-
-        // Silence the device
-        // AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        // audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
     }
 
@@ -85,14 +118,19 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
             intent.putExtra(URL_EXTRA, urlStr);
             intent.putExtra(CACHEDIR_EXTRA, cacheDir);
-            intent.putExtra(ALARMPRAYER_EXTRA, targetTime.getID());
-            PendingIntent pIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0);
+            if( targetTime.getID() != -1 ) {
+                intent.putExtra(ALARMPRAYER_EXTRA, targetTime.getID());
+            }
+            PendingIntent pIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, Intent.FILL_IN_DATA | PendingIntent.FLAG_CANCEL_CURRENT);
             GregorianCalendar targetCal = targetTime.getCal();
             am.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pIntent);
         }
     }
 
-    public TargetTime getTargetTime(String urlStr, File cacheDir){
+    public TargetTime getTargetTime(Context context, String urlStr, File cacheDir){
+        //get preferences
+        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
+
         //get today's date and time
         GregorianCalendar gCalToday = new GregorianCalendar();
         //get tomorrow's date
@@ -102,8 +140,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         HashMap<String, GregorianCalendar> timingsToday = null;
         HashMap<String, GregorianCalendar> timingsTmrw = null;
         String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
-        int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr,
-                R.string.maghrib, R.string.isha};
+        int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr, R.string.maghrib, R.string.isha};
+
         // get today's timings
         try{
             timingsToday = new TimingsParser().updateXMLTimings(cacheDir, gCalToday);
@@ -126,8 +164,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         ArrayList<TargetTime> availableTimings = new ArrayList<TargetTime>(12);
-        //modifier how many minutes before the user wants to be reminded
-        int modifier = -10;
+        //modifier how many minutes before the user wants to be reminded (load from preferences)
+        int modifier;
+        String timeBefore = sP.getString("time_before", "10");
+        modifier = -1 * Integer.parseInt(timeBefore);
+
         //add timings from today to available timings in order
         if(timingsToday != null) {
             for (int i = 0; i < pNames.length; i++) {

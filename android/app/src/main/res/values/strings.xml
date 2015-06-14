@@ -1,17 +1,23 @@
 <resources>
+    <!-- Title and Menu Strings -->
     <string name="app_name">My Masaajid</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_today">Today</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Placeholder Strings -->
     <string name="jamaat_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
-    <string name="prayer_URL">http://www.masjidumar.com/files/timings/p</string>
 
+    <!-- UI Strings -->
     <string name="pick_date">Pick Date</string>
     <string name="today_date">Today</string>
     <string name="jamaat_time">Jamaat Time</string>
+    <string name="next_alarm">Next alarm:</string>
+    <string name="_for_">for</string>
+    <string name="downloading_masjid">Downloading timings for Masjid Umar</string>
 
+    <!-- Prayer Name Strings -->
     <string name="fajr">Fajr</string>
     <string name="sunrise">Sunrise</string>
     <string name="dhuhr">Dhuhr</string>
@@ -19,14 +25,74 @@
     <string name="maghrib">Maghrib</string>
     <string name="isha">Isha</string>
 
+    <!-- Error Message Strings -->
     <string name="unable_alarm">Unable to set alarm.</string>
-    <string name="next_alarm">Next alarm:</string>
     <string name="timings_unavailable">Some timings are unavailable for this date.</string>
     <string name="masjid_unavailable">Unable to load timings for this masjid.</string>
+    <string name="download_failed">Download failed.</string>
     <string name="empty_time">--:-- --</string>
-    <string name="_for_">for</string>
 
-    <string name="version">Version: 0.0.8</string>
+    <!-- Preferences Strings -->
+        <!-- Play Sound -->
+    <string name="play_sound_title">Notification Sound</string>
+    <string name="play_sound_summary">Play a sound reminder before iqamah time</string>
+
+        <!-- Time Before Strings -->
+    <string name="time_before">Reminder before iqamah time</string>
+    <string name="time_before_title">Set reminder time before iqamah.</string>
+    <string-array name="time_before_entries">
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+    </string-array>
+    <string-array name="time_before_entries_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+    <string name="time_before_default">10</string>
+
+        <!-- Audio State Strings -->
+    <string name="audio_state">Device audio state during prayer.</string>
+    <string name="audio_state_title">Choose a state:</string>
+    <string-array name="audio_state_entries">
+        <item>Sound</item>
+        <item>Vibrate</item>
+        <item>Mute</item>
+    </string-array>
+    <string-array name="audio_state_entries_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="audio_state_default">1</string>
+
+        <!-- Time Duration Strings -->
+    <string name="time_duration">Time to keep Prayer Audio state</string>
+    <string name="time_duration_title">Duration of prayer state:</string>
+    <string-array name="time_duration_entries">
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+    </string-array>
+    <string-array name="time_duration_entries_values">
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+    <string name="time_duration_default">15</string>
+
+    <!-- Advanced Settings -->
+    <string name="advanced_settings">Advanced Settings</string>
+
+        <!-- Geolocation -->
+    <string name="geolocation_title">Geolocation</string>
+    <string name="geolocation_summary">Enable location based state changes</string>
+
+    <!-- Version String -->
+    <string name="version">Version: 0.0.11</string>
 
     <string name="hello_world">Hello world!</string>
 </resources>

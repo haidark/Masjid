@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 public class TargetTime {
     private String targetLabel;
     private GregorianCalendar targetCal;
-    private int stringID;
+    private int stringID = -1;
 
     public TargetTime(String label, GregorianCalendar cal){
         setLabel(label);
