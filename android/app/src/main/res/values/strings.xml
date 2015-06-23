@@ -33,13 +33,23 @@
     <string name="empty_time">--:-- --</string>
 
     <!-- Preferences Strings -->
-        <!-- Play Sound -->
-    <string name="play_sound_title">Notification Sound</string>
-    <string name="play_sound_summary">Play a sound reminder before iqamah time</string>
+        <!-- State Enable -->
+    <string name="state_enable_title">Prayer State</string>
+    <string name="state_enable_summary">Enable Prayer time audio state</string>
+
+        <!-- Audio State Strings -->
+    <string name="audio_state">Device audio state during prayer:</string>
+    <string name="audio_state_title">Choose an audio state:</string>
+    <string-array name="audio_state_entries">
+        <item>Sound</item>
+        <item>Vibrate</item>
+        <item>Mute</item>
+    </string-array>
+    <string name="audio_state_default">Sound</string>
 
         <!-- Time Before Strings -->
-    <string name="time_before">Reminder before iqamah time</string>
-    <string name="time_before_title">Set reminder time before iqamah.</string>
+    <string name="time_before">Start Prayer State</string>
+    <string name="time_before_title">Minutes before Iqamah to start Prayer state</string>
     <string-array name="time_before_entries">
         <item>5 minutes</item>
         <item>10 minutes</item>
@@ -52,24 +62,9 @@
     </string-array>
     <string name="time_before_default">10</string>
 
-        <!-- Audio State Strings -->
-    <string name="audio_state">Device audio state during prayer.</string>
-    <string name="audio_state_title">Choose a state:</string>
-    <string-array name="audio_state_entries">
-        <item>Sound</item>
-        <item>Vibrate</item>
-        <item>Mute</item>
-    </string-array>
-    <string-array name="audio_state_entries_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="audio_state_default">1</string>
-
         <!-- Time Duration Strings -->
-    <string name="time_duration">Time to keep Prayer Audio state</string>
-    <string name="time_duration_title">Duration of prayer state:</string>
+    <string name="time_duration">End Prayer State</string>
+    <string name="time_duration_title">Minutes after Iqamah to end Prayer state</string>
     <string-array name="time_duration_entries">
         <item>10 minutes</item>
         <item>15 minutes</item>
@@ -92,7 +87,7 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.0.11</string>
+    <string name="version">Version: 0.0.16</string>
 
     <string name="hello_world">Hello world!</string>
 </resources>

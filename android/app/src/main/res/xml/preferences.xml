@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
-        android:key="play_sound"
-        android:title="@string/play_sound_title"
-        android:summary="@string/play_sound_summary"
+        android:key="state_enable"
+        android:title="@string/state_enable_title"
+        android:summary="@string/state_enable_summary"
         android:defaultValue="true" />
 
     <ListPreference
+        android:dependency="state_enable"
+        android:key="audio_state"
+        android:title="@string/audio_state"
+        android:dialogTitle="@string/audio_state_title"
+        android:entries="@array/audio_state_entries"
+        android:entryValues="@array/audio_state_entries"
+        android:defaultValue="@string/audio_state_default" />
+
+    <ListPreference
+        android:dependency="state_enable"
         android:key="time_before"
         android:title="@string/time_before"
         android:dialogTitle="@string/time_before_title"
@@ -15,14 +25,7 @@
         android:defaultValue="@string/time_before_default" />
 
     <ListPreference
-        android:key="audio_state"
-        android:title="@string/audio_state"
-        android:dialogTitle="@string/audio_state_title"
-        android:entries="@array/audio_state_entries"
-        android:entryValues="@array/audio_state_entries_values"
-        android:defaultValue="@string/audio_state_default" />
-
-    <ListPreference
+        android:dependency="state_enable"
         android:key="time_duration"
         android:title="@string/time_duration"
         android:dialogTitle="@string/time_duration_title"

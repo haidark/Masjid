@@ -17,11 +17,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -30,29 +28,36 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public final static String URL_EXTRA = "com.masjidumar.masjid.URL_STRING";
     public final static String CACHEDIR_EXTRA = "com.masjidumar.masjid.CACHEDIR_FILE";
     public final static String ALARMPRAYER_EXTRA = "com.masjidumar.masjid.ALARM_PRAYER";
+    public final static String RINGERSTATE_EXTRA = "com.masjidumar.masjid.RINGER_STATE";
 
     public final static int ALARM_ID = 787;
-    public final static int notifyID = 878;
+    public final static int REVERT_ALARM_ID = 778;
+
+    public final static int NOTIFY_ID = 878;
     @Override
     public void onReceive(Context context, Intent intent) {
         //extract the extras from the intent
         Bundle extrasBundle = intent.getExtras();
         SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
 
-        /* Set the device audio state */
+        /* Get the device's current audio state */
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int prevAudioState = audioManager.getRingerMode();
+
+        /* Set the device audio state to new state */
         int state = AudioManager.RINGER_MODE_NORMAL;
-        String audioState = sP.getString("audio_state", "1");
+        String audioState = sP.getString(SettingsActivity.SettingsFragment.AUDIO_STATE_KEY, "1");
         if(audioState != null) {
             switch (audioState) {
-                case "1":
+                case "Sound":
                     state = AudioManager.RINGER_MODE_NORMAL;
                     audioState = "normal";
                     break;
-                case "2":
+                case "Vibrate":
                     state = AudioManager.RINGER_MODE_VIBRATE;
                     audioState = "vibrate";
                     break;
-                case "3":
+                case "Mute":
                     state = AudioManager.RINGER_MODE_SILENT;
                     audioState = "silent";
                     break;
@@ -62,11 +67,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                     break;
             }
         }
-
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setRingerMode(state);
-        /* Now make the notification */
 
+        /* set the alarm to revert the audio state after some time */
+        setRevertAlarm(context, prevAudioState);
+
+        /* Now make the notification */
         // get the title string
         String contentTitle = context.getString(R.string.jamaat_time);
         if(extrasBundle.containsKey(ALARMPRAYER_EXTRA)){
@@ -86,9 +92,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         .setSubText("Your device is set to " + audioState + " mode.")
                         .setAutoCancel(true);
 
-        if(sP.getBoolean("play_sound", true)){
+        /*if(sP.getBoolean(SettingsActivity.SettingsFragment.STATE_ENABLE_KEY, true)){
             mBuilder.setSound(soundUri);
-        }
+        }*/
 
         //Set the notification to open the App when clicked
         Intent resultIntent = new Intent(context, MainActivity.class);
@@ -100,7 +106,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // Builds the notification and issues it.
-        mNotifyMgr.notify(notifyID, mBuilder.build());
+        mNotifyMgr.notify(NOTIFY_ID, mBuilder.build());
 
         // set the next alarm
         if(extrasBundle.containsKey(URL_EXTRA) && extrasBundle.containsKey(CACHEDIR_EXTRA)) {
@@ -125,6 +131,22 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             GregorianCalendar targetCal = targetTime.getCal();
             am.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pIntent);
         }
+    }
+
+    private void setRevertAlarm(Context context, int audioState){
+        //get preferences
+        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
+
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, RevertStateBroadcastReceiver.class);
+        intent.putExtra(RINGERSTATE_EXTRA, audioState);
+        PendingIntent pIntent = PendingIntent.getBroadcast(context, REVERT_ALARM_ID, intent, Intent.FILL_IN_DATA | PendingIntent.FLAG_CANCEL_CURRENT);
+
+        GregorianCalendar gCal = new GregorianCalendar();
+        String duration = sP.getString(SettingsActivity.SettingsFragment.TIME_DURATION_KEY, "15");
+        int modifier = Integer.parseInt(duration);
+        gCal.add(GregorianCalendar.MINUTE, modifier);
+        am.set(AlarmManager.RTC_WAKEUP, gCal.getTimeInMillis(), pIntent);
     }
 
     public TargetTime getTargetTime(Context context, String urlStr, File cacheDir){
@@ -166,7 +188,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         ArrayList<TargetTime> availableTimings = new ArrayList<TargetTime>(12);
         //modifier how many minutes before the user wants to be reminded (load from preferences)
         int modifier;
-        String timeBefore = sP.getString("time_before", "10");
+        String timeBefore = sP.getString(SettingsActivity.SettingsFragment.TIME_BEFORE_KEY, "10");
         modifier = -1 * Integer.parseInt(timeBefore);
 
         //add timings from today to available timings in order

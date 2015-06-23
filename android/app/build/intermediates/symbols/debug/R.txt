@@ -9,11 +9,10 @@ int anim abc_slide_in_top 0x7f050007
 int anim abc_slide_out_bottom 0x7f050008
 int anim abc_slide_out_top 0x7f050009
 int array audio_state_entries 0x7f0c0000
-int array audio_state_entries_values 0x7f0c0001
-int array time_before_entries 0x7f0c0002
-int array time_before_entries_values 0x7f0c0003
-int array time_duration_entries 0x7f0c0004
-int array time_duration_entries_values 0x7f0c0005
+int array time_before_entries 0x7f0c0001
+int array time_before_entries_values 0x7f0c0002
+int array time_duration_entries 0x7f0c0003
+int array time_duration_entries_values 0x7f0c0004
 int attr actionBarDivider 0x7f010064
 int attr actionBarItemBackground 0x7f010065
 int attr actionBarPopupTheme 0x7f01005e
@@ -625,8 +624,8 @@ int string maghrib 0x7f070026
 int string masjid_unavailable 0x7f070027
 int string next_alarm 0x7f070028
 int string pick_date 0x7f070029
-int string play_sound_summary 0x7f07002a
-int string play_sound_title 0x7f07002b
+int string state_enable_summary 0x7f07002a
+int string state_enable_title 0x7f07002b
 int string status_bar_notification_info_overflow 0x7f07002c
 int string sunrise 0x7f07002d
 int string time_before 0x7f07002e

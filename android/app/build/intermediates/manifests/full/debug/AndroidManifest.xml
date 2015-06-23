@@ -35,6 +35,7 @@
         </activity>
 
         <receiver android:name="com.masjidumar.masjid.AlarmBroadcastReceiver" />
+        <receiver android:name="com.masjidumar.masjid.RevertStateBroadcastReceiver" />
     </application>
 
 </manifest>

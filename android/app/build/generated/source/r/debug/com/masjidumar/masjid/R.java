@@ -22,11 +22,10 @@ public final class R {
     }
     public static final class array {
         public static final int audio_state_entries=0x7f0c0000;
-        public static final int audio_state_entries_values=0x7f0c0001;
-        public static final int time_before_entries=0x7f0c0002;
-        public static final int time_before_entries_values=0x7f0c0003;
-        public static final int time_duration_entries=0x7f0c0004;
-        public static final int time_duration_entries_values=0x7f0c0005;
+        public static final int time_before_entries=0x7f0c0001;
+        public static final int time_before_entries_values=0x7f0c0002;
+        public static final int time_duration_entries=0x7f0c0003;
+        public static final int time_duration_entries_values=0x7f0c0004;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1754,8 +1753,8 @@ containing a value of this type.
         public static final int masjid_unavailable=0x7f070027;
         public static final int next_alarm=0x7f070028;
         public static final int pick_date=0x7f070029;
-        public static final int play_sound_summary=0x7f07002a;
-        public static final int play_sound_title=0x7f07002b;
+        public static final int state_enable_summary=0x7f07002a;
+        public static final int state_enable_title=0x7f07002b;
         public static final int status_bar_notification_info_overflow=0x7f07002c;
         public static final int sunrise=0x7f07002d;
         public static final int time_before=0x7f07002e;

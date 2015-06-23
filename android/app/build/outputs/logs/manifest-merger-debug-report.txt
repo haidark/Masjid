@@ -67,6 +67,10 @@ receiver#com.masjidumar.masjid.AlarmBroadcastReceiver
 ADDED from AndroidManifest.xml:31:9
 	android:name
 		ADDED from AndroidManifest.xml:31:19
+receiver#com.masjidumar.masjid.RevertStateBroadcastReceiver
+ADDED from AndroidManifest.xml:32:9
+	android:name
+		ADDED from AndroidManifest.xml:32:19
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:22.2.0:20:5
