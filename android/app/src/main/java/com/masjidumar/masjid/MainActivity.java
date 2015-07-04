@@ -12,7 +12,9 @@ import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -94,9 +96,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //set the next alarm in the background
-        alarmTask = new UpdateAlarmTask();
-        alarmTask.execute();
+        //set the alarm if enabled
+        setAlarm();
     }
 
     @Override
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
             TargetTime targetTime = alarmBR.getTargetTime(getApplicationContext(), urlStr, getCacheDir());
             //test Alarm
-            //targetTime = new TargetTime("test", new GregorianCalendar(), R.string.dhuhr);
+            //targetTime = new TargetTime("test", new GregorianCalendar());
             // set the next alarm
             alarmBR.setNextAlarm(getApplicationContext(), targetTime, urlStr, getCacheDir());
             // return the target time to update the view
@@ -174,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(TargetTime targetTime) {
             super.onPostExecute(targetTime);
             //update nextAlarm TextView
+            TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
+            String nextText;
             if(targetTime != null) {
                 // Get target time as a string
                 GregorianCalendar targetCal = targetTime.getCal();
@@ -185,20 +188,18 @@ public class MainActivity extends AppCompatActivity {
                         new GregorianCalendar().getTimeInMillis(), DateUtils.DAY_IN_MILLIS);
                 //get time string
                 String timeString = format.format(targetCal.getTime());
-                //get label if provided
-                String alarmLabel = "";
-                if(targetTime.getID() != -1) {
-                    alarmLabel = " " + getString(R.string._for_) + " " + capFirst(getString(targetTime.getID()));
-                }
+                //get label
+                String alarmLabel = " " + getString(R.string._for_) + " " + capFirst(targetTime.getLabel());
                 // put the text together
-                String nextText = getString(R.string.next_alarm) + " " + relativeTime + ", " + timeString + alarmLabel +".";
+                nextText = getString(R.string.next_alarm) + " " + relativeTime + ", " + timeString + alarmLabel +".";
                 //Update view to let the user know an alarm has been set
-                TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
-                nextAlarm.setText(nextText);
+
             } else{
+                nextText = getString(R.string.no_alarm);
                 //Toast to let the user know the alarm failed to set
-                Toast.makeText(getApplicationContext(), R.string.unable_alarm, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), R.string.unable_alarm, Toast.LENGTH_LONG).show();
             }
+            nextAlarm.setText(nextText);
         }
     }
 
@@ -301,9 +302,8 @@ public class MainActivity extends AppCompatActivity {
             if(!noFailure) {
                 Toast.makeText(this, R.string.timings_unavailable, Toast.LENGTH_LONG).show();
             }
-            //set the next alarm in the background (for the day)
-            alarmTask = new UpdateAlarmTask();
-            alarmTask.execute();
+            //set the next alarm if enabled
+            setAlarm();
         } else{
             Toast.makeText(this, R.string.masjid_unavailable, Toast.LENGTH_LONG).show();
         }
@@ -358,6 +358,25 @@ public class MainActivity extends AppCompatActivity {
     public void setDateToday(){
         pickedDate = new GregorianCalendar();
         updateTimings();
+    }
+
+    public void setAlarm(){
+        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sP.getBoolean(SettingsActivity.SettingsFragment.STATE_ENABLE_KEY, true)) {
+            //set the next alarm in the background
+            alarmTask = new UpdateAlarmTask();
+            alarmTask.execute();
+        } else {
+            //Cancel the Alarm
+            AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(this, AlarmBroadcastReceiver.class);
+            PendingIntent pIntent = PendingIntent.getBroadcast(this, AlarmBroadcastReceiver.ALARM_ID, intent, Intent.FILL_IN_DATA | PendingIntent.FLAG_CANCEL_CURRENT);
+            am.cancel(pIntent);
+            //Update view to let the user know no alarm has been set
+            String nextText = getString(R.string.no_alarm);
+            TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
+            nextAlarm.setText(nextText);
+        }
     }
 
     /* function to capitalize first letter of a String */

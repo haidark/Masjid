@@ -44,6 +44,7 @@ import javax.xml.transform.stream.StreamResult;
  * Created by Haidar on 6/7/2015.
  *
  * Extracts timings from XML Document
+ * TODO: change to attributes for prayers instead of child tags?
  */
 public class TimingsParser {
 

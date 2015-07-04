@@ -12,10 +12,13 @@
     <!-- UI Strings -->
     <string name="pick_date">Pick Date</string>
     <string name="today_date">Today</string>
-    <string name="jamaat_time">Jamaat Time</string>
     <string name="next_alarm">Next alarm:</string>
     <string name="_for_">for</string>
     <string name="downloading_masjid">Downloading timings for Masjid Umar</string>
+
+    <!-- Notification Strings -->
+    <string name="jamaat_time">Jamaat Time</string>
+    <string name="notification_text">Your device is set to</string>
 
     <!-- Prayer Name Strings -->
     <string name="fajr">Fajr</string>
@@ -26,7 +29,7 @@
     <string name="isha">Isha</string>
 
     <!-- Error Message Strings -->
-    <string name="unable_alarm">Unable to set alarm.</string>
+    <string name="no_alarm">No reminders set.</string>
     <string name="timings_unavailable">Some timings are unavailable for this date.</string>
     <string name="masjid_unavailable">Unable to load timings for this masjid.</string>
     <string name="download_failed">Download failed.</string>
@@ -41,11 +44,11 @@
     <string name="audio_state">Device audio state during prayer:</string>
     <string name="audio_state_title">Choose an audio state:</string>
     <string-array name="audio_state_entries">
-        <item>Sound</item>
+        <item>Silent</item>
         <item>Vibrate</item>
-        <item>Mute</item>
+        <item>Normal</item>
     </string-array>
-    <string name="audio_state_default">Sound</string>
+    <string name="audio_state_default">Normal</string>
 
         <!-- Time Before Strings -->
     <string name="time_before">Start Prayer State</string>
@@ -79,6 +82,41 @@
     </string-array>
     <string name="time_duration_default">15</string>
 
+        <!-- Weekday Selection Strings -->
+    <string name="weekday_title">Days of the week</string>
+    <string-array name="weekday_entries">
+        <item>S</item>
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+    </string-array>
+    <string name="weekday_default">1111111</string>
+
+        <!-- Prayer Selection Strings -->
+    <string name="prayer_sel_title">Prayers</string>
+    <string-array name="prayer_sel_entries">
+        <item>F</item>
+        <item>S</item>
+        <item>D</item>
+        <item>A</item>
+        <item>M</item>
+        <item>I</item>
+    </string-array>
+    <string name="prayer_sel_default">111111</string>
+
+    <!-- Days of the Week -->
+    <string name="sun">S</string>
+    <string name="mon">M</string>
+    <string name="tue">T</string>
+    <string name="wed">W</string>
+    <string name="thu">T</string>
+    <string name="fri">F</string>
+    <string name="sat">S</string>
+
+
     <!-- Advanced Settings -->
     <string name="advanced_settings">Advanced Settings</string>
 
@@ -87,7 +125,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.0.16</string>
+    <string name="version">Version: 0.0.26</string>
 
-    <string name="hello_world">Hello world!</string>
 </resources>

@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <CheckBox
+            <TextView
                 android:id="@+id/fajrCheck"
                 android:text="@string/fajr" />
             <TextView
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <CheckBox
+            <TextView
                 android:id="@+id/sunriseCheck"
                 android:text="@string/sunrise" />
             <TextView
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <CheckBox
+            <TextView
                 android:id="@+id/dhuhrCheck"
                 android:text="@string/dhuhr" />
             <TextView
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <CheckBox
+            <TextView
                 android:id="@+id/asrCheck"
                 android:text="@string/asr" />
 
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <CheckBox
+            <TextView
                 android:id="@+id/maghribCheck"
                 android:text="@string/maghrib" />
             <TextView
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <CheckBox
+            <TextView
                 android:id="@+id/ishaCheck"
                 android:text="@string/isha" />
             <TextView

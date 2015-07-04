@@ -48,6 +48,8 @@ public class SettingsActivity extends AppCompatActivity {
         public static final String AUDIO_STATE_KEY = "audio_state";
         public static final String TIME_BEFORE_KEY = "time_before";
         public static final String TIME_DURATION_KEY = "time_duration";
+        public static final String WEEKDAY_SELECTION_KEY = "weekday_selection";
+        public static final String PRAYER_SELECTION_KEY = "prayer_selection";
         public static final String GEOLOCATION_KEY = "geolocation";
         @Override
         public void onCreate(Bundle savedInstanceState) {

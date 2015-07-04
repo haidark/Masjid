@@ -9,17 +9,10 @@ import java.util.GregorianCalendar;
 public class TargetTime {
     private String targetLabel;
     private GregorianCalendar targetCal;
-    private int stringID = -1;
 
     public TargetTime(String label, GregorianCalendar cal){
         setLabel(label);
         setCal(cal);
-    }
-
-    public TargetTime(String label, GregorianCalendar cal, int id){
-        setLabel(label);
-        setCal(cal);
-        setID(id);
     }
 
     public String getLabel(){ return targetLabel;}
@@ -27,7 +20,4 @@ public class TargetTime {
 
     public GregorianCalendar getCal(){ return targetCal;}
     public void setCal(GregorianCalendar cal){ this.targetCal = cal;}
-
-    public int getID(){ return stringID;}
-    public void setID(int id){ this.stringID = id;}
 }

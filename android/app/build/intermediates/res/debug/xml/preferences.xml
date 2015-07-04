@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <CheckBoxPreference
         android:key="state_enable"
         android:title="@string/state_enable_title"
@@ -32,6 +33,20 @@
         android:entries="@array/time_duration_entries"
         android:entryValues="@array/time_duration_entries_values"
         android:defaultValue="@string/time_duration_default" />
+
+    <com.masjidumar.masjid.ToggleBarPreference
+        android:dependency="state_enable"
+        android:key="weekday_selection"
+        android:title="@string/weekday_title"
+        android:defaultValue="@string/weekday_default"
+        app:entries="@array/weekday_entries"/>
+
+    <com.masjidumar.masjid.ToggleBarPreference
+        android:dependency="state_enable"
+        android:key="prayer_selection"
+        android:title="@string/prayer_sel_title"
+        android:defaultValue="@string/prayer_sel_default"
+        app:entries="@array/prayer_sel_entries"/>
 
     <PreferenceScreen
         android:key="advanced_settings"

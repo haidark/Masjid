@@ -1,7 +1,8 @@
 package com.masjidumar.masjid;
 
 /* Alarm Broadcast Receiver - code that runs when the alarm is triggered (time hits)
- * Contains helper functions to set the next Alarm  and get the next desired alert time (target time)*/
+ * Contains helper functions to set the next Alarm  and get the next desired alert time (target time)
+ * also has a function to schedule teh revert state alarm */
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -40,82 +41,78 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Bundle extrasBundle = intent.getExtras();
         SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
 
-        /* Get the device's current audio state */
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        int prevAudioState = audioManager.getRingerMode();
+        // Only take action if the user has reminders enabled
+        if(sP.getBoolean(SettingsActivity.SettingsFragment.STATE_ENABLE_KEY, true)) {
 
-        /* Set the device audio state to new state */
-        int state = AudioManager.RINGER_MODE_NORMAL;
-        String audioState = sP.getString(SettingsActivity.SettingsFragment.AUDIO_STATE_KEY, "1");
-        if(audioState != null) {
-            switch (audioState) {
-                case "Sound":
-                    state = AudioManager.RINGER_MODE_NORMAL;
-                    audioState = "normal";
-                    break;
-                case "Vibrate":
-                    state = AudioManager.RINGER_MODE_VIBRATE;
-                    audioState = "vibrate";
-                    break;
-                case "Mute":
-                    state = AudioManager.RINGER_MODE_SILENT;
-                    audioState = "silent";
-                    break;
-                default:
-                    state = AudioManager.RINGER_MODE_NORMAL;
-                    audioState = "normal";
-                    break;
+            /* Get the device's current audio state */
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            int prevAudioState = audioManager.getRingerMode();
+
+            /* set the alarm to revert the audio state after some time */
+            setRevertAlarm(context, prevAudioState);
+
+            /* Set the device audio state to new state */
+            int state = AudioManager.RINGER_MODE_NORMAL;
+            String audioState = sP.getString(SettingsActivity.SettingsFragment.AUDIO_STATE_KEY,
+                    context.getString(R.string.audio_state_default));
+            String[] stateStrings = context.getResources().getStringArray(R.array.audio_state_entries);
+            if (audioState != null) {
+                //Silent = 0
+                //Vibrate = 1
+                //Normal = 2
+                for(int i = 0; i < stateStrings.length; i++){
+                    if(audioState.equals(stateStrings[i])){
+                        state = i;
+                        break;
+                    }
+                }
+            }
+            audioManager.setRingerMode(state);
+
+            /* Now make the notification */
+            // get the title string
+            String notifTitle = context.getString(R.string.jamaat_time);
+            if (extrasBundle.containsKey(ALARMPRAYER_EXTRA)) {
+                notifTitle = intent.getStringExtra(ALARMPRAYER_EXTRA)
+                        + " " + notifTitle;
+            }
+            // get the text string
+            String notifText = context.getString(R.string.notification_text);
+            notifText = notifText +": "+ audioState;
+
+            //Define sound URI
+            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+            //make a notification
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.notification_template_icon_bg)
+                            .setContentTitle(notifTitle)
+                            .setContentText(notifText)
+                            .setOngoing(true)
+                            .setSound(soundUri);
+
+            //Set the notification to open the App when clicked
+            Intent resultIntent = new Intent(context, MainActivity.class);
+            PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(resultPendingIntent);
+
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(NOTIFY_ID, mBuilder.build());
+
+            // set the next alarm if the necessary data was provided and alarm is enabled
+            if (extrasBundle.containsKey(URL_EXTRA) && extrasBundle.containsKey(CACHEDIR_EXTRA) &&
+                    sP.getBoolean(SettingsActivity.SettingsFragment.STATE_ENABLE_KEY, true)) {
+                String urlStr = intent.getStringExtra(URL_EXTRA);
+                File cacheDir = (File) intent.getSerializableExtra(CACHEDIR_EXTRA);
+                TargetTime targetTime = getTargetTime(context, urlStr, cacheDir);
+                setNextAlarm(context, targetTime, urlStr, cacheDir);
             }
         }
-        audioManager.setRingerMode(state);
-
-        /* set the alarm to revert the audio state after some time */
-        setRevertAlarm(context, prevAudioState);
-
-        /* Now make the notification */
-        // get the title string
-        String contentTitle = context.getString(R.string.jamaat_time);
-        if(extrasBundle.containsKey(ALARMPRAYER_EXTRA)){
-            contentTitle = context.getString(intent.getIntExtra(ALARMPRAYER_EXTRA, 0))
-                    +" " + context.getString(R.string.jamaat_time);
-        }
-
-        //Define sound URI
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        //make a notification
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.notification_template_icon_bg)
-                        .setContentTitle(contentTitle)
-                        .setContentText("Get to the Masjid!")
-                        .setSubText("Your device is set to " + audioState + " mode.")
-                        .setAutoCancel(true);
-
-        /*if(sP.getBoolean(SettingsActivity.SettingsFragment.STATE_ENABLE_KEY, true)){
-            mBuilder.setSound(soundUri);
-        }*/
-
-        //Set the notification to open the App when clicked
-        Intent resultIntent = new Intent(context, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(NOTIFY_ID, mBuilder.build());
-
-        // set the next alarm
-        if(extrasBundle.containsKey(URL_EXTRA) && extrasBundle.containsKey(CACHEDIR_EXTRA)) {
-            String urlStr = intent.getStringExtra(URL_EXTRA);
-            File cacheDir = (File) intent.getSerializableExtra(CACHEDIR_EXTRA);
-            TargetTime targetTime = getTargetTime(context, urlStr, cacheDir);
-            setNextAlarm(context, targetTime, urlStr, cacheDir);
-        }
-
     }
 
     public void setNextAlarm(Context context, TargetTime targetTime, String urlStr, File cacheDir) {
@@ -124,9 +121,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
             intent.putExtra(URL_EXTRA, urlStr);
             intent.putExtra(CACHEDIR_EXTRA, cacheDir);
-            if( targetTime.getID() != -1 ) {
-                intent.putExtra(ALARMPRAYER_EXTRA, targetTime.getID());
-            }
+            intent.putExtra(ALARMPRAYER_EXTRA, targetTime.getLabel());
             PendingIntent pIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, Intent.FILL_IN_DATA | PendingIntent.FLAG_CANCEL_CURRENT);
             GregorianCalendar targetCal = targetTime.getCal();
             am.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pIntent);
@@ -142,76 +137,85 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         intent.putExtra(RINGERSTATE_EXTRA, audioState);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, REVERT_ALARM_ID, intent, Intent.FILL_IN_DATA | PendingIntent.FLAG_CANCEL_CURRENT);
 
+        //get current time
         GregorianCalendar gCal = new GregorianCalendar();
-        String duration = sP.getString(SettingsActivity.SettingsFragment.TIME_DURATION_KEY, "15");
-        int modifier = Integer.parseInt(duration);
+
+        //get time before iqamah and duration
+        String before = sP.getString(SettingsActivity.SettingsFragment.TIME_BEFORE_KEY, context.getString(R.string.time_before_default));
+        String duration = sP.getString(SettingsActivity.SettingsFragment.TIME_DURATION_KEY, context.getString(R.string.time_duration_default));
+
+        // add time before and duration to current time
+        int modifier = Integer.parseInt(duration) + Integer.parseInt(before);
         gCal.add(GregorianCalendar.MINUTE, modifier);
         am.set(AlarmManager.RTC_WAKEUP, gCal.getTimeInMillis(), pIntent);
     }
 
     public TargetTime getTargetTime(Context context, String urlStr, File cacheDir){
-        //get preferences
-        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
-
-        //get today's date and time
-        GregorianCalendar gCalToday = new GregorianCalendar();
-        //get tomorrow's date
-        GregorianCalendar gCalTmrw = new GregorianCalendar();
-        gCalTmrw.add(GregorianCalendar.DAY_OF_MONTH, 1);
-
-        HashMap<String, GregorianCalendar> timingsToday = null;
-        HashMap<String, GregorianCalendar> timingsTmrw = null;
         String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
         int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr, R.string.maghrib, R.string.isha};
 
-        // get today's timings
-        try{
-            timingsToday = new TimingsParser().updateXMLTimings(cacheDir, gCalToday);
-        } catch (IOException e){
-            try {
-                timingsToday = new TimingsParser().downloadXMLTimings(urlStr, cacheDir, gCalToday);
-            } catch (IOException ie){
-                Log.w("getTargetTimeToday:", ie.getMessage());
-            }
-        }
-        //get tomorrow's timings
-        try{
-            timingsTmrw = new TimingsParser().updateXMLTimings(cacheDir, gCalTmrw);
-        } catch (IOException e){
-            try {
-                timingsTmrw = new TimingsParser().downloadXMLTimings(urlStr, cacheDir, gCalTmrw);
-            } catch (IOException ie){
-                Log.w("getTargetTimeTomorrow:", ie.getMessage());
-            }
-        }
-
-        ArrayList<TargetTime> availableTimings = new ArrayList<TargetTime>(12);
-        //modifier how many minutes before the user wants to be reminded (load from preferences)
         int modifier;
-        String timeBefore = sP.getString(SettingsActivity.SettingsFragment.TIME_BEFORE_KEY, "10");
+        int daysAhead = 7;
+
+        GregorianCalendar gCalNow = new GregorianCalendar();
+
+        ArrayList<GregorianCalendar> gCalArray = new ArrayList<>(daysAhead);
+        ArrayList<TargetTime> availableTimings = new ArrayList<TargetTime>(daysAhead*6);
+
+        //get preferences
+        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
+
+        //modifier how many minutes before the user wants to be reminded (load from preferences)
+        String timeBefore = sP.getString(SettingsActivity.SettingsFragment.TIME_BEFORE_KEY,
+                context.getString(R.string.time_before_default));
         modifier = -1 * Integer.parseInt(timeBefore);
 
-        //add timings from today to available timings in order
-        if(timingsToday != null) {
-            for (int i = 0; i < pNames.length; i++) {
-                String pName = pNames[i];
-                int pID = stringIDs[i];
-                GregorianCalendar jCal = timingsToday.get(pName);
-                if (jCal != null) {
-                    jCal.add(GregorianCalendar.MINUTE, modifier);
-                    availableTimings.add(new TargetTime(pName, jCal, pID));
-                }
+        //get the days of the week the user wants to be reminded for
+        String daysOfWeek = sP.getString(SettingsActivity.SettingsFragment.WEEKDAY_SELECTION_KEY,
+                context.getString(R.string.weekday_default));
+        // SUNDAY == 1 -- SATURDAY == 7
+
+        //get the prayers of the day the user wants to be reminded for
+        String prayerOfDay = sP.getString(SettingsActivity.SettingsFragment.PRAYER_SELECTION_KEY,
+                context.getString(R.string.prayer_sel_default));
+
+        // get date objects for the days ahead
+        // only add it to the arraylist if the user has enabled reminders for that day
+        for(int i = 0; i < daysAhead; i++){
+            GregorianCalendar gCal = new GregorianCalendar();
+            gCal.add(GregorianCalendar.DAY_OF_MONTH, i);
+            int dayIndex = gCal.get(GregorianCalendar.DAY_OF_WEEK)-1;
+            if(daysOfWeek.charAt(dayIndex) == '1') {
+                gCalArray.add(gCal);
             }
         }
-        //add timings from tomorrow to available timings in order
-        if(timingsTmrw != null) {
-            for (int i = 0; i < pNames.length; i++) {
-                String pName = pNames[i];
-                int pID = stringIDs[i];
-                GregorianCalendar jCal = timingsTmrw.get(pName);
-                if (jCal != null) {
-                    jCal.add(GregorianCalendar.MINUTE, modifier);
-                    availableTimings.add(new TargetTime(pName, jCal, pID));
+
+        // get timings for each day ahead and add each non-null timing to available timings
+        for(int i = 0; i < gCalArray.size(); i++){
+            HashMap<String, GregorianCalendar> timing = null;
+            try{
+                timing = new TimingsParser().updateXMLTimings(cacheDir, gCalArray.get(i));
+            } catch (IOException e){
+                try {
+                    timing = new TimingsParser().downloadXMLTimings(urlStr, cacheDir, gCalArray.get(i));
+                } catch (IOException ie){
+                    Log.w("getTargetTimeToday:", ie.getMessage());
+                }
+            }
+            //if not null
+            if(timing != null){
+                for (int p = 0; p < pNames.length; p++) {
+                    // only add to available timings if the user wants to be reminded for that prayer
+                    if(prayerOfDay.charAt(p) == '1') {
+                        String pName = pNames[p];
+                        int pID = stringIDs[p];
+                        GregorianCalendar jCal = timing.get(pName);
+                        //if the timing was available
+                        if (jCal != null) {
+                            jCal.add(GregorianCalendar.MINUTE, modifier);
+                            availableTimings.add(new TargetTime(context.getString(pID), jCal));
+                        }
+                    }
                 }
             }
         }
@@ -219,7 +223,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         //progress to available timings until the next jamaat that needs an alarm is found
         for( int i = 0; i < availableTimings.size(); i++){
             // if gCalToday is before a timing and we are interested in an alarm for it
-            if (gCalToday.before(availableTimings.get(i).getCal())) {
+            if (gCalNow.before(availableTimings.get(i).getCal())) {
                 // return this time as the next target time
                 return availableTimings.get(i);
             }
