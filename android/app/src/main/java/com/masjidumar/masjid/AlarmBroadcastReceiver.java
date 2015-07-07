@@ -30,6 +30,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public final static String CACHEDIR_EXTRA = "com.masjidumar.masjid.CACHEDIR_FILE";
     public final static String ALARMPRAYER_EXTRA = "com.masjidumar.masjid.ALARM_PRAYER";
     public final static String RINGERSTATE_EXTRA = "com.masjidumar.masjid.RINGER_STATE";
+    public final static String SETSTATE_EXTRA = "com.masjidumar.masjid.SET_STATE";
 
     public final static int ALARM_ID = 787;
     public final static int REVERT_ALARM_ID = 778;
@@ -48,11 +49,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             int prevAudioState = audioManager.getRingerMode();
 
-            /* set the alarm to revert the audio state after some time */
-            setRevertAlarm(context, prevAudioState);
-
             /* Set the device audio state to new state */
-            int state = AudioManager.RINGER_MODE_NORMAL;
+            int setAudioState = AudioManager.RINGER_MODE_NORMAL;
             String audioState = sP.getString(SettingsActivity.SettingsFragment.AUDIO_STATE_KEY,
                     context.getString(R.string.audio_state_default));
             String[] stateStrings = context.getResources().getStringArray(R.array.audio_state_entries);
@@ -62,13 +60,15 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 //Normal = 2
                 for(int i = 0; i < stateStrings.length; i++){
                     if(audioState.equals(stateStrings[i])){
-                        state = i;
+                        setAudioState = i;
                         break;
                     }
                 }
             }
-            audioManager.setRingerMode(state);
+            audioManager.setRingerMode(setAudioState);
 
+            /* set the alarm to revert the audio state after some time */
+            setRevertAlarm(context, prevAudioState, setAudioState);
             /* Now make the notification */
             // get the title string
             String notifTitle = context.getString(R.string.jamaat_time);
@@ -128,13 +128,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void setRevertAlarm(Context context, int audioState){
+    private void setRevertAlarm(Context context, int prevAudioState, int setAudioState){
         //get preferences
         SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(context);
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RevertStateBroadcastReceiver.class);
-        intent.putExtra(RINGERSTATE_EXTRA, audioState);
+        intent.putExtra(RINGERSTATE_EXTRA, prevAudioState);
+        intent.putExtra(SETSTATE_EXTRA, setAudioState);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, REVERT_ALARM_ID, intent, Intent.FILL_IN_DATA | PendingIntent.FLAG_CANCEL_CURRENT);
 
         //get current time

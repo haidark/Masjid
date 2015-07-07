@@ -20,13 +20,15 @@ public class RevertStateBroadcastReceiver extends BroadcastReceiver {
         //extract the extras from the intent
         Bundle extrasBundle = intent.getExtras();
         /* Reset the devices audio state */
-        if(extrasBundle.containsKey(AlarmBroadcastReceiver.RINGERSTATE_EXTRA)) {
-            int audioState = intent.getIntExtra(AlarmBroadcastReceiver.RINGERSTATE_EXTRA, AudioManager.RINGER_MODE_NORMAL);
+        if(extrasBundle.containsKey(AlarmBroadcastReceiver.RINGERSTATE_EXTRA) &&
+                extrasBundle.containsKey(AlarmBroadcastReceiver.SETSTATE_EXTRA)) {
+            int prevAudioState = intent.getIntExtra(AlarmBroadcastReceiver.RINGERSTATE_EXTRA, AudioManager.RINGER_MODE_NORMAL);
+            int setAudioState = intent.getIntExtra(AlarmBroadcastReceiver.SETSTATE_EXTRA, AudioManager.RINGER_MODE_NORMAL);
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             //If the user has not changed the audio state from the state it was before the
             // alarm triggered, then revert it
-            if(audioManager.getRingerMode() == audioState) {
-                audioManager.setRingerMode(audioState);
+            if(audioManager.getRingerMode() == setAudioState) {
+                audioManager.setRingerMode(prevAudioState);
             }
         }
         // Gets an instance of the NotificationManager service
