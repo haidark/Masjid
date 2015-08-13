@@ -5,6 +5,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'Play';
 	src: url('../fonts/Play-Regular.eot');
@@ -12,11 +13,13 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 body {
 	background-color: #fff;
 	font-family: 'OpenSans';
 	margin: 0;
 }
+
 img {
 	border: 0;
 }
@@ -36,25 +39,45 @@ img {
 }
 
 /*------------------------------ HEADER ------------------------------*/
+
 #header {
 	background-color: #eee;
+
+	/*Extends the header bar along the enire top of the page*/
+	margin-left: -40em;
+	margin-right: -40em;
 }
+
 #header > div, #footer > div {
 	width: auto;
 	padding: 10px 20px;
 }
-/** Logo **/
+
+/* Logo */
+
 #header .logo {
 	float: left;
 	margin-right: 20px;
+	
+	/*Positions the logo so that it lines up with the time tables*/
+	margin-left: 40em;
+	margin-top: -1.5em;
 }
+
 #header .logo a {
 	background: url(../images/logo.png) no-repeat center top;
 	display: block;
 	height: 85px;
 	width: 100px;
 }
+
+/* Allows the banner to repeat across the top of the page*/
+.hbanner {
+	background-repeat: repeat-x;
+}
+
 /** Navigation **/
+
 #navigation {
 	display: inline-block;
 	list-style: none;
@@ -62,6 +85,7 @@ img {
 	padding-bottom: 10px;
 	padding-top: 10px;
 }
+
 #navigation ul {
 	float: left;
 	display: inline-block;
@@ -70,73 +94,149 @@ img {
 	padding: 0;
 	color:#FEFEFE;	
 }
+
 #navigation li {
 	float: left;
 	width:auto;
 	text-align:center;
 }
+
 #navigation li a {
-	color: #000000;
+	
+	/*Makes a border around the navigation links*/
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+
+	/*Change color from black to dark blue*/
+	color: #061296;
 	font-size: 20px;
 	line-height: 50px;
 	text-decoration: none;
 	margin-left:25px;
 	width:auto;
+
+	/*Makes a space between the border around the navigation links*/
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #navigation li a:hover {
-	color: #FFFF;
+	color: #FFFFFF;
 }
 
 /*--------------------------Timings Tables------------------------*/
+
 #adbox {	
 	padding-top: 25px;
 	padding-left: 50px;
-
 }
+
 /**Prayer Times**/
+
 #prayertimestable > table , th, td , tr , caption {	
 	border: 1px solid black;
 	padding:10px;
 	text-align:center;
 	font-size:1em;
+
+	/*Makes a curved border along the top right and left of the prayer times table*/
+	border-top-right-radius: 25px 25px;
+	border-top-left-radius: 25px 25px;
 }
-#prayertimestable{
+
+#prayertimestable {
 	border-collapse:collapse;
+
+	/*Positions the prayer table to the upper left of the center of the page*/
+	margin-top: 90px;
+	margin-left: 250px;
+
+	/*Makes the prayer table border pop out*/
+	border-style: groove;
 }
-#prayertimes{
+
+#prayertimes {
 	float: left;
 	clear: left;
+
+	/*Puts a space between the time tables and the news table*/
+	margin-left: -80px;
 }
 
 /**Jamaat Times**/
-#jamaattimestable {	
+
+#jamaattimestable /*A border around all the cells */ > table , th, td , tr , caption {	
 	border:1px solid black;
-	border-collapse:collapse;
+	font-size: 1em;
+	text-align: center;
+
+	/*Makes a curved border along the top right and left of the prayer times table*/
+	border-top-right-radius: 25px 25px;
+	border-top-left-radius: 25px 25px;
 }
+
+#jamaattimestable  {	
+	border-collapse:collapse;
+	margin-top: 250px;
+	border-style: groove;
+	margin-left: -510px;
+}
+
 #jamaattimes {
 	float: left;
 	clear: right;
 	margin-left: 10px;
 }
 
-#jummah{
+#jummah {
 	padding-top: 25px;
-	padding-left: 100px;
+	padding-left: 90px;
 	padding-bottom: 25px;	
 	color:000000;
 	clear: both;
 	float: left;
+
+	/*Added a text shadow to give style to jummah text*/
+	text-shadow: 2px 2px 0 #08707E, -2px 2px 0 #08707E, 2px -2px 0 #08707E, -2px -2px 0 #08707E;
 }
 
 
 /*------------------------------ CONTENTS ------------------------------*/
 #contents {
 	clear: both;
-	width: 635px;
+	width: 100%;
+	padding-right: 350px;
 	padding-left: 150px;
 	padding-top: 50px;
 	padding-bottom: 50px;
+}
+
+/*The next three tags control the news table*/
+
+#contentstable > table, th, td , tr , caption {
+	/*Makes a border around all cells*/
+	border: 1px solid black;
+}
+
+#contentstable {
+
+	/*Positions the news table to the right of the page*/
+	border-collapse: collapse;
+	margin-left: 690px;
+	margin-right: -100px;
+	margin-top: -518px;
+
+	/*Sets the size of news table*/
+	width: 25%;
+
+	/*Makes the border pop out*/
+	border-style: groove;
+}
+
+#contentstable caption :hover {
+
+	/*Makes the color of the news table change to white when navigating to the news page*/
+	color: #FFFFFF;
 }
 
 #title, #time {
@@ -146,16 +246,15 @@ img {
 	margin: 0;
 }
 
-#text{
+#text {
 	clear: left;
 	margin-top: 50px;
 }
 
-#tagline{
+#tagline {
 	padding-left: 35px;
 	clear: left;
 }
-
 
 h1 {
 	color: #000000;
@@ -163,22 +262,22 @@ h1 {
 	font-weight: normal;
 	line-height: 30px;
 	margin: 0 0 30px;
-	
 }
+
 h2 , b {
 	color: #000000;
-	font-size: 24px;
+	font-size: 55px;
 	font-weight: normal;
 	line-height: 24px;	
 }
-h2 {
 
-}
 p {
 	color: #000000;
 	font-size: 16px;
-	line-height: 24px;	
+	line-height: 30px;
+	margin-right: 100px;	
 }
+
 p a {
 	color: #585858;	
 }
@@ -200,9 +299,33 @@ p a {
 	margin-right: 20px;
 	text-align: center;
 }
+
+/*Controls the title of the news post. Parameters were taken from h1*/
+#tagline h3 {
+	color: #000000;
+	font-size: 30px;
+	font-weight: normal;
+	line-height: 30px;
+	margin: 0 0 30px;
+	margin-left: 12em;
+	margin-top: 0em;
+}
+
+/*Controls the date of the post. Parameters were taken from h1*/
+#tagline h4 {
+	color: #000000;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 30px;
+	margin: 0 0 30px;
+	margin-left: 23em;
+	margin-top: 1em;
+}
+
 .date p {
 	margin: 12px 0 0;
 }
+
 .date p span {
 	font-size: 30px;
 	margin-bottom: 10px;
@@ -210,7 +333,9 @@ p a {
 	margin-top:10px;
 	width:20px
 }
+
 /** main **/
+
 .main {
 	float: left;
 	background: url(../images/divider.png) repeat-y right top;
@@ -218,52 +343,64 @@ p a {
 	width: 620px;
 	padding-right: 24px;
 }
+
 .main h1, .sidebar h1 {
 	margin-left:100px;
 	top: 20px;
 }
+
 .main h2 {
 	display: block;
 	font-size: 25px;
 	margin-left:150px;
 	margin-top:50px;
 }
+
 .main p {
 	margin-top:50px;
 	text-align:center;
 	margin-left:50px;
 }
+
 #newsHead {
 	margin: 0;
 	padding: 0;
 }
+
 /** sidebar **/
+
 .sidebar {
 	float: left;
 	min-height: 848px;
 	width: 300px;
 	margin-left: 20px;
 }
+
 .sidebar ul, .news {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
+
 .news li {	
 	padding: 24px 30px 0 100px;
 	position: relative;
 }
+
 .news li .date {
 	float: none;
 	position: absolute;
 	left: 0;
 	top: 30px;
 }
+
 .news li > p span, .post > span {
 	display: block;
 	text-align: right;
 }
+
 /*------------------------------ FOOTER ------------------------------*/
+
 #footer {
 	background-color: #eee;
 }
@@ -273,4 +410,9 @@ p a {
 	line-height: 4px;
 	padding-left: 10px;
 	text-align:left;
+}
+
+/*Allows banner to repeat across the bottom of the page*/
+.fbanner {
+	background-repeat: repeat-x;
 }
