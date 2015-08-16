@@ -1,21 +1,28 @@
-<div class="wrap">
-<div id="header">
-	<div class="logo"> <a href="index.php"></a> </div>
-	<ul id="navigation">
-	<li> <a href="index.php">Home</a> </li>
-	<li> <a href="prayer.htm">Prayer Times(Year)</a> </li>
-	<li> <a href="getMonth.php">Prayer Times(Month)</a> </li>
-	<li><a href="news.php">News</a></li>
-	<?php
-		if($loggedin){
-			echo "<li> <a href=\"newpost.php\">New Post</a> </li>";
-			echo "<li> <a href=\"gentimes.php\">Generate Times</a> </li>";
-			echo "<li> <a href=\"gentimes_new.php\">Generate Times New</a> </li>";
-			echo "<li> <a href=\"setjummah.php\">Set Jummah</a> </li>";
-			echo "<li> <a href=\"logout.php\">Logout</a> </li>";
-		} else{
-			echo "<li> <a href=\"login.php\">Login</a> </li>";
-		}
-	?>
-	</ul>
-</div>
+<!--Added to set a width for page-->
+<div class="ep">
+	<!--Image for header banner-->
+	<div class="hbanner"><img src="https://s-media-cache-ak0.pinimg.com/236x/ba/b6/31/bab631ca056d35f89b8f96160f6f4277.jpg"/></div>
+	<div class="wrap">
+		<div id="header">
+			<div class="logo"> <a href="index.php"></a> </div>
+			<ul id="navigation">
+				<li> <a href="index.php">Home</a> </li>
+				<li> <a href="prayer.htm">Prayer Times(Year)</a> </li>
+				<li> <a href="getMonth.php">Prayer Times(Month)</a> </li>
+				<li><a href="news.php">News</a></li>
+			<?php
+				if($loggedin){
+					echo "<li> <a href=\"newpost.php\">New Post</a> </li>";
+					echo "<li> <a href=\"gentimes.php\">Generate Times</a> </li>";
+					echo "<li> <a href=\"gentimes_new.php\">Generate Times New</a> </li>";
+					echo "<li> <a href=\"setjummah.php\">Set Jummah</a> </li>";
+					echo "<li> <a href=\"logout.php\">Logout</a> </li>";
+				} 
+				else{
+					echo "<li> <a href=\"login.php\">Login</a> </li>";
+					}
+			?>
+			</ul>
+		</div>
+	<!--Forgot to add a closing div tag for wrap class-->
+	</div>
