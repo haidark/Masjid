@@ -3,134 +3,186 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg"
+    android:background="@drawable/background"
     android:id="@+id/mainActivity">
 
     <TableLayout
         android:id="@+id/timingsTable"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0, 1">
+        android:stretchColumns="0, 1"
+        android:layout_marginTop="5dp"
+        style="@style/AlertDialog.AppCompat"
+        android:gravity="center_horizontal">
 
         <!--- Alarm Row -->
         <TableRow
             android:id="@+id/alarmRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:layout_margin="10dp">
 
             <TextView android:id="@+id/nextAlarm"
-                android:layout_span="12"/>
+                android:layout_span="12"
+                android:layout_gravity="center"
+                android:textSize="18sp" />
         </TableRow>
 
         <!--- Header Row -->
         <TableRow
             android:id="@+id/headerRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="10dp">
 
             <Button android:id="@+id/pickDateButton"
                 android:onClick="pickDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
 
             <TextView  android:id="@+id/iqamahText"
-                android:text="@string/jamaat_time"/>
+                android:text="@string/jamaat_time"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
         </TableRow>
 
         <!--- Fajr Row -->
         <TableRow
             android:id="@+id/fajrRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:background="#a25b4201"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/fajrCheck"
-                android:text="@string/fajr" />
+                android:text="@string/fajr"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
             <TextView
-                android:id="@+id/fajrTime" />
+                android:id="@+id/fajrTime"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:textSize="22sp" />
         </TableRow>
 
         <!--- Sunrise Row -->
         <TableRow
             android:id="@+id/sunriseRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:background="#a25b4201"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/sunriseCheck"
-                android:text="@string/sunrise" />
+                android:text="@string/sunrise"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
             <TextView
-                android:id="@+id/sunriseTime" />
+                android:id="@+id/sunriseTime"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
         </TableRow>
 
         <!--- Dhuhr Row -->
         <TableRow
             android:id="@+id/dhuhrRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:background="#a25b4201"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/dhuhrCheck"
-                android:text="@string/dhuhr" />
+                android:text="@string/dhuhr"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
             <TextView
-                android:id="@+id/dhuhrTime" />
+                android:id="@+id/dhuhrTime"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
         </TableRow>
 
         <!--- Asr Row -->
         <TableRow
             android:id="@+id/asrRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:background="#a25b4201"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/asrCheck"
-                android:text="@string/asr" />
+                android:text="@string/asr"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/asrTime" />
+                android:id="@+id/asrTime"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
         </TableRow>
 
         <!--- Maghrib Row -->
         <TableRow
             android:id="@+id/maghribRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:background="#a25b4201"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/maghribCheck"
-                android:text="@string/maghrib" />
+                android:text="@string/maghrib"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
             <TextView
-                android:id="@+id/maghribTime"/>
+                android:id="@+id/maghribTime"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
         </TableRow>
 
         <!--- Isha Row -->
         <TableRow
             android:id="@+id/ishaRow"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:background="#a25b4201"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/ishaCheck"
-                android:text="@string/isha" />
+                android:text="@string/isha"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
             <TextView
-                android:id="@+id/ishaTime" />
+                android:id="@+id/ishaTime"
+                android:layout_gravity="center"
+                android:textSize="22sp" />
         </TableRow>
     </TableLayout>
 
     <TextView
         android:id="@+id/version"
         android:text="@string/version"
-        android:padding="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </LinearLayout>
