@@ -322,7 +322,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="today_date">Today</string>
     <string name="tue">T</string>
-    <string name="version">Version: 0.0.27</string>
+    <string name="version">Version: 0.0.28</string>
     <string name="wed">W</string>
     <string name="weekday_default">1111111</string>
     <string name="weekday_title">Days of the week</string>
