@@ -74,6 +74,11 @@
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
     <color name="background_material_light">#ffeeeeee</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="black_alpha">#000000</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -88,6 +93,7 @@
     <color name="dim_foreground_material_light">#ff323232</color>
     <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <color name="drk_btn">#a25b4201</color>
     <color name="header">#4e342e</color>
     <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
@@ -98,6 +104,7 @@
     <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="inactive">#a2978860</color>
+    <color name="lgt_btn">#a2978860</color>
     <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
