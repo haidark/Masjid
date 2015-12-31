@@ -25,7 +25,9 @@
             <TextView android:id="@+id/nextAlarm"
                 android:layout_span="12"
                 android:layout_gravity="center"
-                android:textSize="18sp" />
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </TableRow>
 
         <!--- Header Row -->
@@ -34,19 +36,24 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:layout_margin="10dp">
+            android:layout_margin="5dp"
+            android:onClick="pickDate"
+            android:background="@color/header"
+            android:padding="10dp">
 
-            <Button android:id="@+id/pickDateButton"
-                android:onClick="pickDate"
+            <TextView android:id="@+id/pickDateButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:textSize="22sp"
+                android:textColor="#ffffff" />
 
 
             <TextView  android:id="@+id/iqamahText"
                 android:text="@string/jamaat_time"
                 android:layout_gravity="center"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:textColor="#ffffff" />
         </TableRow>
 
         <!--- Fajr Row -->
@@ -56,8 +63,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_margin="5dp"
-            android:background="#a25b4201"
-            android:padding="10dp">
+            android:background="#a2978860"
+            android:padding="10dp"
+            android:onClick="toggleRow">
 
             <TextView
                 android:id="@+id/fajrCheck"
@@ -78,8 +86,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_margin="5dp"
-            android:background="#a25b4201"
-            android:padding="10dp">
+            android:background="#a2978860"
+            android:padding="10dp"
+            android:onClick="toggleRow">
 
             <TextView
                 android:id="@+id/sunriseCheck"
@@ -99,8 +108,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_margin="5dp"
-            android:background="#a25b4201"
-            android:padding="10dp">
+            android:background="#a2978860"
+            android:padding="10dp"
+            android:onClick="toggleRow">
 
             <TextView
                 android:id="@+id/dhuhrCheck"
@@ -120,8 +130,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_margin="5dp"
-            android:background="#a25b4201"
-            android:padding="10dp">
+            android:background="#a2978860"
+            android:padding="10dp"
+            android:onClick="toggleRow">
 
             <TextView
                 android:id="@+id/asrCheck"
@@ -142,8 +153,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_margin="5dp"
-            android:background="#a25b4201"
-            android:padding="10dp">
+            android:background="#a2978860"
+            android:padding="10dp"
+            android:onClick="toggleRow">
 
             <TextView
                 android:id="@+id/maghribCheck"
@@ -163,8 +175,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_margin="5dp"
-            android:background="#a25b4201"
-            android:padding="10dp">
+            android:background="#a2978860"
+            android:padding="10dp"
+            android:onClick="toggleRow">
 
             <TextView
                 android:id="@+id/ishaCheck"

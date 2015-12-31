@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
     int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr,
             R.string.maghrib, R.string.isha};
+
+    int[] rowIDs = {R.id.fajrRow, R.id.sunriseRow, R.id.dhuhrRow, R.id.asrRow, R.id.maghribRow,
+            R.id.ishaRow};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
     public void updateTimings(){
         updateTask = new UpdateTimingsXMLTask();
         updateTask.execute(pickedDate);
+        //set row colors according to reminder settings for the picked Date
+        setRowColors();
     }
 
     private class UpdateAlarmTask extends AsyncTask<Void, Void, TargetTime>{
@@ -267,14 +273,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayTimings(HashMap<String, GregorianCalendar> timings){
         //format the date
-        SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
+        SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
         GregorianCalendar gCal = pickedDate;
         format.setCalendar(gCal);
         String pickedDateStr = format.format(gCal.getTime());
-        Button buttonView;
+        TextView pickDateView;
         //display date
-        buttonView = (Button) findViewById(R.id.pickDateButton);
-        buttonView.setText(pickedDateStr);
+        pickDateView = (TextView) findViewById(R.id.pickDateButton);
+        pickDateView.setText(pickedDateStr);
 
         //Only update views if some timings were available
         // if no timings are available, Toast the user to let them know it failed
@@ -354,10 +360,45 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getFragmentManager(), "DayDatePicker");
     }
 
+    public void toggleRow(View v){
+        //Toast.makeText(this, v.getId()+" ", Toast.LENGTH_LONG).show();
+    }
+
     /* Sets the picked Date to today */
     public void setDateToday(){
         pickedDate = new GregorianCalendar();
         updateTimings();
+    }
+
+    public void setRowColors(){
+        SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(this);
+        // reset every color to inactive
+        for( int id : rowIDs){
+            TableRow tR = (TableRow) findViewById(id);
+            tR.setBackgroundColor(getResources().getColor(R.color.inactive));
+        }
+
+        // Only color rows if the user has reminders enabled
+        if(sP.getBoolean(SettingsActivity.SettingsFragment.STATE_ENABLE_KEY, true)) {
+            //first check day of the week
+            int weekDay = pickedDate.get(GregorianCalendar.DAY_OF_WEEK);
+            //get the days of the week the user wants to be reminded for
+            String daysOfWeek = sP.getString(SettingsActivity.SettingsFragment.WEEKDAY_SELECTION_KEY,
+                    getString(R.string.weekday_default));
+            // SUNDAY == 1 -- SATURDAY == 7
+            if(daysOfWeek.charAt(weekDay-1) == '1'){
+                //get the prayers of the day the user wants to be reminded for
+                String prayerOfDay = sP.getString(SettingsActivity.SettingsFragment.PRAYER_SELECTION_KEY,
+                        getString(R.string.prayer_sel_default));
+                for(int i = 0; i < rowIDs.length; i++){
+                    if(prayerOfDay.charAt(i) == '1'){
+                        TableRow tR = (TableRow) findViewById(rowIDs[i]);
+                        tR.setBackgroundColor(getResources().getColor(R.color.active));
+                    }
+                }
+            }
+
+        }
     }
 
     public void setAlarm(){

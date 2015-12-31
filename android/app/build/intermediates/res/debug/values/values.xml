@@ -65,6 +65,11 @@
     <color name="abc_search_url_text_selected">@android:color/black</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="active">#a25b4201</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="background_floating_material_dark">#ff424242</color>
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
@@ -81,10 +86,20 @@
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="header">#4e342e</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="inactive">#a2978860</color>
+    <!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
     <color name="material_blue_grey_800">#ff37474f</color>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="active">#a25b4201</color>
+    <color name="inactive">#a2978860</color>
+    <color name="header">#4e342e</color>
+</resources>
