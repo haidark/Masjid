@@ -8,6 +8,7 @@ int anim abc_slide_in_bottom 0x7f050006
 int anim abc_slide_in_top 0x7f050007
 int anim abc_slide_out_bottom 0x7f050008
 int anim abc_slide_out_top 0x7f050009
+int anim anim_button 0x7f05000a
 int array audio_state_entries 0x7f0c0000
 int array prayer_sel_entries 0x7f0c0001
 int array time_before_entries 0x7f0c0002

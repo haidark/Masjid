@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -356,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
 
     /* On-Click function for picking a date, creates a datepicker fragement */
     public void pickDate(View v){
+        v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_button));
         DialogFragment newFragment = DatePickerFragment.newInstance(onDateSetListener);
         newFragment.show(getFragmentManager(), "DayDatePicker");
     }

@@ -291,7 +291,7 @@
     <string name="geolocation_title">Geolocation</string>
     <string name="isha">Isha</string>
     <string name="jamaat_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
-    <string name="jamaat_time">Jamaat Time</string>
+    <string name="jamaat_time">Iqamah Time</string>
     <string name="maghrib">Maghrib</string>
     <string name="masjid_unavailable">Unable to load timings for this masjid.</string>
     <string name="mon">M</string>

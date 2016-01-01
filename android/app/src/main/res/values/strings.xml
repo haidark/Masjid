@@ -17,7 +17,7 @@
     <string name="downloading_masjid">Downloading timings for Masjid Umar</string>
 
     <!-- Notification Strings -->
-    <string name="jamaat_time">Jamaat Time</string>
+    <string name="jamaat_time">Iqamah Time</string>
     <string name="notification_text">Your device is set to</string>
 
     <!-- Prayer Name Strings -->
@@ -125,6 +125,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.0.28</string>
+    <string name="version">Version: 0.0.29</string>
 
 </resources>
