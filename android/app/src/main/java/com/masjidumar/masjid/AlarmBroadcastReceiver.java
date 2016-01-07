@@ -36,6 +36,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public final static int REVERT_ALARM_ID = 778;
 
     public final static int NOTIFY_ID = 878;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         //extract the extras from the intent
@@ -69,15 +70,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
             /* set the alarm to revert the audio state after some time */
             setRevertAlarm(context, prevAudioState, setAudioState);
+
             /* Now make the notification */
             // get the title string
-            String notifTitle = context.getString(R.string.jamaat_time);
+            String notifTitle = context.getString(R.string.notification_title);
             if (extrasBundle.containsKey(ALARMPRAYER_EXTRA)) {
                 notifTitle = intent.getStringExtra(ALARMPRAYER_EXTRA)
                         + " " + notifTitle;
             }
             // get the text string
-            String notifText = context.getString(R.string.notification_text);
+            String notifText = context.getString(R.string.notification_start_text);
             notifText = notifText +": "+ audioState;
 
             //Define sound URI
@@ -86,10 +88,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             //make a notification
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.notification_template_icon_bg)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(notifTitle)
                             .setContentText(notifText)
-                            .setOngoing(true)
                             .setSound(soundUri);
 
             //Set the notification to open the App when clicked

@@ -1,68 +1,39 @@
 package com.masjidumar.masjid;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.provider.DocumentsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TableRow;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
-import org.xml.sax.InputSource;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Locale;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -71,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
     // Cal with date picked by user to show
     static GregorianCalendar pickedDate;
     UpdateAlarmTask alarmTask;
-    UpdateTimingsXMLTask updateTask;
-    DownloadTimingsXMLTask downloadTask;
+    UpdateTimingsXMLTask updateXMLTask;
+    DownloadTimingsXMLTask downloadXMLTask;
+    DownloadNewsTask downloadNewsTask;
 
     //prayer names
     String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
@@ -91,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //set the picked date to today
-        setDateToday();
+        today_button();
         //initialize progress dialog
         progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setIndeterminate(true);
@@ -103,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //set the alarm if enabled
         setAlarm();
+        setNews();
     }
 
     @Override
@@ -113,11 +86,14 @@ public class MainActivity extends AppCompatActivity {
         if(alarmTask != null){
             alarmTask.cancel(true);
         }
-        if(updateTask != null){
-            updateTask.cancel(true);
+        if(updateXMLTask != null){
+            updateXMLTask.cancel(true);
         }
-        if(downloadTask != null){
-            downloadTask.cancel(true);
+        if(downloadXMLTask != null){
+            downloadXMLTask.cancel(true);
+        }
+        if( downloadNewsTask != null){
+            downloadNewsTask.cancel(true);
         }
     }
 
@@ -135,10 +111,10 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
             case R.id.action_today:
-                setDateToday();
+                today_button();
                 return true;
             case R.id.action_refresh:
-                refreshTimings();
+                refresh_button();
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
@@ -149,14 +125,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void refreshTimings(){
-        downloadTask = new DownloadTimingsXMLTask();
-        downloadTask.execute(pickedDate);
+    public void refresh_button(){
+        downloadXMLTask = new DownloadTimingsXMLTask();
+        downloadXMLTask.execute(pickedDate);
+        //redownload the latest news from the website
+        setNews();
     }
 
     public void updateTimings(){
-        updateTask = new UpdateTimingsXMLTask();
-        updateTask.execute(pickedDate);
+        updateXMLTask = new UpdateTimingsXMLTask();
+        updateXMLTask.execute(pickedDate);
         //set row colors according to reminder settings for the picked Date
         setRowColors();
     }
@@ -168,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
             //Set the Alarm
             AlarmBroadcastReceiver alarmBR = new AlarmBroadcastReceiver();
             //get target time
-
             TargetTime targetTime = alarmBR.getTargetTime(getApplicationContext(), urlStr, getCacheDir());
+
             //test Alarm
             //targetTime = new TargetTime("test", new GregorianCalendar());
             // set the next alarm
@@ -218,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 return new TimingsParser().updateXMLTimings(getCacheDir(), Params[0]);
             } catch(IOException e){
-                Log.w("updateTask:", e.getMessage());
+                Log.w("updateXMLTask:", e.getMessage());
                 // if we fail to find the saved XML Document, pass the calendar object to PostExecute
                 HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
                 timings.put("fileNotFound", Params[0]);
@@ -367,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Sets the picked Date to today */
-    public void setDateToday(){
+    public void today_button(){
         pickedDate = new GregorianCalendar();
         updateTimings();
     }
@@ -375,8 +353,9 @@ public class MainActivity extends AppCompatActivity {
     public void setRowColors(){
         SharedPreferences sP = PreferenceManager.getDefaultSharedPreferences(this);
         // reset every color to inactive
+        LinearLayout tR;
         for( int id : rowIDs){
-            TableRow tR = (TableRow) findViewById(id);
+            tR = (LinearLayout) findViewById(id);
             tR.setBackgroundColor(getResources().getColor(R.color.inactive));
         }
 
@@ -394,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
                         getString(R.string.prayer_sel_default));
                 for(int i = 0; i < rowIDs.length; i++){
                     if(prayerOfDay.charAt(i) == '1'){
-                        TableRow tR = (TableRow) findViewById(rowIDs[i]);
+                        tR = (LinearLayout) findViewById(rowIDs[i]);
                         tR.setBackgroundColor(getResources().getColor(R.color.active));
                     }
                 }
@@ -419,6 +398,79 @@ public class MainActivity extends AppCompatActivity {
             String nextText = getString(R.string.no_alarm);
             TextView nextAlarm = (TextView) findViewById(R.id.nextAlarm);
             nextAlarm.setText(nextText);
+        }
+    }
+
+    public void setNews(){
+        try {
+            URL url = new URL(getString(R.string.news_URL));
+            downloadNewsTask = new DownloadNewsTask();
+            downloadNewsTask.execute(url);
+        } catch( MalformedURLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private class DownloadNewsTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... urls){
+            InputStream input = null;
+            String fileText = null;
+            HttpURLConnection connection = null;
+            try {
+                URL url = urls[0];
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                // expect HTTP 200 OK, so we don't mistakenly save error report
+                // instead of the file
+                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    return "Server returned HTTP " + connection.getResponseCode()
+                            + " " + connection.getResponseMessage();
+                }
+
+
+                // download the file
+                input = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                fileText = sb.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                try {
+                    if (input != null)
+                        input.close();
+                } catch (IOException ignored) {
+                }
+
+                if (connection != null)
+                    connection.disconnect();
+            }
+            return fileText;
+        }
+
+        @Override
+        protected void onPostExecute(String fileText){
+            if( fileText != null) {
+                String lines[] = fileText.split("\\r?\\n");
+                String date = lines[0];
+                String title = lines[1];
+                String text = lines[2];
+
+                TextView newsTitle = (TextView) findViewById(R.id.newsTitle);
+                TextView newsDate = (TextView) findViewById(R.id.newsDate);
+                TextView newsText = (TextView) findViewById(R.id.newsText);
+                newsTitle.setText(title);
+                newsDate.setText(date);
+                newsText.setText(text);
+            }
         }
     }
 

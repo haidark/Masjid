@@ -8,17 +8,21 @@
 
     <!-- Placeholder Strings -->
     <string name="jamaat_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
+    <string name="news_URL">http://www.masjidumar.com/files/posts/9.htm</string>
 
     <!-- UI Strings -->
     <string name="pick_date">Pick Date</string>
     <string name="today_date">Today</string>
+    <string name="jamaat_time">Iqamah Time</string>
+    <string name="prayer_time">Prayer Time</string>
     <string name="next_alarm">Next alarm:</string>
     <string name="_for_">for</string>
-    <string name="downloading_masjid">Downloading timings for Masjid Umar</string>
+    <string name="downloading_masjid">Downloading...</string>
 
     <!-- Notification Strings -->
-    <string name="jamaat_time">Iqamah Time</string>
-    <string name="notification_text">Your device is set to</string>
+    <string name="notification_title">Masjid Audio State</string>
+    <string name="notification_start_text">Your device is set to</string>
+    <string name="notification_end_text">Your device audio state has been reset</string>
 
     <!-- Prayer Name Strings -->
     <string name="fajr">Fajr</string>
@@ -29,19 +33,19 @@
     <string name="isha">Isha</string>
 
     <!-- Error Message Strings -->
-    <string name="no_alarm">No reminders set.</string>
-    <string name="timings_unavailable">Some timings are unavailable for this date.</string>
-    <string name="masjid_unavailable">Unable to load timings for this masjid.</string>
-    <string name="download_failed">Download failed.</string>
+    <string name="no_alarm">No reminders set</string>
+    <string name="timings_unavailable">Some timings are unavailable for this date</string>
+    <string name="masjid_unavailable">Unable to load timings</string>
+    <string name="download_failed">Download failed</string>
     <string name="empty_time">--:-- --</string>
 
     <!-- Preferences Strings -->
         <!-- State Enable -->
-    <string name="state_enable_title">Prayer State</string>
-    <string name="state_enable_summary">Enable Prayer time audio state</string>
+    <string name="state_enable_title">Masjid Audio State</string>
+    <string name="state_enable_summary">Enable Masjid Audio State</string>
 
         <!-- Audio State Strings -->
-    <string name="audio_state">Device audio state during prayer:</string>
+    <string name="audio_state">Device audio state in the masjid:</string>
     <string name="audio_state_title">Choose an audio state:</string>
     <string-array name="audio_state_entries">
         <item>Silent</item>
@@ -51,8 +55,8 @@
     <string name="audio_state_default">Normal</string>
 
         <!-- Time Before Strings -->
-    <string name="time_before">Start Prayer State</string>
-    <string name="time_before_title">Minutes before Iqamah to start Prayer state</string>
+    <string name="time_before">Start Masjid Audio State</string>
+    <string name="time_before_title">Minutes before Iqamah to start Masjid Audio State</string>
     <string-array name="time_before_entries">
         <item>5 minutes</item>
         <item>10 minutes</item>
@@ -66,8 +70,8 @@
     <string name="time_before_default">10</string>
 
         <!-- Time Duration Strings -->
-    <string name="time_duration">End Prayer State</string>
-    <string name="time_duration_title">Minutes after Iqamah to end Prayer state</string>
+    <string name="time_duration">End Masjid Audio State</string>
+    <string name="time_duration_title">Minutes after Iqamah to end Masjid Audio State</string>
     <string-array name="time_duration_entries">
         <item>10 minutes</item>
         <item>15 minutes</item>
@@ -125,6 +129,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.0.29</string>
+    <string name="version">Version: 0.0.30</string>
 
 </resources>

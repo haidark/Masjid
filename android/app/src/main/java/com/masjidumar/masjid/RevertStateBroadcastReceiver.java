@@ -31,10 +31,26 @@ public class RevertStateBroadcastReceiver extends BroadcastReceiver {
                 audioManager.setRingerMode(prevAudioState);
             }
         }
+        String notifTitle = context.getString(R.string.notification_title);
+        String notifText = context.getString(R.string.notification_end_text);
+
+        //make a notification
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(notifTitle)
+                        .setContentText(notifText);
+
+        //Set the notification to open the App when clicked
+        Intent resultIntent = new Intent(context, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+
         // Gets an instance of the NotificationManager service
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        // cancel the ongoing notification
-        mNotifyMgr.cancel(AlarmBroadcastReceiver.NOTIFY_ID);
+        // override old notification or create a new one to let user know audio state has been reverted
+        mNotifyMgr.notify(AlarmBroadcastReceiver.NOTIFY_ID, mBuilder.build());
     }
 }

@@ -63,6 +63,7 @@ public class ToggleBarPreference extends Preference {
 
     @Override
     protected View onCreateView( ViewGroup parent ) {
+        super.onCreateView(parent);
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = li.inflate( R.layout.toggle_bar, parent, false);
 
@@ -77,10 +78,11 @@ public class ToggleBarPreference extends Preference {
             tB.setText(mEntries[i]);
             int id = offset+i;
             tB.setId(id);
+            //tB.setPadding(2,2,2,2);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.width = 125;
+            layoutParams.width = 130;
             if(i == 0){
                 //layoutParams.addRule(RelativeLayout.START_OF, id+1);
             }
