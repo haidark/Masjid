@@ -48,7 +48,7 @@
         android:defaultValue="@string/prayer_sel_default"
         app:entries="@array/prayer_sel_entries"/>
 
-    <PreferenceScreen
+<!--   <PreferenceScreen
         android:key="advanced_settings"
         android:title="@string/advanced_settings"
         android:persistent="false">
@@ -57,6 +57,6 @@
             android:title="@string/geolocation_title"
             android:summary="@string/geolocation_summary"
             android:defaultValue="true" />
-    </PreferenceScreen>
+    </PreferenceScreen> -->
 
 </PreferenceScreen>

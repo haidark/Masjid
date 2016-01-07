@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     UpdateTimingsXMLTask updateXMLTask;
     DownloadTimingsXMLTask downloadXMLTask;
     DownloadNewsTask downloadNewsTask;
-
+    //boolean to track state of timings (iqamah or prayer)
+    boolean timingsState; // true is iqamah, false is prayer
     //prayer names
     String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
     //view IDs
@@ -67,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         //initialize progress dialog
         progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setIndeterminate(true);
+        //initialize timing state boolean
+        //true --- iqamah timings displayed
+        //false --- Prayer timings displayed
+        timingsState = true;
 
     }
 
@@ -75,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //set the alarm if enabled
         setAlarm();
+        //set the news
         setNews();
+        //set row colors according to reminder settings for the picked Date
+        setRowColors();
     }
 
     @Override
@@ -132,17 +140,15 @@ public class MainActivity extends AppCompatActivity {
         setNews();
     }
 
-    public void updateTimings(){
+    public void updateTimings() {
         updateXMLTask = new UpdateTimingsXMLTask();
         updateXMLTask.execute(pickedDate);
-        //set row colors according to reminder settings for the picked Date
-        setRowColors();
     }
 
     private class UpdateAlarmTask extends AsyncTask<Void, Void, TargetTime>{
         @Override
         protected TargetTime doInBackground(Void... params) {
-            String urlStr = getString(R.string.jamaat_URL);
+            String urlStr = getString(R.string.iqamah_URL);
             //Set the Alarm
             AlarmBroadcastReceiver alarmBR = new AlarmBroadcastReceiver();
             //get target time
@@ -194,7 +200,14 @@ public class MainActivity extends AppCompatActivity {
         protected HashMap<String, GregorianCalendar> doInBackground(GregorianCalendar... Params){
             // Uses an instance of TimingsParser to return the saved xml document
             try {
-                return new TimingsParser().updateXMLTimings(getCacheDir(), Params[0]);
+                //Choose between iqamah or prayer timings
+                String cachedFileName;
+                if(timingsState){
+                    cachedFileName = getString(R.string.cached_iqamah_file);
+                } else{
+                    cachedFileName = getString(R.string.cached_prayer_file);
+                }
+                return new TimingsParser().updateXMLTimings(getCacheDir(), cachedFileName, Params[0]);
             } catch(IOException e){
                 Log.w("updateXMLTask:", e.getMessage());
                 // if we fail to find the saved XML Document, pass the calendar object to PostExecute
@@ -227,9 +240,18 @@ public class MainActivity extends AppCompatActivity {
         protected HashMap<String, GregorianCalendar> doInBackground(GregorianCalendar... Params){
             // Uses an instance of TimingsParser to download and save the XML file,
             // also returns the document
-            String xmlJURL = getString(R.string.jamaat_URL);
+
             try {
-                return new TimingsParser().downloadXMLTimings(xmlJURL, getCacheDir(), Params[0]);
+                String cachedFileName;
+                String URL;
+                if(timingsState){
+                    URL = getString(R.string.iqamah_URL);
+                    cachedFileName = getString(R.string.cached_iqamah_file);
+                } else{
+                    URL = getString(R.string.prayer_URL);
+                    cachedFileName = getString(R.string.cached_prayer_file);
+                }
+                return new TimingsParser().downloadXMLTimings(URL, getCacheDir(), cachedFileName, Params[0]);
             } catch(IOException e){
                 Log.w("DownloadTask:", e.getMessage());
                 return null;
@@ -241,12 +263,10 @@ public class MainActivity extends AppCompatActivity {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            if(timings != null) {
-                displayTimings(timings);
-            } else {
+            if(timings == null) {
                 Toast.makeText(getApplicationContext(), getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
             }
-
+            displayTimings(timings);
         }
     }
 
@@ -264,8 +284,8 @@ public class MainActivity extends AppCompatActivity {
         //Only update views if some timings were available
         // if no timings are available, Toast the user to let them know it failed
         boolean noFailure = true;
+        TextView view;
         if(timings != null) {
-            TextView view;
             //SimpleDateFormat format = new SimpleDateFormat("H:mm", Locale.getDefault());
             format = (SimpleDateFormat) SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
 
@@ -290,6 +310,10 @@ public class MainActivity extends AppCompatActivity {
             //set the next alarm if enabled
             setAlarm();
         } else{
+            for (int i = 0; i < pNames.length; i++) {
+                view = (TextView) findViewById(viewIDs[i]);
+                view.setText(R.string.empty_time);
+            }
             Toast.makeText(this, R.string.masjid_unavailable, Toast.LENGTH_LONG).show();
         }
     }
@@ -338,6 +362,20 @@ public class MainActivity extends AppCompatActivity {
         v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_button));
         DialogFragment newFragment = DatePickerFragment.newInstance(onDateSetListener);
         newFragment.show(getFragmentManager(), "DayDatePicker");
+    }
+
+    /* On-click function for toggling between iqamah and prayer timings*/
+    public void toggleTimings(View v){
+        timingsState = !timingsState;
+        v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_button));
+        TextView t = (TextView) v;
+        // if Iqamah timings
+        if(timingsState){
+            t.setText(R.string.iqaamah_time);
+        } else{ // if Prayer timings
+            t.setText(R.string.prayer_time);
+        }
+        updateTimings();
     }
 
     public void toggleRow(View v){
@@ -422,14 +460,11 @@ public class MainActivity extends AppCompatActivity {
                 URL url = urls[0];
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
-
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
                 if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    return "Server returned HTTP " + connection.getResponseCode()
-                            + " " + connection.getResponseMessage();
+                    return null;
                 }
-
 
                 // download the file
                 input = connection.getInputStream();
@@ -453,6 +488,7 @@ public class MainActivity extends AppCompatActivity {
                 if (connection != null)
                     connection.disconnect();
             }
+
             return fileText;
         }
 
@@ -460,16 +496,19 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String fileText){
             if( fileText != null) {
                 String lines[] = fileText.split("\\r?\\n");
-                String date = lines[0];
-                String title = lines[1];
-                String text = lines[2];
+                if( lines.length >= 3) {
+                    String date = lines[0];
+                    String title = lines[1];
+                    String text = lines[2];
 
-                TextView newsTitle = (TextView) findViewById(R.id.newsTitle);
-                TextView newsDate = (TextView) findViewById(R.id.newsDate);
-                TextView newsText = (TextView) findViewById(R.id.newsText);
-                newsTitle.setText(title);
-                newsDate.setText(date);
-                newsText.setText(text);
+                    TextView newsTitle = (TextView) findViewById(R.id.newsTitle);
+                    TextView newsDate = (TextView) findViewById(R.id.newsDate);
+                    TextView newsText = (TextView) findViewById(R.id.newsText);
+
+                    newsTitle.setText(title);
+                    newsDate.setText(date);
+                    newsText.setText(text);
+                }
             }
         }
     }

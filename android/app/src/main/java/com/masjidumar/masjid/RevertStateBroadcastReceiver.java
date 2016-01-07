@@ -37,7 +37,7 @@ public class RevertStateBroadcastReceiver extends BroadcastReceiver {
         //make a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_timer_off)
                         .setContentTitle(notifTitle)
                         .setContentText(notifText);
 

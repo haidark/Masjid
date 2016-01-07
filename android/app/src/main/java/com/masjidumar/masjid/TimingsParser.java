@@ -48,14 +48,14 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class TimingsParser {
 
-    public HashMap<String, GregorianCalendar> downloadXMLTimings(String urlStr, File cacheDir, GregorianCalendar pickedDate)
+    public HashMap<String, GregorianCalendar> downloadXMLTimings(String urlStr, File cacheDir, String cachedFileName, GregorianCalendar pickedDate)
         throws IOException{
         //Form the URL
         URL url = new URL(urlStr);
         InputStream urlStream = url.openStream();
         synchronized (this) {
             // save the file locally
-            OutputStream oStream = new FileOutputStream(new File(cacheDir, "jamaat_timings.xml"));
+            OutputStream oStream = new FileOutputStream(new File(cacheDir, cachedFileName));
 
             byte[] b = new byte[2048];
             int length;
@@ -67,14 +67,14 @@ public class TimingsParser {
             oStream.close();
             urlStream.close();
         }
-        return updateXMLTimings(cacheDir, pickedDate);
+        return updateXMLTimings(cacheDir, cachedFileName, pickedDate);
     }
 
-    public HashMap<String, GregorianCalendar> updateXMLTimings(File cacheDir, GregorianCalendar pickedDate)
+    public HashMap<String, GregorianCalendar> updateXMLTimings(File cacheDir, String cachedFileName, GregorianCalendar pickedDate)
             throws IOException{
         HashMap<String, GregorianCalendar> timings;
         synchronized (this) {
-            FileInputStream xmlStream = new FileInputStream(new File(cacheDir, "jamaat_timings.xml"));
+            FileInputStream xmlStream = new FileInputStream(new File(cacheDir, cachedFileName));
             timings = parseTimings(xmlStream, pickedDate);
             xmlStream.close();
         }

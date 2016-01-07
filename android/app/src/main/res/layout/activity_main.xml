@@ -6,40 +6,44 @@
     android:background="@drawable/background"
     android:id="@+id/mainActivity">
 
-    <!-- News Title Row -->
-    <TextView android:id="@+id/newsTitle"
-        android:layout_gravity="center"
-        android:textSize="14sp"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal" />
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/inactive"
+        android:padding="5dp"
+        android:layout_margin="10dp">
 
-    <!-- News Date Row -->
-    <TextView android:id="@+id/newsDate"
-        android:layout_gravity="center"
-        android:textSize="14sp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal" />
+        <!-- News Title Row -->
+        <TextView android:id="@+id/newsTitle"
+            android:layout_gravity="center"
+            android:textSize="22sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textStyle="bold" />
 
-    <!-- News Text Row -->
-    <TextView android:id="@+id/newsText"
-         android:layout_gravity="center"
-        android:textSize="14sp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp" />
+        <!-- News Date Row -->
+        <TextView android:id="@+id/newsDate"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:fillViewport="true">
+            <!-- News Text Row -->
+            <TextView android:id="@+id/newsText"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+    </LinearLayout>
+
 
     <!--- Alarm Row -->
     <TextView android:id="@+id/nextAlarm"
@@ -47,7 +51,11 @@
         android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp" />
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +82,7 @@
 
 
         <TextView  android:id="@+id/iqamahText"
-            android:text="@string/jamaat_time"
+            android:text="@string/iqaamah_time"
             android:layout_gravity="center"
             android:textSize="16sp"
             android:textColor="#ffffff"
@@ -91,7 +99,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:onClick="toggleTimings" />
     </LinearLayout>
 
     <!--- Fajr Row -->
