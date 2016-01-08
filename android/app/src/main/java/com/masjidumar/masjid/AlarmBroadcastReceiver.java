@@ -17,7 +17,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -155,7 +154,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public TargetTime getTargetTime(Context context, String urlStr, File cacheDir){
         String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
         int[] stringIDs = {R.string.fajr, R.string.sunrise, R.string.dhuhr, R.string.asr, R.string.maghrib, R.string.isha};
-        String cachedFileName = context.getString(R.string.cached_iqamah_file);
+        String cachedFileName = context.getString(R.string.iqamah_file);
         int modifier;
         int daysAhead = 7;
 
@@ -201,7 +200,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 try {
                     timing = new TimingsParser().downloadXMLTimings(urlStr, cacheDir, cachedFileName, gCalArray.get(i));
                 } catch (IOException ie){
-                    Log.w("getTargetTimeToday:", ie.getMessage());
+                    ie.printStackTrace();
                 }
             }
             //if not null

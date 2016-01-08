@@ -123,7 +123,7 @@ public class TimingsParser {
             jCal.setTime(format.parse(jTime));
             jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
-            Log.v("ParseXML:", "Got Fajr Time");
+            //Log.v("ParseXML:", "Got Fajr Time");
 
             //Sunrise
             pName="sunrise";
@@ -133,7 +133,7 @@ public class TimingsParser {
             jCal.setTime(format.parse(jTime));
             jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
-            Log.v("ParseXML:", "Got Sunrise Time");
+            //Log.v("ParseXML:", "Got Sunrise Time");
 
             //Dhuhr
             pName="dhuhr";
@@ -150,7 +150,7 @@ public class TimingsParser {
                 jCal.add(GregorianCalendar.HOUR, 12);
             }
             timings.put(pName, jCal);
-            Log.v("ParseXML:", "Got Dhuhr Time");
+            //Log.v("ParseXML:", "Got Dhuhr Time");
 
             //Asr
             pName="asr";
@@ -161,7 +161,7 @@ public class TimingsParser {
             jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
-            Log.v("ParseXML:", "Got Asr Time");
+            //Log.v("ParseXML:", "Got Asr Time");
 
             //Maghrib
             pName="maghrib";
@@ -172,7 +172,7 @@ public class TimingsParser {
             jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
-            Log.v("ParseXML:", "Got Maghrib Time");
+            //Log.v("ParseXML:", "Got Maghrib Time");
 
             //Isha
             pName="isha";
@@ -183,10 +183,10 @@ public class TimingsParser {
             jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
             timings.put(pName, jCal);
-            Log.v("ParseXML:", "Got Isha Time");
+            //Log.v("ParseXML:", "Got Isha Time");
 
         } catch (ParseException | XmlPullParserException | NoSuchFieldException e) {
-            Log.w("ParseXML:", e.getMessage());
+            e.printStackTrace();
         }
         return timings;
     }

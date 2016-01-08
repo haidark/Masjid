@@ -141,7 +141,7 @@ if($loggedin){
 	}	
 
 	//save jamaat xml file
-	$treej->save($spath.'jamaat_timings.xml');
+	$treej->save($spath.'iqamah_timings.xml');
 	//save prayer xml file
 	$treep->save($spath.'prayer_timings.xml');
 	

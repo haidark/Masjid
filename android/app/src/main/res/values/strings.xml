@@ -8,11 +8,10 @@
     <string name="news_title_empty">No News</string>
 
     <!-- Placeholder Strings -->
-    <string name="iqamah_URL">http://www.masjidumar.com/files/timings/jamaat_timings.xml</string>
-    <string name="cached_iqamah_file">iqamah_timings.xml</string>
-    <string name="prayer_URL">http://www.masjidumar.com/files/timings/prayer_timings.xml</string>
-    <string name="cached_prayer_file">prayer_timings.xml</string>
-    <string name="news_URL">http://www.masjidumar.com/files/posts/9.htm</string>
+    <string name="timings_URL">http://www.masjidumar.com/files/timings/</string>
+    <string name="iqamah_file">iqamah_timings.xml</string>
+    <string name="prayer_file">prayer_timings.xml</string>
+    <string name="news_URL">http://www.masjidumar.com/files/latest.htm</string>
 
     <!-- UI Strings -->
     <string name="pick_date">Pick Date</string>
@@ -133,6 +132,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.0.31</string>
+    <string name="version">Version: 0.0.32</string>
 
 </resources>

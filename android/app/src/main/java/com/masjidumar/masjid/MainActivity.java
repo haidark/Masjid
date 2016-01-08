@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     private class UpdateAlarmTask extends AsyncTask<Void, Void, TargetTime>{
         @Override
         protected TargetTime doInBackground(Void... params) {
-            String urlStr = getString(R.string.iqamah_URL);
+            String urlStr = getString(R.string.timings_URL)+getString(R.string.iqamah_file);
             //Set the Alarm
             AlarmBroadcastReceiver alarmBR = new AlarmBroadcastReceiver();
             //get target time
@@ -203,13 +202,12 @@ public class MainActivity extends AppCompatActivity {
                 //Choose between iqamah or prayer timings
                 String cachedFileName;
                 if(timingsState){
-                    cachedFileName = getString(R.string.cached_iqamah_file);
+                    cachedFileName = getString(R.string.iqamah_file);
                 } else{
-                    cachedFileName = getString(R.string.cached_prayer_file);
+                    cachedFileName = getString(R.string.prayer_file);
                 }
                 return new TimingsParser().updateXMLTimings(getCacheDir(), cachedFileName, Params[0]);
             } catch(IOException e){
-                Log.w("updateXMLTask:", e.getMessage());
                 // if we fail to find the saved XML Document, pass the calendar object to PostExecute
                 HashMap<String, GregorianCalendar> timings = new HashMap<String, GregorianCalendar>();
                 timings.put("fileNotFound", Params[0]);
@@ -243,17 +241,14 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 String cachedFileName;
-                String URL;
+                String URL = getString(R.string.timings_URL);
                 if(timingsState){
-                    URL = getString(R.string.iqamah_URL);
-                    cachedFileName = getString(R.string.cached_iqamah_file);
+                    cachedFileName = getString(R.string.iqamah_file);
                 } else{
-                    URL = getString(R.string.prayer_URL);
-                    cachedFileName = getString(R.string.cached_prayer_file);
+                    cachedFileName = getString(R.string.prayer_file);
                 }
-                return new TimingsParser().downloadXMLTimings(URL, getCacheDir(), cachedFileName, Params[0]);
+                return new TimingsParser().downloadXMLTimings(URL+cachedFileName, getCacheDir(), cachedFileName, Params[0]);
             } catch(IOException e){
-                Log.w("DownloadTask:", e.getMessage());
                 return null;
             }
         }
