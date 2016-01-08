@@ -29,7 +29,14 @@
 		$dir = "files/posts";
 		$filename = $dir."/".strval($newfilenum).".htm";
 		$file = fopen($filename, 'w');
-		fwrite($file, date("m-d-Y")."\n");
+		fwrite($file, date("m/d/Y")."\n");
+		fwrite($file, $_POST['title']."\n");
+		fwrite($file, $_POST['content']);
+		fclose($file);
+		// make a copy of the latest post for app users
+		$filename = "files/latest.htm";
+		$file = fopen($filename, 'w');
+		fwrite($file, date("m/d/Y")."\n");
 		fwrite($file, $_POST['title']."\n");
 		fwrite($file, $_POST['content']);
 		fclose($file);
