@@ -6,28 +6,28 @@
         jumboMode="false"
         revision="22.0.1"
         sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\debug\classes-dd0fdbf712f66a347bd6abd5d947df4db32f3155.jar" />
-    </item>
-    <item
-        jar="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\debug\classes-71c3ffd8162ec819d72829afe97b563941c64d5e.jar" />
+        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\release\classes-dd0fdbf712f66a347bd6abd5d947df4db32f3155.jar" />
     </item>
     <item
         jar="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-fa0e96db16ba23db8e3bf0a59f12b0bcaed6f1ef.jar" />
+        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\release\internal_impl-22.2.0-fa0e96db16ba23db8e3bf0a59f12b0bcaed6f1ef.jar" />
     </item>
     <item
         jar="C:\Users\Haidar\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-2d8d11dbfb52abda6bf68f3ca401b0a8266e7046.jar" />
+        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\release\support-annotations-22.2.0-2d8d11dbfb52abda6bf68f3ca401b0a8266e7046.jar" />
+    </item>
+    <item
+        jar="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Haidar\Documents\GitHub\Masjid\android\app\build\intermediates\pre-dexed\release\classes-71c3ffd8162ec819d72829afe97b563941c64d5e.jar" />
     </item>
 
 </items>
