@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<prayer>
+	<city>Kingston</city>
+	<country>Usa</country>
+	<website>www.IslamicFinder.org</website>
+	<date day="1" month="3" year="2016" week_day="Tuesday">
+		<fajr>5:15</fajr>
+		<sunrise>6:32</sunrise>
+		<dhuhr>12:09</dhuhr>
+		<asr>3:16</asr>
+		<maghrib>5:46</maghrib>
+		<isha>7:03</isha>
+	</date>
+	<date day="2" month="3" year="2016" week_day="Wednesday">
+		<fajr>5:13</fajr>
+		<sunrise>6:30</sunrise>
+		<dhuhr>12:09</dhuhr>
+		<asr>3:17</asr>
+		<maghrib>5:48</maghrib>
+		<isha>7:04</isha>
+	</date>
+	<date day="3" month="3" year="2016" week_day="Thursday">
+		<fajr>5:10</fajr>
+		<sunrise>6:27</sunrise>
+		<dhuhr>12:09</dhuhr>
+		<asr>3:18</asr>
+		<maghrib>5:50</maghrib>
+		<isha>7:07</isha>
+	</date>
+	<date day="4" month="3" year="2016" week_day="Friday">
+		<fajr>5:09</fajr>
+		<sunrise>6:25</sunrise>
+		<dhuhr>12:08</dhuhr>
+		<asr>3:19</asr>
+		<maghrib>5:51</maghrib>
+		<isha>7:08</isha>
+	</date>
+	<date day="5" month="3" year="2016" week_day="Saturday">
+		<fajr>5:07</fajr>
+		<sunrise>6:23</sunrise>
+		<dhuhr>12:08</dhuhr>
+		<asr>3:20</asr>
+		<maghrib>5:52</maghrib>
+		<isha>7:09</isha>
+	</date>
+	<date day="6" month="3" year="2016" week_day="Sunday">
+		<fajr>5:05</fajr>
+		<sunrise>6:22</sunrise>
+		<dhuhr>12:08</dhuhr>
+		<asr>3:21</asr>
+		<maghrib>5:54</maghrib>
+		<isha>7:10</isha>
+	</date>
+	<date day="7" month="3" year="2016" week_day="Monday">
+		<fajr>5:04</fajr>
+		<sunrise>6:20</sunrise>
+		<dhuhr>12:08</dhuhr>
+		<asr>3:21</asr>
+		<maghrib>5:55</maghrib>
+		<isha>7:11</isha>
+	</date>
+	<date day="8" month="3" year="2016" week_day="Tuesday">
+		<fajr>5:02</fajr>
+		<sunrise>6:19</sunrise>
+		<dhuhr>12:07</dhuhr>
+		<asr>3:22</asr>
+		<maghrib>5:56</maghrib>
+		<isha>7:13</isha>
+	</date>
+	<date day="9" month="3" year="2016" week_day="Wednesday">
+		<fajr>5:00</fajr>
+		<sunrise>6:17</sunrise>
+		<dhuhr>12:07</dhuhr>
+		<asr>3:23</asr>
+		<maghrib>5:57</maghrib>
+		<isha>7:14</isha>
+	</date>
+	<date day="10" month="3" year="2016" week_day="Thursday">
+		<fajr>4:59</fajr>
+		<sunrise>6:15</sunrise>
+		<dhuhr>12:07</dhuhr>
+		<asr>3:23</asr>
+		<maghrib>5:58</maghrib>
+		<isha>7:15</isha>
+	</date>
+	<date day="11" month="3" year="2016" week_day="Friday">
+		<fajr>4:57</fajr>
+		<sunrise>6:14</sunrise>
+		<dhuhr>12:07</dhuhr>
+		<asr>3:24</asr>
+		<maghrib>5:59</maghrib>
+		<isha>7:16</isha>
+	</date>
+	<date day="12" month="3" year="2016" week_day="Saturday">
+		<fajr>4:55</fajr>
+		<sunrise>6:12</sunrise>
+		<dhuhr>12:06</dhuhr>
+		<asr>3:25</asr>
+		<maghrib>6:00</maghrib>
+		<isha>7:17</isha>
+	</date>
+	<date day="13" month="3" year="2016" week_day="Sunday">
+		<fajr>5:54</fajr>
+		<sunrise>7:10</sunrise>
+		<dhuhr>1:06</dhuhr>
+		<asr>4:25</asr>
+		<maghrib>7:02</maghrib>
+		<isha>8:18</isha>
+	</date>
+	<date day="14" month="3" year="2016" week_day="Monday">
+		<fajr>5:52</fajr>
+		<sunrise>7:08</sunrise>
+		<dhuhr>1:06</dhuhr>
+		<asr>4:26</asr>
+		<maghrib>7:03</maghrib>
+		<isha>8:20</isha>
+	</date>
+	<date day="15" month="3" year="2016" week_day="Tuesday">
+		<fajr>5:50</fajr>
+		<sunrise>7:07</sunrise>
+		<dhuhr>1:05</dhuhr>
+		<asr>4:27</asr>
+		<maghrib>7:04</maghrib>
+		<isha>8:21</isha>
+	</date>
+	<date day="16" month="3" year="2016" week_day="Wednesday">
+		<fajr>5:48</fajr>
+		<sunrise>7:05</sunrise>
+		<dhuhr>1:05</dhuhr>
+		<asr>4:27</asr>
+		<maghrib>7:05</maghrib>
+		<isha>8:22</isha>
+	</date>
+	<date day="17" month="3" year="2016" week_day="Thursday">
+		<fajr>5:47</fajr>
+		<sunrise>7:03</sunrise>
+		<dhuhr>1:05</dhuhr>
+		<asr>4:28</asr>
+		<maghrib>7:06</maghrib>
+		<isha>8:23</isha>
+	</date>
+	<date day="18" month="3" year="2016" week_day="Friday">
+		<fajr>5:45</fajr>
+		<sunrise>7:02</sunrise>
+		<dhuhr>1:05</dhuhr>
+		<asr>4:29</asr>
+		<maghrib>7:07</maghrib>
+		<isha>8:25</isha>
+	</date>
+	<date day="19" month="3" year="2016" week_day="Saturday">
+		<fajr>5:43</fajr>
+		<sunrise>7:00</sunrise>
+		<dhuhr>1:04</dhuhr>
+		<asr>4:29</asr>
+		<maghrib>7:08</maghrib>
+		<isha>8:26</isha>
+	</date>
+	<date day="20" month="3" year="2016" week_day="Sunday">
+		<fajr>5:41</fajr>
+		<sunrise>6:58</sunrise>
+		<dhuhr>1:04</dhuhr>
+		<asr>4:30</asr>
+		<maghrib>7:10</maghrib>
+		<isha>8:27</isha>
+	</date>
+	<date day="21" month="3" year="2016" week_day="Monday">
+		<fajr>5:39</fajr>
+		<sunrise>6:57</sunrise>
+		<dhuhr>1:04</dhuhr>
+		<asr>4:30</asr>
+		<maghrib>7:11</maghrib>
+		<isha>8:28</isha>
+	</date>
+	<date day="22" month="3" year="2016" week_day="Tuesday">
+		<fajr>5:37</fajr>
+		<sunrise>6:55</sunrise>
+		<dhuhr>1:03</dhuhr>
+		<asr>4:31</asr>
+		<maghrib>7:12</maghrib>
+		<isha>8:29</isha>
+	</date>
+	<date day="23" month="3" year="2016" week_day="Wednesday">
+		<fajr>5:36</fajr>
+		<sunrise>6:53</sunrise>
+		<dhuhr>1:03</dhuhr>
+		<asr>4:31</asr>
+		<maghrib>7:13</maghrib>
+		<isha>8:31</isha>
+	</date>
+	<date day="24" month="3" year="2016" week_day="Thursday">
+		<fajr>5:34</fajr>
+		<sunrise>6:51</sunrise>
+		<dhuhr>1:03</dhuhr>
+		<asr>4:32</asr>
+		<maghrib>7:14</maghrib>
+		<isha>8:32</isha>
+	</date>
+	<date day="25" month="3" year="2016" week_day="Friday">
+		<fajr>5:32</fajr>
+		<sunrise>6:50</sunrise>
+		<dhuhr>1:03</dhuhr>
+		<asr>4:32</asr>
+		<maghrib>7:15</maghrib>
+		<isha>8:33</isha>
+	</date>
+	<date day="26" month="3" year="2016" week_day="Saturday">
+		<fajr>5:30</fajr>
+		<sunrise>6:48</sunrise>
+		<dhuhr>1:02</dhuhr>
+		<asr>4:33</asr>
+		<maghrib>7:16</maghrib>
+		<isha>8:34</isha>
+	</date>
+	<date day="27" month="3" year="2016" week_day="Sunday">
+		<fajr>5:28</fajr>
+		<sunrise>6:46</sunrise>
+		<dhuhr>1:02</dhuhr>
+		<asr>4:33</asr>
+		<maghrib>7:17</maghrib>
+		<isha>8:36</isha>
+	</date>
+	<date day="28" month="3" year="2016" week_day="Monday">
+		<fajr>5:26</fajr>
+		<sunrise>6:45</sunrise>
+		<dhuhr>1:02</dhuhr>
+		<asr>4:34</asr>
+		<maghrib>7:18</maghrib>
+		<isha>8:37</isha>
+	</date>
+	<date day="29" month="3" year="2016" week_day="Tuesday">
+		<fajr>5:24</fajr>
+		<sunrise>6:43</sunrise>
+		<dhuhr>1:01</dhuhr>
+		<asr>4:34</asr>
+		<maghrib>7:20</maghrib>
+		<isha>8:38</isha>
+	</date>
+	<date day="30" month="3" year="2016" week_day="Wednesday">
+		<fajr>5:23</fajr>
+		<sunrise>6:41</sunrise>
+		<dhuhr>1:01</dhuhr>
+		<asr>4:35</asr>
+		<maghrib>7:21</maghrib>
+		<isha>8:39</isha>
+	</date>
+	<date day="31" month="3" year="2016" week_day="Thursday">
+		<fajr>5:21</fajr>
+		<sunrise>6:39</sunrise>
+		<dhuhr>1:01</dhuhr>
+		<asr>4:35</asr>
+		<maghrib>7:22</maghrib>
+		<isha>8:41</isha>
+	</date>
+</prayer>

@@ -17,121 +17,115 @@
 	<body>
 		<?php include "header.html"; ?>
 		<div id="adbox">
-				<div id="jummah">
-					<h2>Jummah, congregational prayers every Friday, begins at <?php include "files/jummah.txt"; ?>.</h2>
-				</div>
-				<div id="prayertimes">
-					<table id="prayertimestable">
-						<caption>Prayer Start Times</caption>
-						<tr>
-							<th>Day</th>
-							<th>Fajr</th>
-							<th>Sunrise</th>
-							<th>Dhuhr</th>
-							<th>Asr</th>
-							<th>Maghrib</th>
-							<th>Isha</th>
-						</tr>
-						<tr>						
-							<td>Today</td>
-							<?php							
-								//get prayer times data for today and display it
-								$month = date("n");
-								$day = date("j");
-								$daynum = intval($day)-1;
-								//open the p{$month}.xml file
-								$treep = simplexml_load_file($spath.'p'.$month.".xml") or die("Error: Cannot create object");
-								echo "<td>".$treep->date[$daynum]->fajr."</td>";
-								echo "<td>".$treep->date[$daynum]->sunrise."</td>";
-								echo "<td>".$treep->date[$daynum]->dhuhr."</td>";
-								echo "<td>".$treep->date[$daynum]->asr."</td>";
-								echo "<td>".$treep->date[$daynum]->maghrib."</td>";
-								echo "<td>".$treep->date[$daynum]->isha."</td>";							
-							?>
-						</tr>
-						<tr>
-							<td>
-								<?php $tomm = new DateTime('tomorrow'); ?>
-								Tommorow
-							</td>
-							<?php	
-								$month = $tomm->format("n");
-								$day = $tomm->format("j");
-								$daynum = intval($day)-1;
-								//open the p{$month}.xml file
-								$treep = simplexml_load_file($spath.'p'.$month.".xml") or die("Error: Cannot create object");
-								echo "<td>".$treep->date[$daynum]->fajr."</td>";
-								echo "<td>".$treep->date[$daynum]->sunrise."</td>";
-								echo "<td>".$treep->date[$daynum]->dhuhr."</td>";
-								echo "<td>".$treep->date[$daynum]->asr."</td>";
-								echo "<td>".$treep->date[$daynum]->maghrib."</td>";
-								echo "<td>".$treep->date[$daynum]->isha."</td>";	
-							?>						
-						</tr>
-					</table>
-				</div>
-				<div id="jamaattimes">
-					<table id="jamaattimestable">
-						<caption>Jamaat (Iqaamah) Times</caption>
-						<tr>
-							<th>Day</th>
-							<th>Fajr</th>
-							<th>Sunrise</th>
-							<th>Dhuhr</th>
-							<th>Asr</th>
-							<th>Maghrib</th>
-							<th>Isha</th>
-						</tr>
-						<tr>
-							<td>Today</td>
-							<?php							
-								//get jamaat times data and display it
-								$month = date("n");
-								$day = date("j");
-								$daynum = intval($day)-1;
-								//open the j{$month}.xml file
-								$treej = simplexml_load_file($spath.'j'.$month.".xml") or die("Error: Cannot create object");
-								echo "<td>".$treej->date[$daynum]->fajr."</td>";
-								echo "<td>".$treej->date[$daynum]->sunrise."</td>";
-								echo "<td>".$treej->date[$daynum]->dhuhr."</td>";
-								echo "<td>".$treej->date[$daynum]->asr."</td>";
-								echo "<td>".$treej->date[$daynum]->maghrib."</td>";
-								echo "<td>".$treej->date[$daynum]->isha."</td>";								
-							?>
-						</tr>
-						<tr>
-							<td>
-								<?php $tomm = new DateTime('tomorrow'); ?>
-								Tommorow
-							</td>
-							<?php	
-								$month = $tomm->format("n");
-								$day = $tomm->format("j");
-								$daynum = intval($day)-1;
-								//open the j{$month}.xml file
-								$treej = simplexml_load_file($spath.'j'.$month.".xml") or die("Error: Cannot create object");
-								echo "<td>".$treej->date[$daynum]->fajr."</td>";
-								echo "<td>".$treej->date[$daynum]->sunrise."</td>";
-								echo "<td>".$treej->date[$daynum]->dhuhr."</td>";
-								echo "<td>".$treej->date[$daynum]->asr."</td>";
-								echo "<td>".$treej->date[$daynum]->maghrib."</td>";
-								echo "<td>".$treej->date[$daynum]->isha."</td>";	
-							?>						
-						</tr>
-					</table>
-				</div>
+			<div id="jummah">
+				<h2>Jummah, congregational prayers every Friday, begins at <?php include "files/jummah.txt"; ?>.</h2>
+			</div>
+		<div id="prayertimes">
+			<table id="prayertimestable">
+				<caption>Prayer Start Times</caption>
+					<tr>
+						<th>Day</th>
+						<th>Fajr</th>
+						<th>Sunrise</th>
+						<th>Dhuhr</th>
+						<th>Asr</th>
+						<th>Maghrib</th>
+						<th>Isha</th>
+					</tr>
+					<tr>						
+						<td>Today</td>
+						<?php							
+							//get prayer times data for today and display it
+							$month = date("n");
+							$day = date("j");
+							$daynum = intval($day)-1;
+							//open the p{$month}.xml file
+							$treep = simplexml_load_file($spath.'p'.$month.".xml") or die("Error: Cannot create object");
+							echo "<td>".$treep->date[$daynum]->fajr."</td>";
+							echo "<td>".$treep->date[$daynum]->sunrise."</td>";
+							echo "<td>".$treep->date[$daynum]->dhuhr."</td>";
+							echo "<td>".$treep->date[$daynum]->asr."</td>";
+							echo "<td>".$treep->date[$daynum]->maghrib."</td>";
+							echo "<td>".$treep->date[$daynum]->isha."</td>";							
+						?>
+					</tr>
+					<tr>
+						<td>
+							<?php $tomm = new DateTime('tomorrow'); ?>
+							Tommorow
+						</td>
+						<?php	
+							$month = $tomm->format("n");
+							$day = $tomm->format("j");
+							$daynum = intval($day)-1;
+							//open the p{$month}.xml file
+							$treep = simplexml_load_file($spath.'p'.$month.".xml") or die("Error: Cannot create object");
+							echo "<td>".$treep->date[$daynum]->fajr."</td>";
+							echo "<td>".$treep->date[$daynum]->sunrise."</td>";
+							echo "<td>".$treep->date[$daynum]->dhuhr."</td>";
+							echo "<td>".$treep->date[$daynum]->asr."</td>";
+							echo "<td>".$treep->date[$daynum]->maghrib."</td>";
+							echo "<td>".$treep->date[$daynum]->isha."</td>";	
+						?>						
+					</tr>
+				</table>
+		</div>
+		</div>
+		<div id="jamaattimes">
+			<table id="jamaattimestable">
+				<caption>Jamaat (Iqaamah) Times</caption>
+					<tr>
+						<th>Day</th>
+						<th>Fajr</th>
+						<th>Sunrise</th>
+						<th>Dhuhr</th>
+						<th>Asr</th>
+						<th>Maghrib</th>
+						<th>Isha</th>
+					</tr>
+					<tr>
+						<td>Today</td>
+						<?php							
+							//get jamaat times data and display it
+							$month = date("n");
+							$day = date("j");
+							$daynum = intval($day)-1;
+							//open the j{$month}.xml file
+							$treej = simplexml_load_file($spath.'j'.$month.".xml") or die("Error: Cannot create object");
+							echo "<td>".$treej->date[$daynum]->fajr."</td>";
+							echo "<td>".$treej->date[$daynum]->sunrise."</td>";
+							echo "<td>".$treej->date[$daynum]->dhuhr."</td>";
+							echo "<td>".$treej->date[$daynum]->asr."</td>";
+							echo "<td>".$treej->date[$daynum]->maghrib."</td>";
+							echo "<td>".$treej->date[$daynum]->isha."</td>";								
+						?>
+					</tr>
+					<tr>
+						<td>
+							<?php $tomm = new DateTime('tomorrow'); ?>
+							Tommorow
+						</td>
+						<?php	
+							$month = $tomm->format("n");
+							$day = $tomm->format("j");
+							$daynum = intval($day)-1;
+							//open the j{$month}.xml file
+							$treej = simplexml_load_file($spath.'j'.$month.".xml") or die("Error: Cannot create object");
+							echo "<td>".$treej->date[$daynum]->fajr."</td>";
+							echo "<td>".$treej->date[$daynum]->sunrise."</td>";
+							echo "<td>".$treej->date[$daynum]->dhuhr."</td>";
+							echo "<td>".$treej->date[$daynum]->asr."</td>";
+							echo "<td>".$treej->date[$daynum]->maghrib."</td>";
+							echo "<td>".$treej->date[$daynum]->isha."</td>";	
+						?>						
+					</tr>
+				</table>
+		</div>
 		</div>
 		<div id="contents">
-			
-			<!--Added a link from news table to news page-->
 			<a href="news.php">
-			
-				<!--Establishes a table being made-->
 				<table id="contentstable">
-			
-					<!--Set ths is table header-->
 					<caption><h1><u>Latest News</u></h1></caption>
-					
 						<div id="tagline">			
 							<div>
 								<?php
@@ -151,8 +145,6 @@
 									$title = fgets($handle);
 									$content = fgets($handle);
 									fclose($handle);
-
-									<!--Added 3 rows. Changed id names for clearity-->
 									echo "<tr><td><h3 id=\"title\">$title</h3></td></tr>";
 									echo "<tr><td><h4 id=\"time\">$month/$day/$year</h4></td></tr>";					
 									echo "<tr><td><p id=\"text\">$content</p></td></tr>";
@@ -161,7 +153,7 @@
 							</div>
 						</div>
 				</table>
-			</a>
+			</a>	
 		</div>
 		<?php include "footer.html"; ?>
 	</body>
