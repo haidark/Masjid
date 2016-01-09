@@ -45,7 +45,7 @@
 								</p>
 
 EOT;
-							if($loggedin) echo"<p><a href=\"deletePost.php?filename=$file\">Delete</a></p>";								
+							if($loggedin) echo"<p id=\"deletepost\"><a href=\"deletePost.php?filename=$file\">Delete</a></p>";								
 							echo "</li>";
 						}						
 					}

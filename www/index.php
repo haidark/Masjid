@@ -121,35 +121,31 @@
 				</tr>
 			</table>
 	</div>
-	<div id="contents">
-		<table id="contentstable">
-			<caption><h1><u><a href="news.php">Latest News</a></u></h1></caption>
-				<div id="tagline">			
-					<div>
-						<?php
-						//select latest post and display it
-						$files = glob("files/posts/*.htm");
-						$files = array_combine($files, array_map("filemtime", $files));
-						arsort($files);
-						$latestPost = key($files);
-						//get date from the post						
-						$handle = fopen($latestPost, 'r');
-						if($handle){
-							$date = fgets($handle);
-							$date = explode("-", $date);
-							$month = $date[0];
-							$day = $date[1];
-							$year = $date[2];
-							$title = fgets($handle);
-							$content = fgets($handle);
-							fclose($handle);
-							echo "<tr><td><h3 id=\"title\">$title</h3></td></tr>";
-							echo "<tr><td><h4 id=\"time\">$month/$day/$year</h4></td></tr>";					
-							echo "<tr><td><p id=\"text\">$content</p></td></tr>";
-						}
-						?>
-					</div>
-				</div>
+	<div id="news">
+		<table id="newstable">
+			<caption><a href="news.php">Latest News</a></caption>
+				<?php
+				//select latest post and display it
+				$files = glob("files/posts/*.htm");
+				$files = array_combine($files, array_map("filemtime", $files));
+				arsort($files);
+				$latestPost = key($files);
+				//get date from the post						
+				$handle = fopen($latestPost, 'r');
+				if($handle){
+					$date = fgets($handle);
+					$date = explode("-", $date);
+					$month = $date[0];
+					$day = $date[1];
+					$year = $date[2];
+					$title = fgets($handle);
+					$content = fgets($handle);
+					fclose($handle);
+					echo "<tr><td><h3 id=\"title\">$title</h3></td></tr>";
+					echo "<tr><td><h4 id=\"time\">$month/$day/$year</h4></td></tr>";					
+					echo "<tr><td><p id=\"text\">$content</p></td></tr>";
+				}
+				?>
 		</table>				
 	</div>
 	<?php include "footer.html"; ?>
