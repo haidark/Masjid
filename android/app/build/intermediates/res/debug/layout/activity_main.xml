@@ -315,12 +315,12 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/version"
-            android:text="@string/version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+        <!--<TextView-->
+            <!--android:id="@+id/version"-->
+            <!--android:text="@string/version"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center" />-->
 
     </LinearLayout>
 </ScrollView><!-- From: file:/C:/Users/Haidar/Documents/GitHub/Masjid/android/app/src/main/res/layout/activity_main.xml -->
