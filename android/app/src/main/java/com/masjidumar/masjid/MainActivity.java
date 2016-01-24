@@ -501,8 +501,6 @@ public class MainActivity extends AppCompatActivity {
                     String title = lines[1];
                     String text = lines[2];
 
-
-
                     newsTitle.setText(title);
                     newsDate.setText(date);
                     newsText.setText(text);

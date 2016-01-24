@@ -132,6 +132,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.1.32</string>
+    <string name="version">Version: 0.2.32</string>
 
 </resources>
