@@ -296,7 +296,7 @@
     <string name="masjid_unavailable">Unable to load timings</string>
     <string name="mon">M</string>
     <string name="news_URL">http://www.masjidumar.com/files/latest.htm</string>
-    <string name="news_title_empty">No News</string>
+    <string name="news_title_empty">News Unavailable</string>
     <string name="next_alarm">Next alarm:</string>
     <string name="no_alarm">No reminders set</string>
     <string name="notification_end_text">Your device audio state has been reset</string>

@@ -67,16 +67,15 @@ public class MainActivity extends AppCompatActivity {
         //initialize progress dialog
         progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setIndeterminate(true);
-        //initialize timing state boolean
-        //true --- iqamah timings displayed
-        //false --- Prayer timings displayed
-        timingsState = true;
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        //initialize timing state boolean
+        //true --- iqamah timings displayed
+        //false --- Prayer timings displayed
+        timingsState = true;
         //set the alarm if enabled
         setAlarm();
         //set the news
@@ -489,6 +488,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String fileText){
+            TextView newsTitle = (TextView) findViewById(R.id.newsTitle);
+            TextView newsDate = (TextView) findViewById(R.id.newsDate);
+            TextView newsText = (TextView) findViewById(R.id.newsText);
+
+            newsTitle.setText(R.string.news_title_empty);
+
             if( fileText != null) {
                 String lines[] = fileText.split("\\r?\\n");
                 if( lines.length >= 3) {
@@ -496,9 +501,7 @@ public class MainActivity extends AppCompatActivity {
                     String title = lines[1];
                     String text = lines[2];
 
-                    TextView newsTitle = (TextView) findViewById(R.id.newsTitle);
-                    TextView newsDate = (TextView) findViewById(R.id.newsDate);
-                    TextView newsText = (TextView) findViewById(R.id.newsText);
+
 
                     newsTitle.setText(title);
                     newsDate.setText(date);
