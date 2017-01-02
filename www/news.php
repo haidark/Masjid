@@ -13,7 +13,7 @@
 	<?php include "header.html"; ?>
 	<div id="contents">
 		<div class="main">
-			<h1 id ="newsHead">News</h1>
+			<h1 id ="newsHead">Masjid News</h1>
 			<ul class="news">
 				<?php
 					$files = glob("files/posts/*.htm");
@@ -33,17 +33,13 @@
 							fclose($handle);
 							echo <<<EOT
 							<li>
-								<div class="date">
-									<p>
-										<span>$month/$day</span>
-										$year
-									</p>
-								</div>
 								<h2>$title</h2>
-								<p>
-									$content
-								</p>
-
+								<div class="date">
+									<p><span>$month$day$year</span></p>
+								</div>
+								<div class="content">							
+									<p>$content</p>
+								</div>
 EOT;
 							if($loggedin) echo"<p id=\"deletepost\"><a href=\"deletePost.php?filename=$file\">Delete</a></p>";								
 							echo "</li>";

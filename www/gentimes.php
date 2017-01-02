@@ -4,7 +4,10 @@
 	
 //if user is logged in
 if($loggedin){
-	//GENTIMES.PHP - PHP version to download prayer timings and generate jamaat timings
+	//GENTIMES.PHP - PHP version to download prayer timings and generate iqamah timings
+
+	// import the PrayTime class
+	include('PrayTime.php');
 
 	//set timezone for date:
 	date_default_timezone_set('America/New_York');
@@ -20,30 +23,77 @@ if($loggedin){
 	//create array of month names
 	$months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 
+	// set location and time zone
+	$latitude = 41.9270;
+	$longitude = -73.9974;
+	$timeZone = -5.0;
+	//create Prayer time calculator object with ISNA method
+	$prayTime = new PrayTime();
+	$prayTime->setCalcMethod($prayTime->ISNA);
+	//set the output time format
+	$prayTime->setTimeFormat($prayTime->Time12NS);
 	// get current year
 	$year = date("Y");
-	// store url to xml files in variable $url
-	$url = 'http://www.islamicfinder.org/prayer_service.php?country=usa&city=kingston&state=NY&zipcode=12401&latitude=41.9320&longitude=-74.0577&timezone=-5.0&HanfiShafi=1&pmethod=5&fajrTwilight1=&fajrTwilight2=&ishaTwilight=0&ishaInterval=0&dhuhrInterval=1&maghribInterval=1&dayLight=1&simpleFormat=xml&monthly=1&month=';
+
+	/******** Create an xml tree for the year's iqamah times */
+	$year_treej = new DOMDocument('1.0', 'UTF-8');
+	// create root element and append it to the tree
+	$year_rootj = $year_treej->createElement("jamaat");		
+	$year_rootj = $year_treej->appendChild($year_rootj);
+	// append some info to the root node
+	$year_rootj->appendChild($year_treej->createElement("city", "Kingston"));
+	$year_rootj->appendChild($year_treej->createElement("country", "Usa"));
+	$year_rootj->appendChild($year_treej->createElement("website", "www.masjidumar.com"));
+	// create year element
+	$yearElemj = $year_treej->createElement("year");
+	$yearElemj = $year_rootj->appendChild($yearElemj);
+	$yearElemj->setAttribute("value", $year);
+
+	/********* Create an xml tree for the year's prayer times */
+	$year_treep = new DOMDocument('1.0', 'UTF-8');
+	// create root element and append it to the tree
+	$year_rootp = $year_treep->createElement("prayer");		
+	$year_rootp = $year_treep->appendChild($year_rootp);
+	// append some info to the root node
+	$year_rootp->appendChild($year_treep->createElement("city", "Kingston"));
+	$year_rootp->appendChild($year_treep->createElement("country", "Usa"));
+	$year_rootp->appendChild($year_treep->createElement("website", "www.masjidumar.com"));
+	// create year element
+	$yearElemp = $year_treep->createElement("year");
+	$yearElemp = $year_rootp->appendChild($yearElemp);
+	$yearElemp->setAttribute("value", $year);
 
 	// open html document "prayer.htm" for writing
 	// write header and title to html document
 	$htmf = fopen($rpath.'prayer.htm', 'w');
-	fwrite($htmf, "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<link rel=\"shortcut icon\" href=\"favicon.ico\" />\n<title>Jamaat Timings - Masjid Al-Umar</title>\n<link href=\"css/prayerstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n</head>\n<body>\n");
-	fwrite($htmf, "<p id=\"title\">Masjid Umar Jamaat Timings - ".$year."</p>\n");
+	fwrite($htmf, "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<link rel=\"shortcut icon\" href=\"favicon.ico\" />\n<title>Iqamah Timings - Masjid Al-Umar</title>\n<link href=\"css/prayerstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n</head>\n<body>\n");
+	fwrite($htmf, "<p id=\"title\">Masjid Umar Iqamah Timings - ".$year."</p>\n");
 
 	//for each month
-	//parse the downloaded xml files and compute jamaat times
-	//write this data to "prayer.htm", "jx.csv" and "px.csv" where x is month number
+	//compute prayer and iqamah times
+	//write this data to "prayer.htm", "jx.xml" and "px.xml" where x is month number
+	// also make an xml file for each year
 	for($i = 0; $i<12; $i++){
+		
 		//write the table headers for each month
 		fwrite($htmf, "<table id=\"".$months[$i]."\">\n");
 		fwrite($htmf, "<caption>".$months[$i]."</caption>\n");
 		fwrite($htmf, "<tr>\n<th>".$months[$i]."</th>\n<th>Fajr</th>\n<th>Dhuhr</th>\n<th>Asr</th>\n<th>Maghrib</th>\n<th>Isha</th>\n</tr>\n");
 		
-		/* Create an xml file for the jamaat times */
+		//create an element for each month (jamaat)
+		$monthElemj = $year_treej->createElement("month");
+		$monthElemj->setAttribute("value", strval($i+1));
+		$yearElemj->appendChild($monthElemj);
+
+		//create an element for each month (prayer)
+		$monthElemp = $year_treep->createElement("month");
+		$monthElemp->setAttribute("value", strval($i+1));
+		$yearElemp->appendChild($monthElemp);
+
+		/* Create an xml file for the iqamah times */
 		$treej = new DOMDocument('1.0', 'UTF-8');
 		// create root element and append it to the tree
-		$rootj = $treej->createElement("jamaat");		
+		$rootj = $treej->createElement("iqamah");		
 		$rootj = $treej->appendChild($rootj);
 		$rootj->setAttribute("month", $months[$i]);
 		// append some info to the root node
@@ -51,20 +101,39 @@ if($loggedin){
 		$rootj->appendChild($treej->createElement("country", "Usa"));
 		$rootj->appendChild($treej->createElement("website", "www.masjidumar.com"));
 
-		//parse the xml 
-		$treep = simplexml_load_file($url.strval($i+1));// or die("Error: Cannot create object")		
-		
+		/* Create an xml file for the prayer times */
+		$treep = new DOMDocument('1.0', 'UTF-8');
+		// create root element and append it to the tree
+		$rootp = $treep->createElement("prayer");		
+		$rootp = $treep->appendChild($rootp);
+		$rootp->setAttribute("month", $months[$i]);
+		// append some info to the root node
+		$rootp->appendChild($treep->createElement("city", "Kingston"));
+		$rootp->appendChild($treep->createElement("country", "Usa"));
+		$rootp->appendChild($treep->createElement("website", "www.masjidumar.com"));
+
 		//initialize $rows to keep track of days written so far 
 		//(need to fill in balance until 31 rows are made on html doc)
 		$rows = 1;
-		//for each day
-		foreach($treep->date as $day){
-			//get start time of each prayer in a day (as strings)
-			$pFajr = $day->fajr;
-			$pZuhr = $day->dhuhr;
-			$pAsr = $day->asr;
-			$pMaghrib = $day->maghrib;
-			$pIsha = $day->isha;
+
+		//for each day in the month
+		$month=$i+1;
+		$day = strtotime($year.'-'.$month.'-1');
+		if($month==12)
+			$endDay = strtotime(($year+1).'-1-1');
+		else
+			$endDay = strtotime($year.'-'.($month+1).'-1');
+
+		while($day < $endDay){
+			//get start time of each prayer in a day
+			$times = $prayTime->getPrayerTimes($day, $latitude, $longitude, $timeZone);
+			$pFajr = $times[0];
+			$pSunrise = $times[1];
+			$pZuhr = $times[2];			
+			$pAsr = $times[3];
+			$pSunset = $times[4];
+			$pMaghrib = $times[5];
+			$pIsha = $times[6];
 			
 			//process it (careful here) (results should all be strings)
 			//add 10 minutes to fajr and maghrib
@@ -86,8 +155,10 @@ if($loggedin){
 			else
 				$jAsr = '5:30';		
 			//make sure to process ASR before ZUHR
-			//set zuhr based on jamaat time for asr
+			//set zuhr based on iqamah time for asr
 			if($jAsr == '3:00')
+				$jZuhr = '12:45';
+			elseif($jAsr == '3:30')
 				$jZuhr = '1:15';
 			else
 				$jZuhr = '1:30';
@@ -95,7 +166,7 @@ if($loggedin){
 			//after all prayers are processed, write to prayer.htm
 			//write to prayer.htm
 			fwrite($htmf, "<tr>\n");
-			fwrite($htmf, "\t<td>".strval($day['day'])."</td>\n");
+			fwrite($htmf, "\t<td>".strval(date('j', $day))."</td>\n");
 			fwrite($htmf, "\t<td>".$jFajr."</td>\n");
 			fwrite($htmf, "\t<td>".$jZuhr."</td>\n");
 			fwrite($htmf, "\t<td>".$jAsr."</td>\n");
@@ -104,22 +175,76 @@ if($loggedin){
 			fwrite($htmf, "</tr>\n");
 			
 			//write to xml files
+
+			/* Year Iqamah */	
 			// add a date element to jammaat xml file for each one in the prayer xml file
+			$year_datej = $year_treej->createElement("date");
+			$year_datej = $monthElemj->appendChild($year_datej);
+			$year_datej->setAttribute("day",date('j', $day));
+			$year_datej->setAttribute("month", date('F', $day));
+			$year_datej->setAttribute("year", date('Y', $day));
+			$year_datej->setAttribute("week_day", date('l', $day));
+			// append each salah to date element
+			$year_datej->appendChild($year_treej->createElement("fajr", $jFajr));
+			$year_datej->appendChild($year_treej->createElement("sunrise", $pSunrise));
+			$year_datej->appendChild($year_treej->createElement("dhuhr", $jZuhr));
+			$year_datej->appendChild($year_treej->createElement("asr", $jAsr));
+			$year_datej->appendChild($year_treej->createElement("sunset", $pSunset));
+			$year_datej->appendChild($year_treej->createElement("maghrib", $jMaghrib));
+			$year_datej->appendChild($year_treej->createElement("isha", $jIsha));
+
+			/* Year Prayer */
+			// add a date element to jammaat xml file for each one in the prayer xml file
+			$year_datep = $year_treep->createElement("date");
+			$year_datep = $monthElemp->appendChild($year_datep);
+			$year_datep->setAttribute("day",date('j', $day));
+			$year_datep->setAttribute("month", date('F', $day));
+			$year_datep->setAttribute("year", date('Y', $day));
+			$year_datep->setAttribute("week_day", date('l', $day));
+			// append each salah to date element
+			$year_datep->appendChild($year_treep->createElement("fajr", $pFajr));
+			$year_datep->appendChild($year_treep->createElement("sunrise", $pSunrise));
+			$year_datep->appendChild($year_treep->createElement("dhuhr", $pZuhr));
+			$year_datep->appendChild($year_treep->createElement("asr", $pAsr));
+			$year_datep->appendChild($year_treep->createElement("sunset", $pSunset));
+			$year_datep->appendChild($year_treep->createElement("maghrib", $pMaghrib));
+			$year_datep->appendChild($year_treep->createElement("isha", $pIsha));
+
+			/* Month Iqamah */	
+			// add a date element to iqamah xml file
 			$datej = $treej->createElement("date");
 			$datej = $rootj->appendChild($datej);
-			$datej->setAttribute("day", $day['day']);
-			$datej->setAttribute("month", $day['month']);
-			$datej->setAttribute("year", $day['year']);
-			$datej->setAttribute("week_day", $day['week_day']);
-
+			$datej->setAttribute("day", date('j', $day));
+			$datej->setAttribute("month", date('F', $day));
+			$datej->setAttribute("year", date('Y', $day));
+			$datej->setAttribute("week_day", date('l', $day));
 			// append each salah to date element
 			$datej->appendChild($treej->createElement("fajr", $jFajr));
-			$datej->appendChild($treej->createElement("sunrise", $day->sunrise));
+			$datej->appendChild($treej->createElement("sunrise", $pSunrise));
 			$datej->appendChild($treej->createElement("dhuhr", $jZuhr));
 			$datej->appendChild($treej->createElement("asr", $jAsr));
+			$datej->appendChild($treej->createElement("sunset", $pSunset));
 			$datej->appendChild($treej->createElement("maghrib", $jMaghrib));
 			$datej->appendChild($treej->createElement("isha", $jIsha));
 
+			/* Month Prayer */	
+			// add a date element to prayer xml file
+			$datep = $treep->createElement("date");
+			$datep = $rootp->appendChild($datep);
+			$datep->setAttribute("day", date('j', $day));
+			$datep->setAttribute("month", date('F', $day));
+			$datep->setAttribute("year", date('Y', $day));
+			$datep->setAttribute("week_day", date('l', $day));
+			// append each salah to date element
+			$datep->appendChild($treep->createElement("fajr", $pFajr));
+			$datep->appendChild($treep->createElement("sunrise", $pSunrise));
+			$datep->appendChild($treep->createElement("dhuhr", $pZuhr));
+			$datep->appendChild($treep->createElement("asr", $pAsr));
+			$datep->appendChild($treep->createElement("sunset", $pSunset));
+			$datep->appendChild($treep->createElement("maghrib", $pMaghrib));
+			$datep->appendChild($treep->createElement("isha", $pIsha));
+
+			$day += 24* 60* 60;  // next day
 			$rows = $rows + 1;
 		}
 		// add rows until there are 31 rows in each table
@@ -128,14 +253,20 @@ if($loggedin){
 			$rows = $rows + 1;
 		}
 		//end table for this month
-		fwrite($htmf, "</table>\n");
-		//save prayer xml file
-		$treep->saveXML($spath.'p'.strval($i+1).".xml");
-		//save jamaat xml file
+		fwrite($htmf, "</table>\n");		
+		//save iqamah xml file
 		$treej->save($spath.'j'.strval($i+1).".xml");
+		//save prayer xml file
+		$treep->save($spath.'p'.strval($i+1).".xml");
 	}
 	fwrite($htmf, "</body>\n</html>");
 	fclose($htmf);
+
+	//save jamaat xml file
+	$year_treej->save($spath.'iqamah_timings.xml');
+	//save prayer xml file
+	$year_treep->save($spath.'prayer_timings.xml');
+
 	//end tags and close html file
 	header("Location: prayer.htm");
 } 

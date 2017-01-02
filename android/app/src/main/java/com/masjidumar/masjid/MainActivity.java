@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     // Cal with date picked by user to show
     static GregorianCalendar pickedDate;
+    //boolean to track state of timings (iqamah or prayer)
+    static boolean timingsState; // true is iqamah, false is prayer
+
     UpdateAlarmTask alarmTask;
     UpdateTimingsXMLTask updateXMLTask;
     DownloadTimingsXMLTask downloadXMLTask;
     DownloadNewsTask downloadNewsTask;
-    //boolean to track state of timings (iqamah or prayer)
-    boolean timingsState; // true is iqamah, false is prayer
+
     //prayer names
     String[] pNames = {"fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"};
     //view IDs
@@ -62,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //initialize timing state boolean
+        //true --- iqamah timings displayed
+        //false --- Prayer timings displayed
+        timingsState = true;
         //set the picked date to today
         today_button();
         //initialize progress dialog
@@ -72,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //initialize timing state boolean
-        //true --- iqamah timings displayed
-        //false --- Prayer timings displayed
-        timingsState = true;
         //set the alarm if enabled
         setAlarm();
         //set the news
@@ -504,6 +507,7 @@ public class MainActivity extends AppCompatActivity {
                     newsTitle.setText(title);
                     newsDate.setText(date);
                     newsText.setText(text);
+                    newsText.setMovementMethod(new ScrollingMovementMethod());
                 }
             }
         }

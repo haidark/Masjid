@@ -17,6 +17,7 @@
 
 <body>
 	<?php include "header.html"; ?>
+	<div id="wrapper">
 	<div id="jummah">
 		<h2>Jummah, congregational prayers every Friday, begins at <?php include "files/jummah.txt"; ?>.</h2>
 	</div>
@@ -144,11 +145,12 @@
 					$content = fgets($handle);
 					fclose($handle);
 					echo "<tr><td><h3 id=\"title\">$title</h3></td></tr>";
-					echo "<tr><td><h4 id=\"time\">$month/$day/$year</h4></td></tr>";					
+					echo "<tr><td><h4 id=\"time\">$month$day$year</h4></td></tr>";					
 					echo "<tr><td><p id=\"text\">$content</p></td></tr>";
 				}
 				?>
 		</table>				
+	</div>
 	</div>
 	<?php include "footer.html"; ?>
 </body>

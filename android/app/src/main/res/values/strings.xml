@@ -23,7 +23,7 @@
     <string name="downloading_masjid">Downloading...</string>
 
     <!-- Notification Strings -->
-    <string name="notification_title">Masjid Audio State</string>
+    <string name="notification_title">Iqamah time</string>
     <string name="notification_start_text">Your device is set to</string>
     <string name="notification_end_text">Your device audio state has been reset</string>
 
@@ -44,8 +44,8 @@
 
     <!-- Preferences Strings -->
         <!-- State Enable -->
-    <string name="state_enable_title">Masjid Audio State</string>
-    <string name="state_enable_summary">Enable Masjid Audio State</string>
+    <string name="state_enable_title">Masjid audio state</string>
+    <string name="state_enable_summary">Enable masjid audio state</string>
 
         <!-- Audio State Strings -->
     <string name="audio_state">Device audio state in the masjid:</string>
@@ -58,8 +58,8 @@
     <string name="audio_state_default">Normal</string>
 
         <!-- Time Before Strings -->
-    <string name="time_before">Start Masjid Audio State</string>
-    <string name="time_before_title">Minutes before Iqamah to start Masjid Audio State</string>
+    <string name="time_before">Start masjid audio state</string>
+    <string name="time_before_title">Time before iqamah to start masjid audio state</string>
     <string-array name="time_before_entries">
         <item>5 minutes</item>
         <item>10 minutes</item>
@@ -73,8 +73,8 @@
     <string name="time_before_default">10</string>
 
         <!-- Time Duration Strings -->
-    <string name="time_duration">End Masjid Audio State</string>
-    <string name="time_duration_title">Minutes after Iqamah to end Masjid Audio State</string>
+    <string name="time_duration">End masjid audio state</string>
+    <string name="time_duration_title">Time after iqamah to end masjid audio state</string>
     <string-array name="time_duration_entries">
         <item>10 minutes</item>
         <item>15 minutes</item>
@@ -90,7 +90,7 @@
     <string name="time_duration_default">15</string>
 
         <!-- Weekday Selection Strings -->
-    <string name="weekday_title">Days of the week</string>
+    <string name="weekday_title">Days to enable masjid audio state:</string>
     <string-array name="weekday_entries">
         <item>S</item>
         <item>M</item>
@@ -103,7 +103,7 @@
     <string name="weekday_default">1111111</string>
 
         <!-- Prayer Selection Strings -->
-    <string name="prayer_sel_title">Prayers</string>
+    <string name="prayer_sel_title">Prayers to enable masjid audio state:</string>
     <string-array name="prayer_sel_entries">
         <item>F</item>
         <item>S</item>
@@ -132,6 +132,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 0.2.32</string>
+    <string name="version">Version: 1.2.6</string>
 
 </resources>
