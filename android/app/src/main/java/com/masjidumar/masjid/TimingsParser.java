@@ -145,12 +145,12 @@ public class TimingsParser {
             //Dhuhr AM-PM is tricky since its on the cusp, here is some logic to work around
             //permanent solution is to embed this information in the XML files
             int dhuhrHour = jCal.get(GregorianCalendar.HOUR);
-            if(!(dhuhrHour >= 9 && dhuhrHour <= 11)){  // if dhuhr is not between 9 and 11 it is AM
+            if(dhuhrHour >= 1 && dhuhrHour < 4){  // if dhuhr is between 1 and 9 it is AM
                 // add 12 hours
                 jCal.add(GregorianCalendar.HOUR, 12);
             }
             timings.put(pName, jCal);
-            //Log.v("ParseXML:", "Got Dhuhr Time");
+            //Log.v("ParseXML:", "Got Dhuhr Time="+dhuhrHour);
 
             //Asr
             pName="asr";
