@@ -141,7 +141,6 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month-1, day);
             //Dhuhr AM-PM is tricky since its on the cusp, here is some logic to work around
             //permanent solution is to embed this information in the XML files
             int dhuhrHour = jCal.get(GregorianCalendar.HOUR);
@@ -149,8 +148,9 @@ public class TimingsParser {
                 // add 12 hours
                 jCal.add(GregorianCalendar.HOUR, 12);
             }
+            jCal.set(year, month-1, day);
             timings.put(pName, jCal);
-            //Log.v("ParseXML:", "Got Dhuhr Time="+dhuhrHour);
+            //Log.v("ParseXML:", "Got Dhuhr Time="+jCal);
 
             //Asr
             pName="asr";
@@ -158,8 +158,8 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
+            jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
             //Log.v("ParseXML:", "Got Asr Time");
 
@@ -169,8 +169,8 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
+            jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
             //Log.v("ParseXML:", "Got Maghrib Time");
 
@@ -180,8 +180,8 @@ public class TimingsParser {
             jTime = parser.nextText();
             jCal = new GregorianCalendar();
             jCal.setTime(format.parse(jTime));
-            jCal.set(year, month - 1, day);
             jCal.add(GregorianCalendar.HOUR, 12);   //change to PM
+            jCal.set(year, month - 1, day);
             timings.put(pName, jCal);
             //Log.v("ParseXML:", "Got Isha Time");
 

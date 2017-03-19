@@ -184,21 +184,22 @@ class PrayTime
 
 
     // return prayer times for a given date
-    function getDatePrayerTimes($year, $month, $day, $latitude, $longitude, $timeZone)
+    function getDatePrayerTimes($year, $month, $day, $latitude, $longitude, $timeZone, $dst)
     {
         $this->lat = $latitude;
         $this->lng = $longitude;
-        $this->timeZone = $timeZone;
+        // adjust for daylight savings time
+        $this->timeZone = $timeZone + ($dst ? 1 : 0);
         $this->JDate = $this->julianDate($year, $month, $day)- $longitude/ (15* 24);
         return $this->computeDayTimes();
     }
 
     // return prayer times for a given timestamp
-    function getPrayerTimes($timestamp, $latitude, $longitude, $timeZone)
+    function getPrayerTimes($timestamp, $latitude, $longitude, $timeZone, $dst)
     {
         $date = @getdate($timestamp);
         return $this->getDatePrayerTimes($date['year'], $date['mon'], $date['mday'],
-                    $latitude, $longitude, $timeZone);
+                    $latitude, $longitude, $timeZone, $dst);
     }
 
     // set the calculation method
@@ -305,8 +306,6 @@ class PrayTime
     {
         return $this->floatToTime12($time, true);
     }
-
-
 
     //---------------------- Calculation Functions -----------------------
 

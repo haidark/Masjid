@@ -118,15 +118,17 @@ if($loggedin){
 
 		//for each day in the month
 		$month=$i+1;
-		$day = strtotime($year.'-'.$month.'-1');
+		$offset_time=' 03:00:00';
+		$day = strtotime($year.'-'.$month.'-1'.$offset_time);
 		if($month==12)
-			$endDay = strtotime(($year+1).'-1-1');
+			$endDay = strtotime(($year+1).'-1-1'.$offset_time);
 		else
-			$endDay = strtotime($year.'-'.($month+1).'-1');
+			$endDay = strtotime($year.'-'.($month+1).'-1'.$offset_time);
 
 		while($day < $endDay){
 			//get start time of each prayer in a day
-			$times = $prayTime->getPrayerTimes($day, $latitude, $longitude, $timeZone);
+			$dst = date('I', $day);
+			$times = $prayTime->getPrayerTimes($day, $latitude, $longitude, $timeZone, $dst);
 			$pFajr = $times[0];
 			$pSunrise = $times[1];
 			$pZuhr = $times[2];			
@@ -159,7 +161,7 @@ if($loggedin){
 			if($jAsr == '3:00')
 				$jZuhr = '12:45';
 			elseif($jAsr == '3:30')
-				$jZuhr = '1:15';
+				$jZuhr = '1:00';
 			else
 				$jZuhr = '1:30';
 				
