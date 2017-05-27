@@ -30,6 +30,9 @@
 							$year = $date[2];
 							$title = fgets($handle);
 							$content = fgets($handle);
+							while(($buffer = fgets($handle)) !== false){
+								$content = $content.$buffer;
+							}
 							fclose($handle);
 							echo <<<EOT
 							<li>

@@ -143,6 +143,9 @@
 					$year = $date[2];
 					$title = fgets($handle);
 					$content = fgets($handle);
+					while(($buffer = fgets($handle)) !== false){
+						$content = $content.$buffer;
+					}
 					fclose($handle);
 					echo "<tr><td><h3 id=\"title\">$title</h3></td></tr>";
 					echo "<tr><td><h4 id=\"time\">$month$day$year</h4></td></tr>";					
