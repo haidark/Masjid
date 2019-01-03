@@ -32,8 +32,13 @@ if($loggedin){
 	$prayTime->setCalcMethod($prayTime->ISNA);
 	//set the output time format
 	$prayTime->setTimeFormat($prayTime->Time12NS);
-	// get current year
-	$year = date("Y");
+	
+	// get year as argument or use current year
+	if($_GET["year"] != null){
+		$year = $_GET["year"];
+	} else {
+		$year = date("Y");
+	}
 
 	/******** Create an xml tree for the year's iqamah times */
 	$year_treej = new DOMDocument('1.0', 'UTF-8');
@@ -71,7 +76,7 @@ if($loggedin){
 
 	//for each month
 	//compute prayer and iqamah times
-	//write this data to "prayer.htm", "jx.xml" and "px.xml" where x is month number
+	//write this data to "jx.xml" and "px.xml" where x is month number
 	// also make an xml file for each year
 	for($i = 0; $i<12; $i++){
 		
@@ -150,7 +155,7 @@ if($loggedin){
 				$jAsr = '3:30';
 			elseif (strtotime($pAsr) < strtotime('4:20'))
 				$jAsr = '4:30';
-			elseif (strtotime($pAsr) < strtotime('4:55'))
+			elseif (strtotime($pAsr) < strtotime('4:50'))
 				$jAsr = '5:00';
 			elseif (strtotime($pAsr) < strtotime('5:10'))
 				$jAsr = '5:15';
