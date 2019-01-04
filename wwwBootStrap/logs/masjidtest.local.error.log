@@ -1,0 +1,3 @@
+[Fri Jan 04 08:13:33.342038 2019] [core:alert] [pid 10660:tid 2000] [client 127.0.0.1:59873] C:/Users/Haidar/Documents/GitHub/Masjid/wwwBootStrap/.htaccess: C:/Users/Haidar/Documents/GitHub/Masjid/wwwBootStrap/.htaccess:1: <p> was not closed.
+[Fri Jan 04 08:13:46.593900 2019] [core:alert] [pid 10660:tid 2000] [client 127.0.0.1:59895] C:/Users/Haidar/Documents/GitHub/Masjid/wwwBootStrap/.htaccess: C:/Users/Haidar/Documents/GitHub/Masjid/wwwBootStrap/.htaccess:1: <p> was not closed.
+[Fri Jan 04 08:14:12.276369 2019] [core:alert] [pid 10660:tid 1992] [client 127.0.0.1:59946] C:/Users/Haidar/Documents/GitHub/Masjid/wwwBootStrap/.htaccess: C:/Users/Haidar/Documents/GitHub/Masjid/wwwBootStrap/.htaccess:1: <p> was not closed.
