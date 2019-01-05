@@ -42,24 +42,22 @@
     <div class="site-wrapper">
 
     <div class="site-wrapper-inner">
-        <!--Google map-->
-        <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174.64356341927189!2d-74.00724859434789!3d41.93121152292857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89dd0f9ff3a553d5%3A0x7420a8691e52c2b2!2s7+Downs+St%2C+Kingston%2C+NY+12401!5e1!3m2!1sen!2sus!4v1546482273100"
-                width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-    </div>
-        <!--Google Maps-->
-      <div class="site-wrapper-inner">
-        
-        <div class="cover-container">
-          <div class="inner cover">
-            <h1 align = "left"class="cover-heading">Contact Us!</h1>
-            <p align = "left" class="lead"><a href="mailto: imam@masjidumar.com">imam@masjidumar.com</a></p>
-            <p align = "left" class="lead">(845) 481-0787</p>
-            <p align = "left" class="lead">7 Downs St. Kingston, NY 12401</p>           
-          </div>
+      <div class="cover-container">
+        <div class="inner cover">
+          <h1 align = "left"class="cover-heading">Contact Us!</h1>
+          <p align = "left" class="lead"><a href="mailto: imam@masjidumar.com">imam@masjidumar.com</a></p>
+          <p align = "left" class="lead">(845) 481-0787</p>
+          <p align = "left" class="lead">7 Downs St. Kingston, NY 12401</p>           
         </div>
       </div>
+      <!--Google map-->
+      <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174.64356341927189!2d-74.00724859434789!3d41.93121152292857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89dd0f9ff3a553d5%3A0x7420a8691e52c2b2!2s7+Downs+St%2C+Kingston%2C+NY+12401!5e1!3m2!1sen!2sus!4v1546482273100"
+              width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+      <!--Google Maps-->    
+      
+    </div>
       
     </div>
     <?php include "footer.php"; ?>

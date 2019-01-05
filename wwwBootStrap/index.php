@@ -13,31 +13,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-</script>
-<style type="text/css">
-	.row > div{
-        margin-bottom: 15px;
-    }
-	.header{
-        min-height: 90px;
-    }
-    .footer{
-        min-height: 60px;
-    }
-    .header, .footer{
-        background: #2f2f2f;
-    }
-    .sidebar{
-        background: #dbdfe5;
-    }
-    .content{
-        background: #b4bac0;
-    }
-    .sidebar, .content{
-        min-height: 300px;
-    }
-    
-</style>
+    <link rel="stylesheet" href="css/mystyles.css" type="text/css">
 </head>
 <body>
     <?php include "navigation.php"; ?>     

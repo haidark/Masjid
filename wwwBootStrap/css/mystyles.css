@@ -1,0 +1,21 @@
+.row > div{
+    margin-bottom: 15px;
+}
+.header{
+    min-height: 90px;
+}
+.footer{
+    min-height: 60px;
+}
+.header, .footer{
+    background: #2f2f2f;
+}
+.sidebar{
+    background: #dbdfe5;
+}
+.content{
+    background: #b4bac0;
+}
+.sidebar, .content{
+    min-height: 300px;
+}

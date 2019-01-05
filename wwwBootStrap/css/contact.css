@@ -15,11 +15,11 @@ body {
         font-size: 16px;
         color: white;
     }
-a,
+/* a,
 a:focus,
 a:hover {
   color: #fff;
-}
+} */
 
 /* Custom default button */
 .btn-default,
