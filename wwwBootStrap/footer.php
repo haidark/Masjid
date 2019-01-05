@@ -1,0 +1,5 @@
+<!-- FOOTER -->
+<footer color = "white">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p color = "white"> 2019 Copyright KhanTeT Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>

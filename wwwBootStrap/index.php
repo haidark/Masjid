@@ -40,43 +40,7 @@
 </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Masjid Umar</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href= "MonthPrayer.html" >Prayer Times for Today... Zuhr: 1:30 Asr: 5:00 Maghrib 6:30 Isha: 7:00 Fajr 3:00  </a></li>
-                    <li><a href="NewsPage.html">News</a></li>
-                    <li><a href="About.html">About</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Prayer Times<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="MonthPrayer.html">Month</a></li>
-                            <li><a href="YearPrayer.html">Year</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="Contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="onoffswitch3">
-            <input type="checkbox" name="onoffswitch3" class="onoffswitch3-checkbox" id="myonoffswitch3" checked>
-            <label class="onoffswitch3-label" for="myonoffswitch3">
-                    <span class="onoffswitch3-active">
-                        <marquee class="scroll-text" >We hold classes year-round between Maghrib and Isha for all age groups, come with your family and friends to share in our learning, activities and celebrations!</marquee>
-                         </span>
-            </label>
-        </div>
-    </nav>
-      
+    <?php include "navigation.php"; ?>     
          <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -164,13 +128,7 @@
     <hr class="featurette-divider">
 
     <!-- /END THE FEATURETTES -->
-
-    <!-- FOOTER -->
-    <footer color = "white">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p color = "white"> 2019 Copyright KhanTeT Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-    
+    <?php include "footer.php"; ?>
     </div><!-- /.container -->
 	<!-- Open the output in a new blank tab (Click the arrow next to "Show Output" button) and resize the browser window to understand how the Bootstrap responsive grid system works. -->
 </body>
