@@ -1,0 +1,81 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.masjidumar.app"
+4    android:versionCode="8"
+5    android:versionName="2.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+12-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:5:5-79
+12-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:5:22-77
+13
+14    <application
+14-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:7:5-37:19
+15        android:allowBackup="true"
+15-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:8:9-35
+16        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+16-->[com.android.support:support-compat:28.0.0] C:\Users\haida\.gradle\caches\transforms-2\files-2.1\f14724208b5bfeeef0d6bdefe649bca7\support-compat-28.0.0\AndroidManifest.xml:22:18-91
+17        android:icon="@mipmap/ic_launcher"
+17-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:9:9-43
+18        android:label="@string/app_name"
+18-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:10:9-41
+19        android:theme="@style/AppTheme"
+19-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:11:9-40
+20        android:usesCleartextTraffic="true" >
+20-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:12:9-44
+21        <activity
+21-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:13:9-24:20
+22            android:name="com.masjidumar.masjid.MainActivity"
+22-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:14:13-41
+23            android:label="@string/app_name" >
+23-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:15:13-45
+24            <intent-filter>
+24-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:16:13-20:29
+25                <action android:name="android.intent.action.MAIN" />
+25-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:17:17-69
+25-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:17:25-66
+26
+27                <category android:name="android.intent.category.LAUNCHER" />
+27-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:19:17-77
+27-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:19:27-74
+28            </intent-filter>
+29            <intent-filter>
+29-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:21:13-23:29
+30                <action android:name="android.intent.action.VIEW" />
+30-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:22:17-69
+30-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:22:25-66
+31            </intent-filter>
+32        </activity>
+33        <activity
+33-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:26:9-33:20
+34            android:name="com.masjidumar.masjid.SettingsActivity"
+34-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:27:13-45
+35            android:label="@string/title_activity_settings"
+35-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:28:13-60
+36            android:parentActivityName="com.masjidumar.masjid.MainActivity" >
+36-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:29:13-55
+37            <meta-data
+37-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:30:13-32:70
+38                android:name="android.support.PARENT_ACTIVITY"
+38-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:31:17-63
+39                android:value="com.masjidumar.masjid.MainActivity" />
+39-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:32:17-67
+40        </activity>
+41
+42        <receiver android:name="com.masjidumar.masjid.AlarmBroadcastReceiver" />
+42-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:35:9-80
+42-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:35:19-78
+43        <receiver android:name="com.masjidumar.masjid.RevertStateBroadcastReceiver" />
+43-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:36:9-86
+43-->C:\Users\haida\Documents\GitHub\Masjid\android\app\src\main\AndroidManifest.xml:36:19-84
+44    </application>
+45
+46</manifest>

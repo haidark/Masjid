@@ -1,0 +1,4 @@
+#Wed Dec 11 21:37:15 EST 2019
+base.0=C\:\\Users\\haida\\Documents\\GitHub\\Masjid\\android\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

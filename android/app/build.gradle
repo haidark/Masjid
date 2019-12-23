@@ -1,15 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '22.0.1'
-
+    compileSdkVersion 28
     defaultConfig {
-        applicationId "com.masjidumar.masjid"
-        minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 6
-        versionName "3.2.2"
+        applicationId "com.masjidumar.app"
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 8
+        versionName "2.0.0"
     }
     buildTypes {
         release {
@@ -20,6 +18,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 }

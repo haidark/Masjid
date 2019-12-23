@@ -18,11 +18,13 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.method.LinkMovementMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -79,12 +81,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //activate the website link
+        TextView link_text = findViewById(R.id.website_link);
+        link_text.setMovementMethod(LinkMovementMethod.getInstance());
         //set the alarm if enabled
         setAlarm();
         //set the news
         setNews();
         //set row colors according to reminder settings for the picked Date
-        setRowColors();
+        //setRowColors();
     }
 
     @Override
@@ -184,13 +189,14 @@ public class MainActivity extends AppCompatActivity {
                 String alarmLabel = " " + getString(R.string._for_) + " " + capFirst(targetTime.getLabel());
                 // put the text together
                 nextText = getString(R.string.next_alarm) + " " + relativeTime + ", " + timeString + alarmLabel +".";
-                //Update view to let the user know an alarm has been set
+
 
             } else{
                 nextText = getString(R.string.no_alarm);
                 //Toast to let the user know the alarm failed to set
                 //Toast.makeText(getApplicationContext(), R.string.unable_alarm, Toast.LENGTH_LONG).show();
             }
+            //Update view to let the user know an alarm has been set
             nextAlarm.setText(nextText);
         }
     }
@@ -299,6 +305,9 @@ public class MainActivity extends AppCompatActivity {
                     view.setText(R.string.empty_time);
                     noFailure = false;
                 }
+                // animate view here?
+                Animation timingsAnimation = AnimationUtils.loadAnimation(this, R.anim.timings_animation);
+                view.startAnimation(timingsAnimation);
             }
             //if some timings were unavailable, let the user know
             if(!noFailure) {

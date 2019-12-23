@@ -8,10 +8,11 @@
     <string name="news_title_empty">News Unavailable</string>
 
     <!-- Placeholder Strings -->
-    <string name="timings_URL">http://www.masjidumar.com/files/timings/</string>
+    <string name="masjid_link"><a href="http://www.masjidumar.us">Masjid Umar Website</a></string>
+    <string name="timings_URL">http://www.masjidumar.us/files/timings/</string>
     <string name="iqamah_file">iqamah_timings.xml</string>
     <string name="prayer_file">prayer_timings.xml</string>
-    <string name="news_URL">http://www.masjidumar.com/files/latest.htm</string>
+    <string name="news_URL">http://www.masjidumar.us/files/latest.htm</string>
 
     <!-- UI Strings -->
     <string name="pick_date">Pick Date</string>
@@ -132,6 +133,6 @@
     <string name="geolocation_summary">Enable location based state changes</string>
 
     <!-- Version String -->
-    <string name="version">Version: 1.2.6</string>
+    <string name="version">Version: 2.0.0</string>
 
 </resources>

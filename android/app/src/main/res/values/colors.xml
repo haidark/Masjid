@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="active">#a25b4201</color>
-    <color name="inactive">#a2978860</color>
+    <color name="active">#E6616161</color>
+    <color name="inactive">#CC949494</color>
     <color name="header">#4e342e</color>
     <color name="black_alpha">#000000</color>
-    <color name="drk_btn">#a25b4201</color>
-    <color name="lgt_btn">#a2978860</color>
+    <color name="drk_btn">#E6303030</color>
+    <color name="lgt_btn">#E6919191</color>
 </resources>
