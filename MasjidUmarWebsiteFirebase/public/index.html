@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
+	<link rel="stylesheet" href="Umar.css" type="text/css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	
+	<script type="text/javascript" src="PrayTimes.js"></script> 
+	<script type="text/javascript" src="moment.js"></script> 
+	<script type="text/javascript" src="jamaatify.js"></script>    
+
+</head>  
+	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+<style>
+	    main { padding-top: 20px; }
+
+</style>
+
+<body class="bg-white">
+	<header>
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark container-fluid ">
+			<img class="navbar-brand" src="Umar.png" width="75" height="75" style="float:left"> 
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link text-light" href="./index.html">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="news.php">News</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./year_prayer.html">Iqamah Times (Year)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./month_prayer.html">Iqamah Times (Month)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="login.php">Login</a></a>
+					</li>
+				</ul>
+				
+				<ul class="ml-auto">
+						<a class="text-light" id = "date_today"></a>
+				</ul>
+				
+
+			</div>
+		</nav>
+		<!-- <nav class="navbar navbar-dark bg-dark">
+			<li class="nav-item">
+				<table class="table text-light">
+					<thead id="salahNames"> </thead>
+					<tr class="  " id="prayerTable"></tr>
+					<tr class=" " id="jamaatTable"></tr>
+				</table> 					
+			</li>
+		</nav> -->
+		
+	</header>
+
+	<script>
+		var date = new Date(); // today
+		var html = "Today's Date: " + date.toLocaleDateString();
+		document.getElementById('date_today').innerHTML = html;
+
+	</script>
+
+	<main role="main" class="container">
+		<div align="center">
+			<table class="table-bordered table-responsive-lg table-responsive-xl table-responsive-sm table-responsive-md table-secondary text-center">
+				<thead id="timingType"> </thead>
+				<tr class="  table-light text-center" id="FajrTable"></tr>
+				<tr class="  table-light text-center" id="SunriseTable"></tr>
+				<tr class="  table-light text-center" id="DhuhrTable"></tr>
+				<tr class="  table-light text-center" id="AsrTable"></tr>
+				<tr class="  table-light text-center" id="MaghribTable"></tr>
+				<tr class="  table-light text-center" id="IshaTable"></tr>
+			</table> 
+			</div>
+	</main>
+
+	<div class="container">
+		<div>
+			<table >
+				<!-- <caption><a href="news.php">Latest News</a></caption> -->
+
+				<div id="jummah">
+					<h3 class="text-success">Eid-al-Adha will be on Saturday, July 9th 2022, at 7:30 AM! </h2>
+					<h2>Jummah khutbah: 12:45 pm</h2>
+				</div>
+					<tr><td><h3 id="title">Masjid open
+					<!-- </h3></td></tr><tr><td><h4 id="time">1/5/2021 -->
+					</h4></td></tr><tr><td><p id="text" align="left">
+						Please fill out this <a href="https://forms.gle/176u3RjYKM4BHQKu6">Google Form</a>  before attending Jumu'ah prayers.
+						<br>
+						Please note that Masjid Umar is only open for obligatory prayer services only.
+Due to ongoing concern about COVID pandemic, Masjid Umar requires all worshippers to adhere to all direction provided. This includes, but is not limited to the following rules:
+<br>
+1.	You must wear a mask that properly covers your nose and mouth prior to entering the building and preferably upon leaving your vehicle.
+<br>
+2.	Plan to enter the building in a state of wudu; Bathrooms will remain closed.
+<br>
+3.	Please bring your own prayer rug to limit shared usage and contamination of the carpets.
+<br>
+4.	Keep your shoes with you using the plastic bag provided at the entrance.
+<br>
+5.	Children will not be permitted.
+<br>
+6.	You are required to adhere to social distancing guidelines at all times during the Jummah and five daily prayers in the building and on the grounds of the Masjid. Avoid shaking hands and hugging, enter and leave masjid in an orderly and safe manner.
+<br>
+7.	No standing outside the Masjid parking lot before or after prayers
+ 
+<br>
+
+						Follow the website and join the WhatsApp group for updates.
+					<a href="https://chat.whatsapp.com/BLUqizNhwpaE0dO8WS7k4M">Masjid WhatsApp Group</a> 
+					May Allah preserve us all.</p></td></tr>		</table>				
+		</div>
+	</div>
+
+	<br>
+	<footer class="bg-secondary text-light container-fluid">
+		<div id="footer">
+			<div id="footerText" class="text-light">
+				<p>Masjid Umar</p>
+				<p>7 Downs St.</p>
+				<p>Kingston, NY 12401</p>
+				<p>(845)663-9330</p>
+				<p>imam@masjidumar.com</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+	
+		var date = new Date(); // today
+		prayTimes.setMethod('ISNA'); 	
+		var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS' );
+		var jamaatTimes = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS' );
+		jamaatify(jamaatTimes);
+		var list = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+	
+		var timingType ="<th></th><th>Prayer</th><th>Iqamah</th>"
+		document.getElementById('timingType').innerHTML = timingType;
+
+		for(var i in list){
+			var html = '<tbody><tr><th rowspan = "1" style="text-orientation:mixed;"> '+list[i]+' </th>';
+			html += '<td>'+ times[list[i].toLowerCase()]  +  '</td>';
+			html += '<td>'+ jamaatTimes[list[i].toLowerCase()]  +  '</td></tr></tbody>';
+			document.getElementById(list[i]+'Table').innerHTML = html;
+		}		
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
+	<link rel="stylesheet" href="Umar.css" type="text/css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	
+	<script type="text/javascript" src="PrayTimes.js"></script> 
+	<script type="text/javascript" src="moment.js"></script>  
+	<script type="text/javascript" src="jamaatify.js"></script>    
+
+</head>  
+	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+<style>
+	    main { padding-top: 20px; }
+
+</style>
+
+<body class="bg-white">
+	<header>
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark container-fluid ">
+			<img class="navbar-brand" src="Umar.png" width="75" height="75" style="float:left"> 
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link text-light" href="./index.html">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="news.php">News</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./year_prayer.html">Iqamah Times (Year)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./month_prayer.html">Iqamah Times (Month)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="login.php">Login</a></a>
+					</li>
+				</ul>
+				
+				<ul class="ml-auto">
+						<a class="text-light" id = "date_today"></a>
+				</ul>
+				
+
+			</div>
+		</nav>
+		<!-- <nav class="navbar navbar-dark bg-dark">
+			<li class="nav-item">
+				<table class="table text-light">
+					<thead id="salahNames"> </thead>
+					<tr class="  " id="prayerTable"></tr>
+					<tr class=" " id="jamaatTable"></tr>
+				</table> 					
+			</li>
+		</nav> -->
+		
+	</header>
+
+	<script>
+		var date = new Date(); // today
+		var html = "Today's Date: " + date.toLocaleDateString();
+		document.getElementById('date_today').innerHTML = html;
+
+	</script>
+
+<body>
+	<img class="d-none d-print-bloc" src="Umar.png" width="75" height="75" style="float:left"> 
+
+	<script type="text/javascript" src="../PrayTimes.js"></script>
+	<div class="container" id="containerDiv" align="center"></div>
+	
+	<br>
+	
+	<script type="text/javascript">
+	
+		var currentDate = new Date();
+		var timeFormat = 1; 
+		// switchFormat(0);
+		for(var i=0; i<12; i++){
+			var monthTable = document.createElement("table");
+			monthTable.id = "table"+i.toString();
+			monthTable.setAttribute("class", "col-sm-6 timetable table-sm page-breaks");
+			monthTable.appendChild(displayMonth(i));
+			$("containerDiv").appendChild(document.createElement("br"));
+			$("containerDiv").appendChild(monthTable);
+			
+		}
+		// display monthly timetable
+		function displayMonth(monthID) {
+			var lat = 41.9270;
+			var lng = -73.9974;
+			var timeZone = -5;
+			var dst = 'auto';
+			var method ='ISNA';
+	
+			prayTimes.setMethod(method);
+			currentDate.setMonth(monthID);
+			var month = currentDate.getMonth();
+			var year = currentDate.getFullYear();
+			return makeTable(year, month, lat, lng, timeZone, dst);
+		}
+	
+		// make monthly timetable
+		function makeTable(year, month, lat, lng, timeZone, dst) {		
+			var items = {day: 'Day', fajr: 'Fajr', sunrise: 'Sunrise', 
+						dhuhr: 'Dhuhr', asr: 'Asr', // sunset: 'Sunset', 
+						maghrib: 'Maghrib', isha: 'Isha'};
+					
+			var tbody = document.createElement('tbody');
+			// create the month header row first
+			var monthHeadertr = document.createElement('tr')
+			var monthHeadertd = document.createElement('td')
+			monthHeadertd.innerHTML = monthFullName(month)+ ' '+ year;
+			monthHeadertd.colSpan = 7;
+			monthHeadertd.setAttribute("class", "caption")
+			monthHeadertr.appendChild(monthHeadertd)
+			tbody.appendChild(monthHeadertr)
+
+			tbody.appendChild(makeTableRow(items, items, 'head-row'));
+	
+			var date = new Date(year, month, 1);
+			var endDate = new Date(year, month+ 1, 1);
+			var format = timeFormat ? '12hNS' : '24h';
+	
+			while (date < endDate) {
+				prayTimes.setMethod('ISNA'); 	
+				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
+				var jamaatTimes = times;
+				jamaatify(jamaatTimes);				
+				times.day = date.getDate();
+				var today = new Date(); 
+				var isToday = (date.getMonth() == today.getMonth()) && (date.getDate() == today.getDate());
+				var klass = isToday ? 'today-row' : '';
+				tbody.appendChild(makeTableRow(times, items, klass));
+				date.setDate(date.getDate()+ 1);  // next day
+			}
+			return tbody;
+		}
+	
+		// make a table row
+		function makeTableRow(data, items, klass) {
+			var row = document.createElement('tr');
+			for (var i in items) {
+				var cell = document.createElement('td');
+				cell.innerHTML = data[i];
+				cell.style.width = i=='day' ? '2.5em' : '3.7em';
+				row.appendChild(cell);
+			}
+			row.className = klass;
+			return row;		
+		}
+	
+		// remove all children of a node
+		function removeAllChild(node) {
+			if (node == undefined || node == null)
+				return;
+	
+			while (node.firstChild)
+				node.removeChild(node.firstChild);
+		}
+	
+		// switch time format
+		function switchFormat(offset) {
+			var formats = ['24-hour', '12-hour'];
+			timeFormat = (timeFormat+ offset)% 2;
+			$('time-format').innerHTML = formats[timeFormat];
+			update();
+		}
+	
+		// update table
+		function update() {
+			displayMonth(0);
+		}
+	
+		// return month full name
+		function monthFullName(month) {
+			var monthName = new Array('January', 'February', 'March', 'April', 'May', 'June', 
+							'July', 'August', 'September', 'October', 'November', 'December');
+			return monthName[month];
+		}
+	
+		function $(id) {
+			return document.getElementById(id);
+		}
+	
+	
+	</script>
+	
+	<footer class="bg-secondary text-light container-fluid d-print-none">
+		<div id="footer">
+			<div id="footerText" class="text-light">
+				<p>Masjid Umar</p>
+				<p>7 Downs St.</p>
+				<p>Kingston, NY 12401</p>
+				<p>(845) 481-0787</p>
+				<p>imam@masjidumar.com</p>
+			</div>
+		</div>
+	</footer>
+
+
+</body>
+</html>

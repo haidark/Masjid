@@ -1,0 +1,285 @@
+:root {
+	--bg-color:rgba(72, 121, 122, 0.555);
+	--body-color:rgba(211, 211, 211, 0.527);
+	--edge-color: rgba(238, 238, 238, 0.651);
+}
+
+@font-face {
+	font-family: 'OpenSans';
+	src: url('../fonts/OpenSans-Regular.eot');
+	src: local('â˜º'), url('../fonts/OpenSans-Regular.woff') format('woff'), url('../fonts/OpenSans-Regular.ttf') format('truetype'), url('../fonts/OpenSans-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	background-color: var(--bg-color);
+	font-family: 'OpenSans';
+}
+
+
+/*------------------------------ HEADER ------------------------------*/
+#header {
+	background-color: var(--edge-color);
+	width: 1000px;
+	height: fit-content;
+	margin: 0 auto;
+}
+
+#hbanner {
+
+	padding: 10px;
+	margin: 0 auto;
+	overflow: auto;
+}
+
+/** Logo **/
+#logo {
+	float: left;
+
+}
+#logo a {
+	background: url(../images/logo.png) no-repeat;
+	height: 80px;
+	width: 100px;
+	display: block;
+}
+
+/** Navigation **/
+#navbar {
+	width: fit-content;
+	margin: 0px auto;
+	overflow: auto;
+}
+
+#navigation {
+	list-style: none;
+	width: fit-content;
+	float: left;
+	padding-inline-start: 0;
+}
+#navigation ul {
+	/* float: left; */
+	display: inline-block;
+	list-style: none;
+	color:#FEFEFE;	
+}
+#navigation li {
+	float: left;
+	text-align:left;
+}
+#navigation li a {
+	border-right: 2px solid black;
+	color: #061296;
+	font-size: 20px;
+	text-decoration: none;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#navigation li a:hover {
+	color: #FFFFFF;
+}
+
+#wrapper {
+	float: none;
+	max-width: 600px;
+	margin: 25px auto;
+	background-color: var(--body-color);
+}
+
+#jummah {
+	clear: both;
+	max-width: 600px;
+	margin: 10px auto;
+}
+
+#jummah h2 {
+	color:#000000;
+	font-size:2em;
+	padding: 15px;
+	width:fit-content;
+	margin: 0 auto;
+}
+
+/*--------------------------Timings Tables------------------------*/
+#timingstables{
+	float: none;
+	clear: both;
+	max-width: 600px;
+	margin: 25px auto;
+	padding: 5px;
+}
+
+#timingstables > table, th, td, tr, caption {
+	border: 1px solid black;
+	padding:10px;
+	text-align:center;
+	font-size:1em;
+}
+
+/**Prayer Times**/
+#prayertimestable{
+	border-collapse: collapse;
+	border-style: groove;
+}
+#prayertimes{
+	clear: both;
+	margin: 15px auto;
+	width: fit-content;
+}
+
+/**Jamaat Times**/
+#jamaattimestable  {	
+	border-collapse:collapse;
+	border-style: groove;
+}
+#jamaattimes {
+	clear: both;
+	margin: 15px auto;
+	width: fit-content;
+}
+
+
+/*------------------------------ News ------------------------------*/
+#newstable > table, th, td , tr , caption {
+	border: 1px solid black;
+}
+
+#newstable {
+	border-collapse: collapse;
+}
+
+#news {
+	max-width: 600px;
+	float: none;
+	clear: both;
+	margin: 25px auto;
+	padding: 5px;
+}
+
+#title, #time {
+	float: left;
+	clear: left;
+	padding: 0;
+	margin: 0;
+}
+
+#text{
+	clear: left;
+	margin-top: 10px;
+}
+
+
+h1 {
+	color: #000000;
+	font-size: 30px;
+	font-weight: normal;
+	line-height: 30px;
+	margin: 0 0 30px;	
+}
+
+
+h2 , b {
+	color: #000000;
+	font-size: 50px;
+	font-style: bold;
+	font-weight: normal;
+	line-height: 24px;
+
+
+}
+
+p {
+	color: #000000;
+	font-size: 16px;
+	line-height: 30px;
+}
+
+/*------------ News Page ----------------*/
+#contents {
+	background-color: var(--body-color);
+	float: none;
+	clear: both;
+	max-width: 600px;
+	margin: 0 auto;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.main {
+	float: none;
+	min-height: 100px;
+	width: 600px;
+	margin: 0 auto;
+}
+
+.main h1 {
+	font-size: 35px;
+	font-weight: 15px;
+	margin: 0 auto;
+	max-width: 600px;
+	padding: 10px;
+	text-align: center;
+	border-bottom: 4px solid black;
+}
+
+.main h2 {
+	display: block;
+	font-size: 25px;
+	text-align: center;
+}
+.main p {
+	text-align:center;
+	margin: 5px auto;
+}
+
+.news {
+	max-width: 600px;
+	margin: 0 auto;
+	padding-inline-start: 0;
+}
+
+.news li {
+	display: block;
+	border-bottom: 2px dashed black;
+}
+
+.date {
+	text-align: center;
+}
+.date p span {
+	font-size: 20px;
+}
+
+.content {
+	text-align: center;
+	padding: 5px;
+}
+/*------------------------------ MONTH ------------------------------*/
+#getMonth {
+	max-width: 600px;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: var(--body-color);
+	border-color: black;
+
+}
+
+#monthTable {
+	margin: 0 auto;
+	width: fit-content;
+}
+/*------------------------------ LOGIN ------------------------------*/
+#loginTable{
+	width: fit-content;
+	margin: 10px auto;
+	border-collapse: collapse;
+	background-color: var(--body-color);
+}
+/*------------------------------ FOOTER ------------------------------*/
+
+@media print {
+	.page-breaks {page-break-after: always;}
+	.no-page-break {page-break-inside: avoid;}
+  }

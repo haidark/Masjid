@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
+	<link rel="stylesheet" href="Umar.css" type="text/css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	
+	<script type="text/javascript" src="PrayTimes.js"></script> 
+	<script type="text/javascript" src="moment.js"></script>  
+	<script type="text/javascript" src="jamaatify.js"></script>    
+
+</head>  
+	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+<style>
+	    main { padding-top: 20px; }
+
+</style>
+
+
+<body>
+	<img class="d-none d-print-bloc" src="Umar.png" width="75" height="75" style="float:left"> 
+
+	<script type="text/javascript" src="../PrayTimes.js"></script>
+	<div class="container" id="containerDiv" align="center"></div>
+	
+	<br>
+	
+	<script type="text/javascript">
+	
+		var currentDate = new Date();
+		var timeFormat = 1; 
+		var monthTable = document.createElement("table");
+		monthTable.id = "table"+(currentDate.getMonth()).toString();
+		monthTable.setAttribute("class", "col-sm-6 timetable table-sm");
+		monthTable.appendChild(displayMonth(currentDate.getMonth()));
+		setInterval(function(){ monthTable.firstChild.remove(); 
+			monthTable.appendChild(displayMonth(currentDate.getMonth()));}, 3600000);
+
+		$("containerDiv").appendChild(monthTable);
+
+		// display monthly timetable
+		function displayMonth(monthID) {
+			var lat = 41.9270;
+			var lng = -73.9974;
+			var timeZone = -5;
+			var dst = 'auto';
+			var method ='ISNA';
+	
+			prayTimes.setMethod(method);
+			currentDate.setMonth(monthID);
+			var month = currentDate.getMonth();
+			var year = currentDate.getFullYear();
+			return makeTable(year, month, lat, lng, timeZone, dst);
+		}
+	
+		// make monthly timetable
+		function makeTable(year, month, lat, lng, timeZone, dst) {		
+			var items = {day: 'Day', fajr: 'Fajr', sunrise: 'Sunrise', 
+						dhuhr: 'Dhuhr', asr: 'Asr', // sunset: 'Sunset', 
+						maghrib: 'Maghrib', isha: 'Isha'};
+					
+			var tbody = document.createElement('tbody');
+			// create the month header row first
+			var monthHeadertr = document.createElement('tr')
+			var monthHeadertd = document.createElement('td')
+			monthHeadertd.innerHTML = monthFullName(month)+ ' '+ year;
+			monthHeadertd.colSpan = 7;
+			monthHeadertd.setAttribute("class", "caption")
+			monthHeadertr.appendChild(monthHeadertd)
+			tbody.appendChild(monthHeadertr)
+
+			tbody.appendChild(makeTableRow(items, items, 'head-row'));
+	
+			var date = new Date(year, month, 1);
+			var endDate = new Date(year, month+ 1, 1);
+			var format = timeFormat ? '12hNS' : '24h';
+			var i = 0;
+			while (date < endDate) {
+				prayTimes.setMethod('ISNA'); 	
+				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
+				var jamaatTimes = times;
+				jamaatify(jamaatTimes);				
+				times.day = date.getDate();
+				var today = new Date(); 
+				var isToday = (date.getMonth() == today.getMonth()) && (date.getDate() == today.getDate());
+				var klass = isToday ? 'bg-dark text-light' : '';
+				tbody.appendChild(makeTableRow(times, items, klass));
+				date.setDate(date.getDate()+ 1);  // next day
+				i++;
+			}
+			while (i < 31){
+				var dummy = {day: '&nbsp', fajr: ' ', sunrise: ' ', 
+						dhuhr: ' ', asr: ' ', // sunset: 'Sunset', 
+						maghrib: ' ', isha: ' '};
+				tbody.appendChild(makeTableRow(dummy, items, klass));
+				i++;
+			}
+			return tbody;
+		}
+	
+		// make a table row
+		function makeTableRow(data, items, klass) {
+			var row = document.createElement('tr');
+			for (var i in items) {
+				var cell = document.createElement('td');
+				cell.innerHTML = data[i];
+				cell.style.width = i=='day' ? '2.5em' : '3.7em';
+				row.appendChild(cell);
+			}
+			row.className = klass;
+			return row;		
+		}
+	
+		// remove all children of a node
+		function removeAllChild(node) {
+			if (node == undefined || node == null)
+				return;
+	
+			while (node.firstChild)
+				node.removeChild(node.firstChild);
+		}
+	
+		// switch time format
+		function switchFormat(offset) {
+			var formats = ['24-hour', '12-hour'];
+			timeFormat = (timeFormat+ offset)% 2;
+			$('time-format').innerHTML = formats[timeFormat];
+			update();
+		}
+	
+		// update table
+		function update() {
+			displayMonth(0);
+		}
+	
+		// return month full name
+		function monthFullName(month) {
+			var monthName = new Array('January', 'February', 'March', 'April', 'May', 'June', 
+							'July', 'August', 'September', 'October', 'November', 'December');
+			return monthName[month];
+		}
+	
+		function $(id) {
+			return document.getElementById(id);
+		}
+	
+	
+	</script>
+</body>
+</html>
