@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-	<body style="background-color:rgba(195, 207, 30, 0.644);">
+	<body style="background-color:rgba(255, 255, 255, 0.644);">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
@@ -73,7 +73,6 @@
 			var year = currentDate.getFullYear();
 			return makeTable(year, month, lat, lng, timeZone, dst);
 		}
-	
 		// make monthly timetable
 		function makeTable(year, month, lat, lng, timeZone, dst) {		
 			var items = {day: 'Day', fajr: 'Fajr', sunrise: 'Sunrise', 
@@ -109,7 +108,8 @@
 				date.setDate(date.getDate()+ 1);  // next day
 				i++;
 			}
-			while (i < 31){
+			var daysInMonth = new Date(year,month+1,0).getDate(); //Gets number of days in month for table creation
+			while (i < daysInMonth){
 				var dummy = {day: '&nbsp', fajr: ' ', sunrise: ' ', 
 						dhuhr: ' ', asr: ' ', // sunset: 'Sunset', 
 						maghrib: ' ', isha: ' '};
