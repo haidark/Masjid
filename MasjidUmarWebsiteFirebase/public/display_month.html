@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+	<body style="background-color:rgba(195, 207, 30, 0.644);">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
@@ -22,12 +23,26 @@
 
 </style>
 
+<div class="container" id="containerDiv" align="center">
+	
+	<div class="cleanslate w24tz-current-time w24tz-middle" style="background-color:rgba(255, 255, 255, 0.644)!important; display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:100px !important;"><p><a href="//24timezones.com/State-of-New-York/time" style="color:rgb(15, 15, 230) !important;" class="clock24" id="tz24-1676686791-su27-eyJob3VydHlwZSI6IjEyIiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIxIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I2M2YwMzVjN2Q0M2U5IiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" title="Clock - New York" target="_blank" rel="nofollow"></a></p><div id="clock_block_cb63f035c7d43e9"></div></div>
+<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
+
+</div>
+
+
+
+<!-- For setting the time-->
+<!-- <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/New-York/time" style="text-decoration: none" class="clock24" id="tz24-1676685000-c1179-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMSIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjNmMDJlYzgwYjMzOCIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="New York clock" target="_blank" rel="nofollow">New York time</a></p><div id="clock_block_cb63f02ec80b338"></div></div>
+<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>-->
+
+
 
 <body>
 	<img class="d-none d-print-bloc" src="Umar.png" width="75" height="75" style="float:left"> 
 
 	<script type="text/javascript" src="../PrayTimes.js"></script>
-	<div class="container" id="containerDiv" align="center"></div>
+	<div class="container" id="containerDiv" align="center" ></div>
 	
 	<br>
 	
@@ -77,11 +92,11 @@
 
 			tbody.appendChild(makeTableRow(items, items, 'head-row'));
 	
-			var date = new Date(year, month, 1);
+			var date = new Date(year, month, 16);
 			var endDate = new Date(year, month+ 1, 1);
 			var format = timeFormat ? '12hNS' : '24h';
-			var i = 0;
-			while (date < endDate) {
+			var i = 15;
+			while (date< endDate) { // i<15 only keeps first 15 days
 				prayTimes.setMethod('ISNA'); 	
 				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
 				var jamaatTimes = times;
@@ -89,7 +104,7 @@
 				times.day = date.getDate();
 				var today = new Date(); 
 				var isToday = (date.getMonth() == today.getMonth()) && (date.getDate() == today.getDate());
-				var klass = isToday ? 'bg-dark text-light' : '';
+				var klass = isToday ? 'bg-dark text-light' : ''; //Select current day of month and highlights
 				tbody.appendChild(makeTableRow(times, items, klass));
 				date.setDate(date.getDate()+ 1);  // next day
 				i++;
@@ -152,5 +167,11 @@
 	
 	
 	</script>
+	
 </body>
+
+
+
+
+
 </html>
