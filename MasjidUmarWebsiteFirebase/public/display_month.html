@@ -90,19 +90,17 @@
 			tbody.appendChild(monthHeadertr)
 
 			tbody.appendChild(makeTableRow(items, items, 'head-row'));
-	
-			var date = new Date(year, month, 16);
-			var endDate = new Date(year, month+ 1, 1);
+			var date = new Date(year, month, currentDate.getDate()); //top of table is set to current date
+			var endDate = new Date(year, month, currentDate.getDate()+15); //shows 15 days in total
 			var format = timeFormat ? '12hNS' : '24h';
-			var i = 15;
+			var i = date.getDate;
 			while (date< endDate) { // i<15 only keeps first 15 days
 				prayTimes.setMethod('ISNA'); 	
 				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
 				var jamaatTimes = times;
 				jamaatify(jamaatTimes);				
 				times.day = date.getDate();
-				var today = new Date(); 
-				var isToday = (date.getMonth() == today.getMonth()) && (date.getDate() == today.getDate());
+				var isToday = (date.getMonth() == currentDate.getMonth()) && (date.getDate() == currentDate.getDate());
 				var klass = isToday ? 'bg-dark text-light' : ''; //Select current day of month and highlights
 				tbody.appendChild(makeTableRow(times, items, klass));
 				date.setDate(date.getDate()+ 1);  // next day
