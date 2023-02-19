@@ -19,13 +19,13 @@
 </head>  
 	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
 <style>
-	    main { padding-top: 20px; }
-
+	    main { padding-top: 20px;}
+		img.fixed {position: fixed; bottom: 0; left: 0;}
 </style>
 
 <div class="container" id="containerDiv" align="center">
 	
-	<div class="cleanslate w24tz-current-time w24tz-middle" style="background-color:#25393A !important; display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:100px !important;"><p><a href="//24timezones.com/State-of-New-York/time" style="color:rgb(15, 15, 230) !important;" class="clock24" id="tz24-1676686791-su27-eyJob3VydHlwZSI6IjEyIiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIxIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I2M2YwMzVjN2Q0M2U5IiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" title="Clock - New York" target="_blank" rel="nofollow"></a></p><div id="clock_block_cb63f035c7d43e9"></div></div>
+	<div class="cleanslate w24tz-current-time w24tz-middle" style="background-color:rgba(0, 0, 0, 0) !important; display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:100px !important;"><p><a href="//24timezones.com/State-of-New-York/time" class="clock24" id="tz24-1676686791-su27-eyJob3VydHlwZSI6IjEyIiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIxIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I2M2YwMzVjN2Q0M2U5IiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" title="Clock - New York" target="_blank" rel="nofollow"></a></p><div id="clock_block_cb63f035c7d43e9"></div></div>
 <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
 
 </div>
@@ -39,7 +39,7 @@
 
 
 <body>
-	<img class="d-none d-print-bloc" src="Umar.png" width="75" height="75" style="float:left"> 
+	<img class="fixed" src="Umar.png" width="250" height="250"> 
 
 	<script type="text/javascript" src="../PrayTimes.js"></script>
 	<div class="container" id="containerDiv" align="center" ></div>
@@ -52,7 +52,7 @@
 		var timeFormat = 1; 
 		var monthTable = document.createElement("table");
 		monthTable.id = "table"+(currentDate.getMonth()).toString();
-		monthTable.setAttribute("class", "col-sm-6 timetable table-sm");
+		monthTable.setAttribute("class", "col-lg-6 timetable table-lg table-striped");
 		monthTable.appendChild(displayMonth(currentDate.getMonth()));
 		setInterval(function(){ monthTable.firstChild.remove(); 
 			monthTable.appendChild(displayMonth(currentDate.getMonth()));}, 3600000);
