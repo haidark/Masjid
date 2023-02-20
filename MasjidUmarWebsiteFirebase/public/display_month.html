@@ -1,15 +1,7 @@
 <!DOCTYPE HTML>
 <html>
-	
-
+	<body style="background-color:rgba(160, 160, 156, 0.671);"></body>
 <head>
-	
-
-	
-		
-	
-	
-	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8"><title>Display - Masjid Umar</title>
 	<link rel="stylesheet" href="Umar.css" type="text/css">
@@ -22,8 +14,7 @@
 	
 	<script type="text/javascript" src="PrayTimes.js"></script> 
 	<script type="text/javascript" src="moment.js"></script>  
-	<script type="text/javascript" src="jamaatify.js"></script>
-	
+	<script type="text/javascript" src="jamaatify.js"></script>    
 
 </head>  
 	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
@@ -31,14 +22,6 @@
 	    main { padding-top: 20px;}
 		img.fixed {position: fixed; bottom: 0; left: 0;}
 </style>
-
-
-
-
-
-<!-- For setting the time-->
-<!-- <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/New-York/time" style="text-decoration: none" class="clock24" id="tz24-1676685000-c1179-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMSIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjNmMDJlYzgwYjMzOCIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="New York clock" target="_blank" rel="nofollow">New York time</a></p><div id="clock_block_cb63f02ec80b338"></div></div>
-<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>-->
 
 <b>
 	<div id="MyClockDisplay" class="clock"  onload="showTime()"></div>
@@ -53,24 +36,23 @@
 
 
 
-
+<!-- For setting the time-->
+<!-- <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/New-York/time" style="text-decoration: none" class="clock24" id="tz24-1676685000-c1179-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMSIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjNmMDJlYzgwYjMzOCIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="New York clock" target="_blank" rel="nofollow">New York time</a></p><div id="clock_block_cb63f02ec80b338"></div></div>
+<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>-->
 
 
 
 <body>
-
-<img src="noneimage.jpg" alt="Trulli" width="0" height="120" right="1000" align="top">
-
-
+	<img class="fixed" src="Umar.png" width="250" height="250"> 
+	<img src="noneimage.jpg" alt="Trulli" width="0" height="120" right="1000" align="top">
 	
-
 	<script type="text/javascript" src="../PrayTimes.js"></script>
-	<div class="container" id="containerDiv" align="center"  ></div>
+	<div class="container" id="containerDiv" align="center" ></div>
 	
 	<br>
 	
 	<script type="text/javascript">
-		var fajr_hour = [];
+	
 		var currentDate = new Date();
 		var timeFormat = 1; 
 		var monthTable = document.createElement("table");
@@ -81,9 +63,9 @@
 			monthTable.appendChild(displayMonth(currentDate.getMonth()));}, 3600000);
 
 		$("containerDiv").appendChild(monthTable);
-		$(currentDate);
+
 		// display monthly timetable
-		function displayMonth(monthID=0) {
+		function displayMonth(monthID) {
 			var lat = 41.9270;
 			var lng = -73.9974;
 			var timeZone = -5;
@@ -98,10 +80,10 @@
 		}
 		// make monthly timetable
 		function makeTable(year, month, lat, lng, timeZone, dst) {		
-			var items = {day: 'Day', fajr: 'Fajr', 
+			var items = {day: 'Day', fajr: 'Fajr', sunrise: 'Sunrise', 
 						dhuhr: 'Dhuhr', asr: 'Asr', // sunset: 'Sunset', 
 						maghrib: 'Maghrib', isha: 'Isha'};
-		
+					
 			var tbody = document.createElement('tbody');
 			// create the month header row first
 			var monthHeadertr = document.createElement('tr')
@@ -127,9 +109,6 @@
 				var klass = isToday ? 'bg-dark text-light' : ''; //Select current day of month and highlights
 				tbody.appendChild(makeTableRow(times, items, klass));
 				date.setDate(date.getDate()+ 1);  // next day
-				
-				//fafajr_hour[i]= items.length();
-				//console.log(fajr_hour[i]);
 				i++;
 			}
 			var daysInMonth = new Date(year,month+1,0).getDate(); //Gets number of days in month for table creation
@@ -139,10 +118,6 @@
 						maghrib: ' ', isha: ' '};
 				tbody.appendChild(makeTableRow(dummy, items, klass));
 				i++;
-			
-				
-			
-	
 			}
 			return tbody;
 		}
@@ -155,7 +130,6 @@
 				cell.innerHTML = data[i];
 				cell.style.width = i=='day' ? '2.5em' : '3.7em';
 				row.appendChild(cell);
-			
 			}
 			row.className = klass;
 			return row;		
@@ -189,17 +163,17 @@
 							'July', 'August', 'September', 'October', 'November', 'December');
 			return monthName[month];
 		}
-		
+	
 		function $(id) {
 			return document.getElementById(id);
-			
 		}
 	
+	
 	</script>
-
-<img class="fixed" src="Umar.png" width="250" height="250"> 
-<body style="background-color:rgba(160, 160, 156, 0.671);"></body>
+	
 </body>
+
+
 
 
 
