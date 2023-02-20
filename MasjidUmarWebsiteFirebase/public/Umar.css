@@ -89,12 +89,14 @@ body {
 }
 
 #jummah {
+	
 	clear: both;
 	max-width: 600px;
 	margin: 10px auto;
 }
 
 #jummah h2 {
+	
 	color:#000000;
 	font-size:2em;
 	padding: 15px;
@@ -104,14 +106,17 @@ body {
 
 /*--------------------------Timings Tables------------------------*/
 #timingstables{
+	
 	float: none;
 	clear: both;
 	max-width: 600px;
 	margin: 25px auto;
 	padding: 5px;
+	
 }
 
 #timingstables > table, th, td, tr, caption {
+	
 	border: 1px solid black;
 	padding:10px;
 	text-align:center;
@@ -120,10 +125,13 @@ body {
 
 /**Prayer Times**/
 #prayertimestable{
+	
 	border-collapse: collapse;
 	border-style: groove;
+	
 }
 #prayertimes{
+	
 	clear: both;
 	margin: 15px auto;
 	width: fit-content;
@@ -131,13 +139,17 @@ body {
 
 /**Jamaat Times**/
 #jamaattimestable  {	
+	
 	border-collapse:collapse;
 	border-style: groove;
+	
 }
 #jamaattimes {
+	
 	clear: both;
 	margin: 15px auto;
 	width: fit-content;
+	
 }
 
 
@@ -263,6 +275,7 @@ p {
 	padding: 10px;
 	background-color: var(--body-color);
 	border-color: black;
+	
 
 }
 
@@ -283,3 +296,47 @@ p {
 	.page-breaks {page-break-after: always;}
 	.no-page-break {page-break-inside: avoid;}
   }
+
+.date {
+    position: absolute;
+    top: 5%;
+    left: 51%;
+    transform: translateX(-50%)
+     translateY(-50%);ddd
+    color:black;
+    font-size: 25px;
+    font-family: Orbitron;
+    letter-spacing: 0.5px;
+   
+
+
+}
+
+/* clock top*/
+  .clock {
+    position: absolute;
+    top: 2.5%;
+    left: 48%;
+    transform: translateX(-50%)
+     translateY(-50%);
+    color: black;
+    font-size: 45px;
+    font-family: Orbitron;
+    letter-spacing: 1px;
+   
+
+
+}
+
+
+
+/*
+.umar_size{
+	position: absolute;
+	width: 250px;
+	height:250px;
+	top: 86%;
+
+
+}
+*/
