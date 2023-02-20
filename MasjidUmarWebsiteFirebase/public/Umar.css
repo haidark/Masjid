@@ -290,19 +290,15 @@ p {
 	border-collapse: collapse;
 	background-color: var(--body-color);
 }
-/*------------------------------ FOOTER ------------------------------*/
 
-@media print {
-	.page-breaks {page-break-after: always;}
-	.no-page-break {page-break-inside: avoid;}
-  }
+
 
 .date {
     position: absolute;
     top: 5%;
     left: 51%;
     transform: translateX(-50%)
-     translateY(-50%);ddd
+     translateY(-50%);
     color:black;
     font-size: 25px;
     font-family: Orbitron;
@@ -328,6 +324,12 @@ p {
 
 }
 
+/*------------------------------ FOOTER ------------------------------*/
+
+@media print {
+	.page-breaks {page-break-after: always;}
+	.no-page-break {page-break-inside: avoid;}
+  }
 
 
 /*
