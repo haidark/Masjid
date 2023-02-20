@@ -290,8 +290,12 @@ p {
 	border-collapse: collapse;
 	background-color: var(--body-color);
 }
+/*------------------------------ FOOTER ------------------------------*/
 
-
+@media print {
+	.page-breaks {page-break-after: always;}
+	.no-page-break {page-break-inside: avoid;}
+  }
 
 .date {
     position: absolute;
@@ -324,12 +328,6 @@ p {
 
 }
 
-/*------------------------------ FOOTER ------------------------------*/
-
-@media print {
-	.page-breaks {page-break-after: always;}
-	.no-page-break {page-break-inside: avoid;}
-  }
 
 
 /*
