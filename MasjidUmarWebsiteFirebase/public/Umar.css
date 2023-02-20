@@ -89,12 +89,14 @@ body {
 }
 
 #jummah {
+	
 	clear: both;
 	max-width: 600px;
 	margin: 10px auto;
 }
 
 #jummah h2 {
+	
 	color:#000000;
 	font-size:2em;
 	padding: 15px;
@@ -104,6 +106,7 @@ body {
 
 /*--------------------------Timings Tables------------------------*/
 #timingstables{
+	
 	float: none;
 	clear: both;
 	max-width: 600px;
@@ -117,7 +120,7 @@ body {
 	border: 1px solid black;
 	padding:10px;
 	text-align:center;
-	font-size:em;  /*changes sizeing of month display*/
+	font-size:1em;  /*changes sizeing of month display*/
 }
 
 /**Prayer Times**/
@@ -311,7 +314,7 @@ p {
 
 
 .umar_size{
-	position: relative;
+	position: absolute;
 	width: 250px;
 	height:250px;
 	top: 86%;
