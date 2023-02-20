@@ -296,6 +296,22 @@ p {
 	.page-breaks {page-break-after: always;}
 	.no-page-break {page-break-inside: avoid;}
   }
+
+.date {
+    position: absolute;
+    top: 5%;
+    left: 51%;
+    transform: translateX(-50%)
+     translateY(-50%);ddd
+    color:black;
+    font-size: 25px;
+    font-family: Orbitron;
+    letter-spacing: 0.5px;
+   
+
+
+}
+
 /* clock top*/
   .clock {
     position: absolute;
@@ -313,6 +329,8 @@ p {
 }
 
 
+
+/*
 .umar_size{
 	position: absolute;
 	width: 250px;
@@ -321,3 +339,4 @@ p {
 
 
 }
+*/

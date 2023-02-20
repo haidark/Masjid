@@ -14,15 +14,16 @@ function showTime(){
         session = "PM";
     }
     
-    h = (h < 10) ? "0" + h : h;
+    h = (h < 10) ? "" + h : h;
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
-    
-    var time = h + ":" + m + ":" + s + " " + session;
+  
+    var time = h + ":" + m + ":" + s + " " +session;
     document.getElementById("MyClockDisplay").innerText = time;
     document.getElementById("MyClockDisplay").textContent = time;
     
     setTimeout(showTime, 1000);
+    
     
 }
 

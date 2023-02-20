@@ -3,7 +3,7 @@ function showDate(){
     var day = date.getDate(); // 1 - 31
     var month=date.getMonth();//0-11
     var months="d";
-    year=getFullYear();
+    year=date.getFullYear();
 
     var weekday = date.getDay(); // 0 - 6
     var weekdaysnow="d";
@@ -81,7 +81,7 @@ function showDate(){
     document.getElementById("MyDateDisplay").innerText = fulldate;
     document.getElementById("MyDateDisplay").textContent = fulldate;
     
-   // setTimeout(showDate, 1000);
+    setTimeout(showDate, 1000);
     
 }
 
