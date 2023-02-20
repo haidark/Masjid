@@ -290,35 +290,15 @@ p {
 	border-collapse: collapse;
 	background-color: var(--body-color);
 }
-/*------------------------------ FOOTER ------------------------------*/
-
-@media print {
-	.page-breaks {page-break-after: always;}
-	.no-page-break {page-break-inside: avoid;}
-  }
-
-.date {
-    position: absolute;
-    top: 5%;
-    left: 51%;
-    transform: translateX(-50%)
-     translateY(-50%);
-    color:black;
-    font-size: 25px;
-    font-family: Orbitron;
-    letter-spacing: 0.5px;
-   
 
 
-}
 
 /* clock top*/
   .clock {
     position: absolute;
     top: 2.5%;
-    left: 48%;
-    transform: translateX(-50%)
-     translateY(-50%);
+    left: 25%;
+
     color: black;
     font-size: 45px;
     font-family: Orbitron;
@@ -328,6 +308,26 @@ p {
 
 }
 
+.date {
+    position: absolute;
+    top: 7%;
+    left: 25%;
+ 
+    color:black;
+    font-size: 25px;
+    font-family: Orbitron;
+    letter-spacing: 0.5px;
+   
+
+
+}
+
+/*------------------------------ FOOTER ------------------------------*/
+
+@media print {
+	.page-breaks {page-break-after: always;}
+	.no-page-break {page-break-inside: avoid;}
+  }
 
 
 /*
