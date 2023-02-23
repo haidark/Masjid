@@ -299,8 +299,8 @@ p {
 
 .date {
     position: absolute;
-    top: 5.8%;
-    left: 52.3%;
+    top: 5.3%;
+    left: 51%;
     transform: translateX(-50%)
      translateY(-50%);
     color:black;
