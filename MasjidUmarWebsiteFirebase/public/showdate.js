@@ -1,3 +1,5 @@
+
+//const puppeteer=require('puppeteer');
 function showDate(){
     var date = new Date();
     var day = date.getDate(); // 1 - 31
@@ -10,7 +12,7 @@ function showDate(){
 
     var s = date.getSeconds(); // 0 - 59
    // const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-   // const days=["Monday","Tuesday", "Wednesday","Thursday","Firday","Saturday", "Sunday"]
+   // const days=["Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday", "Sunday"]
     var session = "AM";
     
     switch (weekday) {
@@ -21,12 +23,13 @@ function showDate(){
             weekdaysnow = "Monday";
           break;
         case 2:
-            weekdaysnow;
+            weekdaysnow="Tuesday";
         case 3:
             weekdaysnow = "Wednesday";
           break;
         case 4:
-            weekdaysnow;
+            weekdaysnow="Thursday";
+            break;
         case 5:
             weekdaysnow = "Friday";
           break;
@@ -73,7 +76,14 @@ function showDate(){
     
       }
 
-
+      //const browser =await puppeteer.launch();
+      //const page = await browser.newPage();
+      //url='https://chicagohilal.org/';
+      //await page.goto(url);
+  
+      //const[el1]=await page.$x('//*[@id="post-3108"]/div/p[1]');
+      //const txt=await el1.getProperty('textContent');
+      //const title= await txt.jsonValue();
     
   
     
@@ -86,3 +96,4 @@ function showDate(){
 }
 
 showDate();
+

@@ -299,8 +299,8 @@ p {
 
 .date {
     position: absolute;
-    top: 5%;
-    left: 51%;
+    top: 5.8%;
+    left: 52.3%;
     transform: translateX(-50%)
      translateY(-50%);
     color:black;
@@ -312,6 +312,22 @@ p {
 
 }
 
+.countdown {
+    position: absolute;
+    bottom: 2.5%;
+    left: 48%;
+    transform: translateX(-50%)
+     translateY(-50%);
+    color: rgb(11, 139, 203);
+    font-size: 125px;
+    font-family: Orbitron;
+    letter-spacing: 1px;
+   
+
+
+}
+
+
 /* clock top*/
   .clock {
     position: absolute;
@@ -320,7 +336,7 @@ p {
     transform: translateX(-50%)
      translateY(-50%);
     color: black;
-    font-size: 45px;
+    font-size: 50px;
     font-family: Orbitron;
     letter-spacing: 1px;
    
@@ -330,13 +346,55 @@ p {
 
 
 
+/* webscrape chicago hilal top*/
+.mytitle {
+    position: absolute;
+    top: 1%;
+    left: 48%;
+    transform: translateX(-50%)
+     translateY(-50%);
+    color: rgb(225, 11, 11);
+    font-size: 100px;
+    font-family: Orbitron;
+    letter-spacing: 1px;
+   
+
+
+}
+
 /*
-.umar_size{
+.qr{
 	position: absolute;
 	width: 250px;
 	height:250px;
-	top: 86%;
+	bottom: 0%;
+	right:0%;
 
 
 }
 */
+
+
+.umar_size{
+	position: absolute;
+	width: 250px;
+	height:250px;
+	bottom: 0%;
+	left:0%;
+
+}
+
+.txtcount {
+    position: absolute;
+    bottom: 14%;
+    left: 50%;
+    transform: translateX(-50%)
+     translateY(-50%);
+    color: rgb(19, 19, 19);
+    font-size: 50px;
+    font-family: Orbitron;
+    letter-spacing: 1px;
+   
+
+
+}
