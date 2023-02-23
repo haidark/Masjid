@@ -3,6 +3,7 @@ function showTime(){
     var h = date.getHours(); // 0 - 23
     var m = date.getMinutes(); // 0 - 59
     var s = date.getSeconds(); // 0 - 59
+    
     var session = "AM";
     
     if(h == 0){

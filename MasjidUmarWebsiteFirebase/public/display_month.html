@@ -23,7 +23,9 @@
 	<script type="text/javascript" src="PrayTimes.js"></script> 
 	<script type="text/javascript" src="moment.js"></script>  
 	<script type="text/javascript" src="jamaatify.js"></script>
-	
+	<script type="text/javascript" src="chicagohilalwebscrape.js"></script>
+	<script type="text/javascript" src="showdate.js"></script>
+	<script type="text/javascript" src="countdown.js"></script>
 
 </head>  
 	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
@@ -43,8 +45,6 @@
 
 
 
-
-
 <body>
 
 
@@ -60,7 +60,7 @@
 	<br>
 	
 	<script type="text/javascript">
-		var fajr_hour = [];
+		
 		var currentDate = new Date();
 		var timeFormat = 1; 
 		var monthTable = document.createElement("table");
@@ -73,6 +73,11 @@
 		$("containerDiv").appendChild(monthTable);
 		$(currentDate);
 		// display monthly timetable
+		var fajr;
+		var dhuhr;
+		var asr;
+		var maghrib;
+		var isha;
 		function displayMonth(monthID=0) {
 			var lat = 41.9270;
 			var lng = -73.9974;
@@ -87,6 +92,8 @@
 			return makeTable(year, month, lat, lng, timeZone, dst);
 		}
 		// make monthly timetable
+
+
 		function makeTable(year, month, lat, lng, timeZone, dst) {		
 			var items = {day: 'Day', fajr: 'Fajr', 
 						dhuhr: 'Dhuhr', asr: 'Asr', // sunset: 'Sunset', 
@@ -107,21 +114,45 @@
 			var endDate = new Date(year, month, currentDate.getDate()+15); //shows 15 days in total
 			var format = timeFormat ? '12hNS' : '24h';
 			var i = date.getDate;
+			var fajrcount=0;
 			while (date< endDate) { // i<15 only keeps first 15 days
+				fajrcount=0;
 				prayTimes.setMethod('ISNA'); 	
 				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
 				var jamaatTimes = times;
-				jamaatify(jamaatTimes);				
+				jamaatify(jamaatTimes);
+				
+				
 				times.day = date.getDate();
 				var isToday = (date.getMonth() == currentDate.getMonth()) && (date.getDate() == currentDate.getDate());
+				
+				if(isToday==true)
+				{
+					fajr=(times.fajr);
+					dhuhr=(times.dhuhr);
+					asr=(times.asr);
+					maghrib=(times.maghrib);
+					isha=(times.isha);
+					fajrcount++;
+				}
 				var klass = isToday ? 'bg-dark text-light' : ''; //Select current day of month and highlights
 				tbody.appendChild(makeTableRow(times, items, klass));
 				date.setDate(date.getDate()+ 1);  // next day
+				//var next=Integer.parseInt(Items.day)+1;
+				//var nexttostr=next.toString();
+				var up= times.day
+				/*if(times.day==up)
+				{	
+					
+				}*/
+				
 				
 				//fafajr_hour[i]= items.length();
 				//console.log(fajr_hour[i]);
 				i++;
 			}
+
+			fajr=fajr;
 			var daysInMonth = new Date(year,month+1,0).getDate(); //Gets number of days in month for table creation
 			while (i < daysInMonth){
 				var dummy = {day: '&nbsp', fajr: ' ', sunrise: ' ', 
@@ -136,7 +167,7 @@
 			}
 			return tbody;
 		}
-	
+		
 		// make a table row
 		function makeTableRow(data, items, klass) {
 			var row = document.createElement('tr');
@@ -175,7 +206,7 @@
 	
 		// return month full name
 		function monthFullName(month) {
-			var monthName = new Array('January', 'February', 'March', 'April', 'May', 'June', 
+			var monthName = new Array('January','February ', 'March', 'April', 'May', 'June', 
 							'July', 'August', 'September', 'October', 'November', 'December');
 			return monthName[month];
 		}
@@ -184,20 +215,52 @@
 			return document.getElementById(id);
 			
 		}
+		
 	
+		
+		//var fajrvar=countdown(fajr);
+		//var dhuhrvar=countdown(dhuhr);
+		//var asrvar=
+		window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   		document.getElementById("myLink").innerHTML=countdown(fajr,dhuhr,asr,maghrib,isha);
+		} 	
+		
+		window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   		document.getElementById("countdowntxt").innerHTML="Next prayer time in:";
+		} 	
+		
+
+
+
+    
 	</script>
+<!--<div id="myLink" class="countdown" onload="countdown(fajr,dhuhr,asr,maghrib,isha)"  ></div>-->
 
-<img class="fixed" src="Umar.png" width="250" height="250"> 
+<!--<div id="countdowntxt" class="txtcount" ></div>-->
 
+<img class="umar_size" src="Umar.png" width="250" height="250"> 
 
+<!--<img class="qr" src="qrmasjid.png" width="250" height="250"> -->    <!--For showing qr code comment this out and in umar.css-->
 
 <div id="MyClockDisplay" class="clock"  onload="showTime()"></div>
 
 <div id="MyDateDisplay" class="date"  onload="showDate()"></div>
 
+
+<div id="MytitleDisplay" class="mytitle"  onload="scrapeWeb()"></div>
+
 <script src="clock.js"></script>
 
+<script src="countdown.js"></script>
+
 <script src="showdate.js"></script>
+
+<script src="chicagohilalwebscrape.js"></script>
+<script>scrapeWeb()</script>
 </body>
 
 
