@@ -24,6 +24,7 @@ function showDate(){
           break;
         case 2:
             weekdaysnow="Tuesday";
+            break;
         case 3:
             weekdaysnow = "Wednesday";
           break;
@@ -35,6 +36,7 @@ function showDate(){
           break;
         case 6:
             weekdaysnow = "Saturday";
+            
       }
 
       switch (month) {
