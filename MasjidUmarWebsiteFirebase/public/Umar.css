@@ -314,11 +314,11 @@ p {
 
 .countdown {
     position: absolute;
-    bottom: -5%;
+    bottom: -7.5%;
     left: 48%;
     transform: translateX(-50%)
      translateY(-50%);
-    color: rgb(11, 139, 203);
+    color: rgba(33, 6, 240, 0.924);
     font-size: 125px;
     font-family: Orbitron;
     letter-spacing: 1px;
@@ -387,10 +387,10 @@ p {
 .txtcount {
     position: absolute;
     bottom: 7.5%;
-    left: 45%;
+    left: 48%;
     transform: translateX(-50%)
      translateY(-50%);
-    color: rgb(19, 19, 19);
+    color: rgba(30, 30, 30, 0.631);
     font-size: 35px;
     font-family: Orbitron;
     letter-spacing: 1px;
