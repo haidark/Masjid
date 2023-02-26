@@ -74,10 +74,12 @@
 		$(currentDate);
 		// display monthly timetable
 		var fajr;
+		var ndfajar;// next day fajr
 		var dhuhr;
 		var asr;
 		var maghrib;
 		var isha;
+		var f1;
 		function displayMonth(monthID=0) {
 			var lat = 41.9270;
 			var lng = -73.9974;
@@ -112,6 +114,7 @@
 			tbody.appendChild(makeTableRow(items, items, 'head-row'));
 			var date = new Date(year, month, currentDate.getDate()); //top of table is set to current date
 			var endDate = new Date(year, month, currentDate.getDate()+15); //shows 15 days in total
+			var nd;
 			var format = timeFormat ? '12hNS' : '24h';
 			var i = date.getDate;
 			var fajrcount=0;
@@ -121,11 +124,11 @@
 				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
 				var jamaatTimes = times;
 				jamaatify(jamaatTimes);
-				
+				var icount;
 				
 				times.day = date.getDate();
 				var isToday = (date.getMonth() == currentDate.getMonth()) && (date.getDate() == currentDate.getDate());
-				
+				nd=(date.getMonth() == (currentDate.getMonth())) && (date.getDate() == (currentDate.getDate()));
 				if(isToday==true)
 				{
 					fajr=(times.fajr);
@@ -133,14 +136,27 @@
 					asr=(times.asr);
 					maghrib=(times.maghrib);
 					isha=(times.isha);
+					icount=i;
 					fajrcount++;
 				}
+				nd=currentDate.getDay();
+				
+				//if(times.day-15 )//times.day+1
+				//{
+				//	ndfajar=(times.fajr);
+				//}
 				var klass = isToday ? 'bg-dark text-light' : ''; //Select current day of month and highlights
 				tbody.appendChild(makeTableRow(times, items, klass));
 				date.setDate(date.getDate()+ 1);  // next day
 				//var next=Integer.parseInt(Items.day)+1;
 				//var nexttostr=next.toString();
 				var up= times.day
+
+				/*if(times.day==nd)// nd gets days +1 
+				{
+					ndfajar=times.fajr;	
+					//break;
+				}*/
 				/*if(times.day==up)
 				{	
 					
@@ -150,7 +166,19 @@
 				//fafajr_hour[i]= items.length();
 				//console.log(fajr_hour[i]);
 				i++;
+				if(times.day==currentDate.getDate()+1)// nd gets days +1 
+				{
+					ndfajar=times.fajr;	
+					//break;
+				}
 			}
+			
+			/*if(times.day)
+			{
+					f1=times.fajr[5];	
+			}*/
+			
+			//var f1=times.fajr[5];
 
 			fajr=fajr;
 			var daysInMonth = new Date(year,month+1,0).getDate(); //Gets number of days in month for table creation
@@ -238,9 +266,9 @@
 
     
 	</script>
-<!--<div id="myLink" class="countdown" onload="countdown(fajr,dhuhr,asr,maghrib,isha)"  ></div>-->
+<div id="myLink" class="countdown" onload="countdown(fajr,dhuhr,asr,maghrib,isha)"  ></div>
 
-<!--<div id="countdowntxt" class="txtcount" ></div>-->
+<div id="countdowntxt" class="txtcount" ></div>
 
 <img class="umar_size" src="Umar.png" width="250" height="250"> 
 
