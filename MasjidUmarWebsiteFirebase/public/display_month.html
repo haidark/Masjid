@@ -31,8 +31,8 @@
 	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
 <style>
 	 tr, td, table{
-		height: 7vh;
-		min-width: 5vh;
+		max-height: 7vh;
+		min-width: 100%;
 	  }
 </style>
 
@@ -207,7 +207,7 @@
 			for (var i in items) {
 				var cell = document.createElement('td');
 				cell.innerHTML = data[i];
-				cell.style.width = i=='day' ? '100%' : '100%';
+				cell.style.width = i=='day' ? '10%' : '10%';
 				cell.style.height = i=='day' ? '100%' : '100%';
 				cell.style.fontSize = "200%";
 				row.appendChild(cell);
