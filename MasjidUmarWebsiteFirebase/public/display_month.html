@@ -58,6 +58,8 @@
 <div style="line-height:300%">
 	<div id="MyClockDisplay" class="text-center"  onload="showTime()" style="color: black;font-size: 500%;font-family: Orbitron;letter-spacing: 1px;"></div>
 	<div id="MyDateDisplay" class="text-center"  onload="showDate()" style="color:black;font-size: 250%;font-family: Orbitron;letter-spacing: 0.5px;"></div>
+	<div id="MytitleDisplay" class="text-center"  onload="showscrapeWeb()" style="color:rgb(206, 11, 11);font-size: 250%;font-family: Orbitron;letter-spacing: 0.5px;"></div>
+
 </div>
 
 <br>
@@ -269,6 +271,9 @@
    		document.getElementById("countdowntxt").innerHTML="Next prayer time in:";
 		} 	
 	</script>
+
+
+
 <div id="countdowntxt" class="text-center" style="margin-top:10%;color: rgba(128, 7, 7, 0.631); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 <div id="myLink" class="text-center" onload="countdown(fajr,dhuhr,asr,maghrib,isha)" style="margin: -8%;color: rgba(33, 6, 240, 0.924);font-size: 800%;font-family: Orbitron;letter-spacing: 1px;"  ></div>
@@ -283,16 +288,18 @@
 
 
 
-<div id="MytitleDisplay" class="mytitle"  onload="scrapeWeb()"></div>
+<!--<div id="MytitleDisplay" class="mytitle"  onload="scrapeWeb()"></div>-->
 
 <script src="clock.js"></script>
 
 <script src="countdown.js"></script>
 
-<script src="showdate.js"></script>
+
 
 <script src="chicagohilalwebscrape.js"></script>
-<script>scrapeWeb()</script>
+
+<script src="showdate.js"></script>
+
 </body>
 
 
