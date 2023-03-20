@@ -11,7 +11,7 @@ async function showscrapeWeb(){
     url='https://chicagohilal.org/';
     await page.goto(url);
 
-    const[el1]= await page.$x('//*[@id="main-head"]/div[1]/div/div/ul/li/div/div/div[1]/div/ul/li/div/span');
+    const[el1]= await page.$x();
     const txt= await el1.getProperty('textContent');
     const title= await txt.jsonValue();
  
@@ -38,10 +38,10 @@ async function showscrapeWeb(){
 
 //prints hello.Before i had title. run "node chicagohilalwebscrape.js" in directory and uncomment all the Prints hijri comments. 
 ////////////////////////////////////////////////////////
-    var fulldate = "Hello";// using to test to see if library does affect it and it does
-    document.getElementById("MytitleDisplay").innerText = fulldate;
-    document.getElementById("MytitleDisplay").textContent = fulldate;
-    setTimeout(showscrapeWeb, 1000);
+   // var fulldate = "Hello";// using to test to see if library does affect it and it does
+    //document.getElementById("MytitleDisplay").innerText = fulldate;
+    //document.getElementById("MytitleDisplay").textContent = fulldate;
+    //setTimeout(showscrapeWeb, 1000);
     /////////////////////////////////////////////////
    
 }   
