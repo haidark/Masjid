@@ -59,7 +59,14 @@
 	<div id="MyClockDisplay" class="text-center"  onload="showTime()" style="color: black;font-size: 500%;font-family: Orbitron;letter-spacing: 1px;"></div>
 	<div id="MyDateDisplay" class="text-center"  onload="showDate()" style="color:black;font-size: 250%;font-family: Orbitron;letter-spacing: 0.5px;"></div>
 	<div id="MytitleDisplay" class="text-center"  onload="showscrapeWeb()" style="color:rgb(206, 11, 11);font-size: 250%;font-family: Orbitron;letter-spacing: 0.5px;"></div>
+	<!--<div id="hijridatetxt" class="text-center" style="color: rgba(2, 134, 13, 0.999); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>-->
+	
+	
+	<h3 style="text-align:center;"><iframe src="output.html"  width="300" height="45" scrolling="no"  onload="showscrapeWeb()"></iframe></h3>
 
+
+	<!--<div id="hijridateval" class="text-center" style="color: black; font-size: 250%; font-family: Orbitron; letter-spacing: 1px;"></div>-->
+	
 </div>
 
 <br>
@@ -274,15 +281,24 @@
 		window.onload = function() {
        //when the document is finished loading, replace everything
        //between the <a ...> </a> tags with the value of splitText
-   		document.getElementById("countdowntxt").innerHTML="Next prayer time in:";
+	   document.getElementById("countdowntxt").innerHTML="Next prayer time in:";
+	   document.getElementById("hijridateval").innerHTML="SHABAN 28, 1444";
+
+		document.getElementById("hijridatetxt").innerHTML="Hijri Date :";
+		
 		} 	
+		
 	</script>
 
 
 
+
+	
+
 <div id="countdowntxt" class="text-center" style="margin-top:10%;color: rgba(128, 7, 7, 0.631); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 <div id="myLink" class="text-center" onload="countdown(fajr,dhuhr,asr,maghrib,isha)" style="margin: -8%;color: rgba(33, 6, 240, 0.924);font-size: 800%;font-family: Orbitron;letter-spacing: 1px;"  ></div>
+
 
 
 <img id = "masjidLogo" class="img-responsive" src="Umar.png" width="20%" height="20%" style="margin-top: 8%;"> 
@@ -311,3 +327,4 @@
 
 
 </html>
+
