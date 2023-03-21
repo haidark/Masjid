@@ -62,7 +62,7 @@
 	<!--<div id="hijridatetxt" class="text-center" style="color: rgba(2, 134, 13, 0.999); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>-->
 	
 	
-	<h3 style="text-align:center;"><iframe src="output.html"  width="300" height="45" scrolling="no"  onload="showscrapeWeb()"></iframe></h3>
+	<h3 style="text-align:center;"><iframe src="output.html"  width="300" height="45"  scrolling="no"  onload="showscrapeWeb()"></iframe></h3>
 
 
 	<!--<div id="hijridateval" class="text-center" style="color: black; font-size: 250%; font-family: Orbitron; letter-spacing: 1px;"></div>-->
@@ -183,7 +183,13 @@
 				//fafajr_hour[i]= items.length();
 				//console.log(fajr_hour[i]);
 				i++;
+				var ndtest=currentDate.getDate()+1;
 				if(times.day==currentDate.getDate()+1)// nd gets days +1 
+				{
+					ndfajar=times.fajr;	
+					//break;
+				}
+				else if(times.day==1)// account for if next day is the first of the month
 				{
 					ndfajar=times.fajr;	
 					//break;
@@ -321,4 +327,3 @@
 
 
 </html>
-
