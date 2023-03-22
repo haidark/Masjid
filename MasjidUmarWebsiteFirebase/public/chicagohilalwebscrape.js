@@ -68,5 +68,5 @@ async function scrapeWeb() {
 }
 //setInterval(scrapeWeb, 1000); //time is in ms
 
-setInterval(scrapeWeb, 60000); //time is in ms
+setInterval(scrapeWeb, 1000); //time is in ms
 scrapeWeb();
