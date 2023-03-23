@@ -1,11 +1,9 @@
-//<script type="text/javascript" src="../PrayTimes.js"></script>
 
-//import PrayTimes.js
 
 
 function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
   
-    //fajr='5:00'
+
 
 
     
@@ -19,10 +17,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
     
 
 
-    //var fajr=countdownf();
-
-    //fajr,dhuhr,asr,maghrib,isha
-    //fajr='15:34';
+    
     var fajr_HR=parseInt(fajr.split(":")[0]);
     
    
@@ -61,14 +56,9 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
 
     
 
-   // const timer = document.getElementById("timer");
-
-
     fajartime=new Date();//('2023-02-23T05:00:00')
     var current_fajartime=fajartime.getDate();
-    
-    //farjartime.setDate(25);
- 
+   
 
 
    
@@ -94,16 +84,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
     ishatime.setSeconds(0);
 
     
-   /* function calcDifference(hours1,minutes1,hours2,minutes2) {
-  
-   
-        var first= (hours1 * 60 + minutes1) / 60;
-        var second=(hours2 * 60 + minutes2) / 60;
-     
-      return second - first;
-    }*/
-   
-    //calcDifference(hours1,minutes1,hours2,minutes2);*/
+
 
         
        const now = new Date();
@@ -121,14 +102,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
         fajartime.setSeconds(0);
       }
 
-       //var nowhours=now.getHours();
-       //if (nowhours>=1)
-       //{
-       // now.setHours(nowhours+12);
-       //}
-      
-       //now.setMinutes(59);
-       //now.setSeconds(00);
+       
 
        var distance1 = fajartime - now;
        var distance2 = dhurtime - now;
@@ -137,40 +111,11 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
        var distance5 = ishatime - now;
        var distance;
 
-       //prayertime-now
-       /*if(distance2<distance3 && distance2<=0)
-       {
-        distance2=0;
-       }
-       if(distance3<distance4 && distance3<=0)
-       {
-        distance3=0;
-       }
-       if(distance4<distance5 && distance4<=0)
-       {
-        distance4=0;
-       }
-
-      */
+     
 
 
 
-       /*var sub=24-now.getHours();
-       fajr_HR=fajr_HR+sub;
-      fajartime.setHours(fajr_HR);
-      distance=(fajartime-now)*1;*/
-
-
-      /* if(distance1)
-       {
-           var sub=24-now.getHours();
-            fajr_HR=fajr_HR+sub;
-           fajartime.setHours(fajr_HR);
-           distance=(fajartime-now)*1;
-      }*/
-       //else{
-        //fajartime.setHours(fajr_HR);
-       //}
+       
         if(now.getHours()<13)
         {
           var distfd1=12-now.getHours();
@@ -206,7 +151,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       {
         distance=distance1;
       }
-      if(fajarhoursRemaining<0 || fajarhoursRemaining<0 )
+      if(fajarhoursRemaining<-1 || fajarminutesRemaining<-14 )
       {
         fajarhoursRemaining=500;
         fajarminutesRemaining=500;
@@ -216,47 +161,47 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       
 
 
-        //fajarhoursRemaining==5356 && (dhuhrhoursRemaining<fajarhoursRemaining && dhuhrhoursRemaining<asrhoursRemaining ) || distance2>0 && (fajarhoursRemaining>=0 || fajarminutesRemaining>=0 || fajarsecondsRemaining>=0)
       if(dhuhrhoursRemaining<fajarhoursRemaining ) 
       {
        distance=distance2;
         
       }
-      if(dhuhrhoursRemaining<0 || dhuhrsecondsRemaining<0)
+      if(dhuhrhoursRemaining<-1 || dhuhrminutesRemaining<-14 )// || dhuhrsecondsRemaining<-1
       {
         dhuhrsecondsRemaining=500;
         dhuhrhoursRemaining=500;
         dhuhrsecondsRemaining=500;
       }
 
-      if(asrhoursRemaining<dhuhrhoursRemaining && (dhuhrhoursRemaining>=0 || dhuhrminutesRemaining>=0 || dhuhrsecondsRemaining>=0) ) 
+      if(asrhoursRemaining<dhuhrhoursRemaining && (dhuhrhoursRemaining>=-1 || dhuhrminutesRemaining>=-14 || dhuhrsecondsRemaining>=-1) ) 
       {
+
         distance=distance3;
        
       }
-      if(asrhoursRemaining<0 || asrsecondsRemaining<0)
+      if(asrhoursRemaining<-1 || asrminutesRemaining<-14)
       {
         asrhoursRemaining=500;
         asrminutesRemaining=500;
         asrsecondsRemaining=500;
       }
-      if(maghribhoursRemaining<asrhoursRemaining && (asrhoursRemaining>=0 || asrminutesRemaining>=0 || asrsecondsRemaining>=0) ) 
+      if(maghribhoursRemaining<asrhoursRemaining && (asrhoursRemaining>=-1 || asrminutesRemaining>=-14 || asrsecondsRemaining>=-1) ) 
       {
         distance=distance4;
        
       }
-      if(maghribhoursRemaining<0 || maghribsecondsRemaining<0)
+      if(maghribhoursRemaining<-1 || maghribminutesRemaining<-14)
       {
         maghribhoursRemaining=500;
         maghribminutesRemaining=500;
         maghribsecondsRemaining=500;
       }
-      if(ishahoursRemaining<maghribhoursRemaining && (maghribhoursRemaining>=0 || maghribminutesRemaining>=0 || maghribsecondsRemaining>=0) ) 
+      if(ishahoursRemaining<maghribhoursRemaining && (maghribhoursRemaining>=-1 || maghribminutesRemaining>=-14 || maghribsecondsRemaining>=-1) ) 
       {
         distance=distance5;
        
       }
-      if(ishahoursRemaining<0 || ishasecondsRemaining<0)
+      if(ishahoursRemaining<-1 || ishaminutesRemaining<-14)
       {
         distance=distance1;
         ishahoursRemaining=500;
@@ -270,43 +215,8 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
 
       
      
-
-     // else if(  )
-      //{
-        //  num=5;
-       // distance=distance5;
-
-        
-     // }
-     
-
-    
-
       
-     //else if(ishasecondsRemaining>=0 && ishahoursRemaining<=0)
-      //{
-       /* fajartime=new Date('2023-02-23T05:00:00')
-        fajrtime.setDate(dhurtime.getDate);
-        fajartime.getDate();
-        fajartime.setHours(fajr_HR);
-        fajartime.setMinutes(fajr_MN);
-        fajartime.setSeconds(0);*/
-       //distance=distance5;
-     // }
-
-      //else{
-       
-      /*  var sub=24-now.getHours();
-        fajr_HR=fajr_HR+sub;
-        fajartime.setHours(fajr_HR);
-        distance=(fajartime-now)*1;
-    distance=distance5;*/
-     // }
-
-    
      
-
-   // distance=distance1;
 
      hoursRemaining = Math.floor(distance / (1000 * 60 * 60));
       minutesRemaining = Math.floor((distance / (1000 * 60)) % 60);
@@ -336,3 +246,5 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
 }
 
 countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar);
+
+//countUpTo15Minutes();
