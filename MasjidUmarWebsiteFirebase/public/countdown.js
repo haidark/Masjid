@@ -190,7 +190,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
         distance=distance4;
        
       }
-      if(maghribhoursRemaining<-1 || maghribminutesRemaining<-14)
+      if(maghribhoursRemaining<-1 || (maghribminutesRemaining<-14)  )
       {
         maghribhoursRemaining=500;
         maghribminutesRemaining=500;
@@ -201,7 +201,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
         distance=distance5;
        
       }
-      if(ishahoursRemaining<-1 || ishaminutesRemaining<-14)
+      if(ishahoursRemaining<-1 || ishaminutesRemaining<-14 )
       {
         distance=distance1;
         ishahoursRemaining=500;
@@ -210,7 +210,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       }
 
      
-     
+     sunset=sunset+1;
    
       
      
@@ -219,12 +219,17 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       minutesRemaining = Math.abs(Math.floor((distance / (1000 * 60)) % 60));
       secondsRemaining = Math.abs(Math.floor((distance / 1000) % 60));
 
-
+      if(hoursRemaining==-1)
+      {
+        hoursRemaining='-0';// account for negative time
+      }
+      
 
       hoursRemaining = (hoursRemaining < 10) ? "" +hoursRemaining : hoursRemaining;
       minutesRemaining = (minutesRemaining < 10) ? "0" + minutesRemaining : minutesRemaining;
-      secondsRemaining = (secondsRemaining < 10) ? "0" + secondsRemaining : secondsRemaining;
+      secondsRemaining = (secondsRemaining < 10 ) ? "0" + secondsRemaining : secondsRemaining;
 
+      
 
      // var timedown = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
 
