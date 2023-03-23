@@ -1,4 +1,4 @@
-sunset=0;
+
 
 
 function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
@@ -211,6 +211,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
 
      
      
+
    
       
      
@@ -218,6 +219,11 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       hoursRemaining = Math.floor(distance / (1000 * 60 * 60));
       minutesRemaining = Math.abs(Math.floor((distance / (1000 * 60)) % 60));
       secondsRemaining = Math.abs(Math.floor((distance / 1000) % 60));
+
+     
+
+      
+
 
 
 
