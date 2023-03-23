@@ -211,16 +211,19 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
 
      
      
-     
 
-      
-     
+   
       
      
 
-     hoursRemaining = Math.floor(distance / (1000 * 60 * 60));
-      minutesRemaining = Math.floor((distance / (1000 * 60)) % 60);
-      secondsRemaining = Math.floor((distance / 1000) % 60);
+      hoursRemaining = Math.floor(distance / (1000 * 60 * 60));
+      minutesRemaining = Math.abs(Math.floor((distance / (1000 * 60)) % 60));
+      secondsRemaining = Math.abs(Math.floor((distance / 1000) % 60));
+
+     
+
+      
+
 
 
 
@@ -228,10 +231,14 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       minutesRemaining = (minutesRemaining < 10) ? "0" + minutesRemaining : minutesRemaining;
       secondsRemaining = (secondsRemaining < 10) ? "0" + secondsRemaining : secondsRemaining;
 
-      var timedown = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
+
+     // var timedown = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
+
+     var timedown = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
+
       document.getElementById("myLink").innerText = timedown;
       document.getElementById("myLink").textContent = timedown;
-    
+      
     
   
       //Timeout( countdown(), 1000); // Update the timer every second
