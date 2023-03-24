@@ -222,6 +222,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       if(hoursRemaining==-1)
       {
         hoursRemaining='-0';// account for negative time
+        minutesRemaining=minutesRemaining-1;
       }
       
 
