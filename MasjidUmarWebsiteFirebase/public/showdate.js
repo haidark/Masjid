@@ -1,4 +1,4 @@
-
+sunset=0;
 //const puppeteer=require('puppeteer');
 function showDate(){
   
@@ -15,7 +15,12 @@ function showDate(){
    // const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
    // const days=["Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday", "Sunday"]
     var session = "AM";
-    
+    if(day)
+    {
+      sunset=sunset+1;
+
+    }
+
     switch (weekday) {
         case 0:
             weekdaysnow = "Sunday";

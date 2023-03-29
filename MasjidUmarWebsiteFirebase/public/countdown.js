@@ -1,5 +1,5 @@
 sunset=0;
-
+negmin=0;
 
 function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
   
@@ -77,6 +77,9 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
     maghribtime.setHours(maghrib_HR);
     maghribtime.setMinutes(maghrib_MN);
     maghribtime.setSeconds(0);
+
+    maghrib_SEC=maghribtime.getSeconds();
+  
 
     const ishatime=new Date();
     ishatime.setHours(isha_HR);
@@ -209,21 +212,42 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
         ishasecondsRemaining=500;
       }
 
-     
-     sunset=sunset+1;
    
-      
+   
      
-
+     
       hoursRemaining = Math.floor(distance / (1000 * 60 * 60));
       minutesRemaining = Math.abs(Math.floor((distance / (1000 * 60)) % 60));
       secondsRemaining = Math.abs(Math.floor((distance / 1000) % 60));
 
       if(hoursRemaining==-1)
       {
+       
         hoursRemaining='-0';// account for negative time
         minutesRemaining=minutesRemaining-1;
+       /* if(now.getSeconds()==0)
+        {
+
+          negmin=negmin+1;
+          //minutesRemaining=negmin;
+        }
+        if(now.getHours()==maghrib_HR && now.getMinutes()==maghrib_MN && secondsRemaining==0)
+        {
+
+          //sunset=sunset+1;
+        }
+        if(secondsRemaining==0)
+        {
+
+          negmin=sunset+1;
+         // minutesRemaining=negmin;
+          
+        }
+        */
+
+
       }
+      
       
 
       hoursRemaining = (hoursRemaining < 10) ? "" +hoursRemaining : hoursRemaining;
