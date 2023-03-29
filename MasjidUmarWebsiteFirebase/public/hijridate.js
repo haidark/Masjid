@@ -35,13 +35,15 @@ async function scrapeWeb() {
 setInterval(scrapeWeb, 1000); //time is in ms
 */
 
-const axios = require('axios');
+/*const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
-
+*/
 async function scrapeWeb() {
-  axios.get('https://chicagohilal.org/')
+
+
+ /* axios.get('https://chicagohilal.org/')
     .then(response => {
       const $ = cheerio.load(response.data);
       const bodyText = $('body').text().trim();
@@ -62,9 +64,18 @@ async function scrapeWeb() {
     })
     .catch(error => console.error(error));
 
- 
+ */
   //setTimeout(scrapeWeb, 1000);
- 
+
+  var date = new Date();
+  hijridate=new Date(date).toLocaleDateString(
+    'en-SA-u-ca-islamic-umalqura',
+    { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }
+  );
+
+    var fulldate = hijridate;
+    document.getElementById("hijridateval").innerText = fulldate;
+    document.getElementById("hijridateval").textContent = fulldate;
 }
 //setInterval(scrapeWeb, 1000); //time is in ms
 
