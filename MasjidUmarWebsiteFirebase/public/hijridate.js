@@ -68,10 +68,12 @@ async function scrapeWeb() {
   //setTimeout(scrapeWeb, 1000);
 
   var date = new Date();
-  hijridate=new Date(date).toLocaleDateString(
-    'en-SA-u-ca-islamic-umalqura',
-    { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }
+  hijridate=new Date(date).toLocaleDateString('en-US-u-ca-islamic-umalqura',
+    { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric'}
   );
+
+
+  
 
     var fulldate = hijridate;
     document.getElementById("hijridateval").innerText = fulldate;
