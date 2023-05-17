@@ -41,12 +41,20 @@ function jamaatify(jamaatTimes) {
                     jamaatTimes[list[2].toLowerCase()] = '1:30';
                 }
                 else 
+                // If Asr start time is 4:50 pm. Asr: 5:00, Zuhr 1:30 pm
+                //Tanvir 5/17/23
+                if(moment(jamaat.format(format),format).isBetween(moment('4:49', format),moment('4:51', format))){
+                    jamaatTimes[list[3].toLowerCase()] = '5:15';
+                    jamaatTimes[list[2].toLowerCase()] = '1:30';
+                }
+                else
+               
                 // If Asr start time is between 4:50 and 5:10 pm. Asr: 5:15, Zuhr 1:30 pm
                 if(moment(jamaat.format(format),format).isBetween(moment('4:50', format),moment('5:10', format))){
                     jamaatTimes[list[3].toLowerCase()] = '5:15';
                     jamaatTimes[list[2].toLowerCase()] = '1:30';
                 }
-
+                
                 break;
 
             // case '3': //Asr and Zuhr logic are combined
