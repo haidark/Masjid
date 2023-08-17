@@ -66,6 +66,7 @@ function showDate(){
           break;
         case 6:
             months = "July";
+            break;
         case 7:
             months = "August";
           break;

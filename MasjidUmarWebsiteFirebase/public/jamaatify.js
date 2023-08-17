@@ -24,13 +24,27 @@ function jamaatify(jamaatTimes) {
                 }
                 else 
                 // If Asr start time is between 2:30 and 3:25 pm. Asr: 3:30, Zuhr 1:00 pm
-                if(moment(jamaat.format(format),format).isBetween(moment('2:30', format),moment('3:25', format))){
+                if(moment(jamaat.format(format),format).isBetween(moment('2:30', format),moment('3:23', format))){
                     jamaatTimes[list[3].toLowerCase()] = '3:30';
                     jamaatTimes[list[2].toLowerCase()] = '1:00';
                 }
                 else 
                 // If Asr start time is between 3:25 and 4:20 pm. Asr: 4:30, Zuhr 1:30 pm
-                if(moment(jamaat.format(format),format).isBetween(moment('3:25', format),moment('4:20', format))){
+                if(moment(jamaat.format(format),format).isBetween(moment('3:23', format),moment('4:20', format))){
+                    jamaatTimes[list[3].toLowerCase()] = '4:30';
+                    jamaatTimes[list[2].toLowerCase()] = '1:30';
+                }
+                else
+                 // If Asr start time is between 3:23 and 3:24 pm inclusive. Asr: 4:30, Zuhr 1:30 pm
+                //Tanvir 8/16/23
+                if(moment(jamaat.format(format),format).isBetween(moment('3:22', format),moment('3:25', format))){
+                    jamaatTimes[list[3].toLowerCase()] = '4:30';
+                    jamaatTimes[list[2].toLowerCase()] = '1:30';
+                }
+                else 
+                // If Asr start time is 3:25 pm. Asr: 4:30, Zuhr 1:30 pm
+                //Tanvir 8/16/23
+                if(moment(jamaat.format(format),format).isBetween(moment('3:24', format),moment('3:26', format))){
                     jamaatTimes[list[3].toLowerCase()] = '4:30';
                     jamaatTimes[list[2].toLowerCase()] = '1:30';
                 }
@@ -41,6 +55,14 @@ function jamaatify(jamaatTimes) {
                     jamaatTimes[list[2].toLowerCase()] = '1:30';
                 }
                 else 
+                // If Asr start time is 4:20 pm. Asr: 5:00, Zuhr 1:30 pm
+                //Tanvir 8/16/23
+                if(moment(jamaat.format(format),format).isBetween(moment('4:19', format),moment('4:21', format))){
+                    jamaatTimes[list[3].toLowerCase()] = '5:00';
+                    jamaatTimes[list[2].toLowerCase()] = '1:30';
+                }
+                else 
+
                 // If Asr start time is 4:50 pm. Asr: 5:00, Zuhr 1:30 pm
                 //Tanvir 5/17/23
                 if(moment(jamaat.format(format),format).isBetween(moment('4:49', format),moment('4:51', format))){
