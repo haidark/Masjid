@@ -68,7 +68,10 @@ async function scrapeWeb() {
   //setTimeout(scrapeWeb, 1000);
 
   var date = new Date();
-  hijridate=new Date(date).toLocaleDateString('en-US-u-ca-islamic-umalqura',
+
+  date.setDate(date.getDate()-1);// Added a fix for when saudi time doesnt match 
+  //when it doesnt match subtract 1 and if it does match remove the -1 TANVIR 8/17/23 
+  hijridate=new Date(date).toLocaleDateString('en-US-u-ca-islamic', //removed -umalqura at the end becuase it didnt allow for 30 days
     { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric'}
   );
 
