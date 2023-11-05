@@ -76,10 +76,10 @@ function showDate(){
         case 9:
             months = "October";
           break;
-        case 11:
+        case 10:
             months = "November";
           break; 
-        case 12:
+        case 11:
             months = "December";
           break; 
     
