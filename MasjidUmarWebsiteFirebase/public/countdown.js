@@ -24,11 +24,21 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
     var fajr_MN=parseInt(fajr.split(":")[1]);
 
     var dhuhr_HR=parseInt(dhuhr.split(":")[0]);
-    if(dhuhr_HR>=1)
+    var dhuhr_MN=parseInt(dhuhr.split(":")[1]);
+    //Fix for accounting for duhur at 12:45, it uses 24 hour timing, to calcuate thats why i added 12 each time. But i dont when its at 12:45. 
+    if(dhuhr_HR==1 & dhuhr_MN==30)
     {
         dhuhr_HR=dhuhr_HR+12;
     }
-    var dhuhr_MN=parseInt(dhuhr.split(":")[1]);
+    else if(dhuhr_HR==1 & dhuhr_MN==0)
+    {
+        dhuhr_HR=dhuhr_HR+12;
+    }
+    else if(dhuhr_HR==12 & dhuhr_MN==45)
+    {
+        dhuhr_HR=dhuhr_HR;
+    }
+    
 
 
     var asr_HR=parseInt(asr.split(":")[0]);
@@ -60,13 +70,18 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
     var current_fajartime=fajartime.getDate();
    
 
-
+    //dhurtime=new Date();//('2023-02-23T05:00:00')
+    
    
 
      const dhurtime=new Date();
+     var current_dhurtime=dhurtime.getDate();
+     dhurtime.setDate(current_dhurtime);
     dhurtime.setHours(dhuhr_HR);
     dhurtime.setMinutes(dhuhr_MN);
     dhurtime.setSeconds(0);
+   
+
 
    const asrtime=new Date();
    asrtime.setHours(asr_HR);
@@ -164,7 +179,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       
 
 
-      if(dhuhrhoursRemaining<fajarhoursRemaining ) 
+      if(dhuhrhoursRemaining<fajarhoursRemaining  ) 
       {
        distance=distance2;
         
@@ -213,7 +228,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       }
 
    
-   
+     //distance=distance2;
      
      
       hoursRemaining = Math.floor(distance / (1000 * 60 * 60));
@@ -247,7 +262,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
 
 
       }
-      
+    
       
 
       hoursRemaining = (hoursRemaining < 10) ? "" +hoursRemaining : hoursRemaining;
