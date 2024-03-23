@@ -26,7 +26,7 @@
 	<script type="text/javascript" src="hijridate.js"></script>
 	<script type="text/javascript" src="showdate.js"></script>
 	<script type="text/javascript" src="countdown.js"></script>
-
+	<script type="text/javascript" src="taraweeh.js"></script>
 	
 
 </head>  
@@ -301,12 +301,14 @@
 	   document.getElementById("countdowntxt").innerHTML="Next prayer time in:";
 
 	   document.getElementById("reciter").innerHTML="Today's Taraweeh Reciters:";
-	   document.getElementById("one").innerHTML="Mudasir";
-	   document.getElementById("three").innerHTML="Fawad";
-	   document.getElementById("five").innerHTML="Tahsin";
-	   document.getElementById("seven").innerHTML="Badran";
-	   document.getElementById("nine").innerHTML="Zarar";
-	  // document.getElementById("countdowntxtss").innerHTML="Next prayer time in:";
+	   //document.getElementById("one").innerHTML="First:Zarar";
+	   document.getElementById("three").innerHTML="Second:Mudasir";
+	   document.getElementById("five").innerHTML="Third:Fawad";
+	   document.getElementById("seven").innerHTML="Fourth:Badran";
+	   document.getElementById("nine").innerHTML="Fifth:Badran";
+	  
+
+	   // document.getElementById("countdowntxtss").innerHTML="Next prayer time in:";
 	  // document.getElementById("hijridateval").innerHTML="Ramadan 7, 1444";
 
 		document.getElementById("hijridatetxt").innerHTML="Hijri Date :";
@@ -323,15 +325,17 @@
 <div id="countdowntxt" class="text-center" style="margin-top:10%;color: rgba(128, 7, 7, 0.631); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 <div id="myLink" class="text-center" onload="countdown(fajr,dhuhr,asr,maghrib,isha)" style="margin: -8%;color: rgba(33, 6, 240, 0.924);font-size: 800%;font-family: Orbitron;letter-spacing: 1px;"  ></div>
+<div id="second" class="text-center" onload="taraweeh()" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 <p></p>
 
 <div id="reciter" class="text-center" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="one" class="text-center" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="three" class="text-center" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="five" class="text-center" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="seven" class="text-center" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="nine" class="text-center" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
+<!--<div id="one" class="text-center" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>-->
+<div id="one" class="text-center" onload="taraweeh()" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
+<div id="two" class="text-center" onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
+<div id="three" class="text-center"onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
+<div id="four" class="text-center" onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
+<div id="five" class="text-center" onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 
 <!--
@@ -346,7 +350,7 @@
 
 
 
-<img id = "masjidLogo" class="img-responsive" src="Umar.png" width="20%" height="20%" style="margin-top: -17%;"> 
+<img id = "masjidLogo" class="img-responsive" src="Umar.png" width="15%" height="15%" style="margin-top: -17%;"> 
 
 <!--<img class="qr" src="qrmasjid.png" width="250" height="250"> -->    <!--For showing qr code comment this out and in umar.css-->
 
@@ -366,6 +370,8 @@
 <script src="hijridate.js"></script>
 
 <script src="showdate.js"></script>
+
+<script src="taraweeh.js"></script>
 
 </body>
 
