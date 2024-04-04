@@ -42,10 +42,10 @@ function taraweeh(){
         { date: '3/27/2024',reciternum: 'Fifth' , pagestart: 338, pageend: 341,Surah:"Nur",ayat:'21-52',reciter:'Mudasir' },
 
         { date: '3/28/2024',reciternum: 'First' , pagestart: 342, pageend: 345,Surah:"Nur/Furqan",ayat:'53-20',reciter:'Mudasir' },
-        { date: '3/28/2024',reciternum: 'Second' , pagestart: 346, pageend: 349,Surah:'Furqan',ayat:'21-77',reciter:'Badran' },
+        { date: '3/28/2024',reciternum: 'Second' , pagestart: 346, pageend: 349,Surah:'Furqan',ayat:'21-77',reciter:'Mudasir' },
         { date: '3/28/2024',reciternum: 'Third' , pagestart: 350, pageend: 353,Surah:"Ash Shuara",ayat:'1-122',reciter:'Badran' },
-        { date: '3/28/2024',reciternum: 'Fourth' , pagestart: 354, pageend: 357,Surah:"Ash Shuara",ayat:'123-227',reciter:'Salah' },
-        { date: '3/28/2024',reciternum: 'Fifth' , pagestart: 358, pageend: 361,Surah:"Naml",ayat:'1-58',reciter:'Zarar' },
+        { date: '3/28/2024',reciternum: 'Fourth' , pagestart: 354, pageend: 357,Surah:"Ash Shuara",ayat:'123-227',reciter:'Badran' },
+        { date: '3/28/2024',reciternum: 'Fifth' , pagestart: 358, pageend: 361,Surah:"Naml",ayat:'1-58',reciter:'Salah' },
 
         { date: '3/29/2024',reciternum: 'First' , pagestart: 362, pageend: 365,Surah:"Naml",ayat:'59-93',reciter:'Tahsin' },
         { date: '3/29/2024',reciternum: 'Second' , pagestart: 366, pageend: 369,Surah:'Qasas',ayat:'1-35',reciter:'Badran' },
@@ -55,12 +55,12 @@ function taraweeh(){
 
         { date: '3/30/2024',reciternum: 'First' , pagestart: 382, pageend: 385,Surah:"Ankabut",ayat:'46-16',reciter:'Mudasir' },
         { date: '3/30/2024',reciternum: 'Second' , pagestart: 386, pageend: 389,Surah:'Rum',ayat:'17-50',reciter:'Fahad' },
-        { date: '3/30/2024',reciternum: 'Third' , pagestart: 390, pageend: 393,Surah:"Rum/Luqman",ayat:'51-28',reciter:'Zarar' },
-        { date: '3/30/2024',reciternum: 'Fourth' , pagestart: 394, pageend: 397,Surah:"Luqman/Sajdah",ayat:'29-30',reciter:'Zarar' },
-        { date: '3/30/2024',reciternum: 'Fifth' , pagestart: 398, pageend: 401,Surah:"Ahzab",ayat:'1-27',reciter:'Badran' },
+        { date: '3/30/2024',reciternum: 'Third' , pagestart: 390, pageend: 393,Surah:"Rum/Luqman",ayat:'51-28',reciter:'Badran' },
+        { date: '3/30/2024',reciternum: 'Fourth' , pagestart: 394, pageend: 397,Surah:"Luqman/Sajdah",ayat:'29-30',reciter:'Haidar' },
+        { date: '3/30/2024',reciternum: 'Fifth' , pagestart: 398, pageend: 401,Surah:"Ahzab",ayat:'1-27',reciter:'Zarar' },
 
         { date: '3/31/2024',reciternum: 'First' , pagestart: 402, pageend: 405,Surah:"Ahzab",ayat:'28-54',reciter:'Fahad' },
-        { date: '3/31/2024',reciternum: 'Second' , pagestart: 406, pageend: 409,Surah:'Ahzab/Saba',ayat:'55-14',reciter:'Badran' },
+        { date: '3/31/2024',reciternum: 'Second' , pagestart: 406, pageend: 409,Surah:'Ahzab/Saba',ayat:'55-14',reciter:'Haidar' },
         { date: '3/31/2024',reciternum: 'Third' , pagestart: 410, pageend: 413,Surah:"Saba",ayat:'15-54',reciter:'Mudasir' },
         { date: '3/31/2024',reciternum: 'Fourth' , pagestart: 414, pageend: 417,Surah:"Fatir",ayat:'1-30',reciter:'Fawad' },
         { date: '3/31/2024',reciternum: 'Fifth' , pagestart: 418, pageend: 421,Surah:"Fatir/Yaseen",ayat:'31-27',reciter:'Zarar' },
@@ -68,12 +68,12 @@ function taraweeh(){
         { date: '4/1/2024',reciternum: 'First' , pagestart: 422, pageend: 425,Surah:"Yaseen",ayat:'28-83',reciter:'Badran' },
         { date: '4/1/2024',reciternum: 'Second' , pagestart: 426, pageend: 429,Surah:'As-Saffat',ayat:'1-98',reciter:'Zarar' },
         { date: '4/1/2024',reciternum: 'Third' , pagestart: 430, pageend: 433,Surah:"As-Saffat",ayat:'99-16',reciter:'Tahsin' },
-        { date: '4/1/2024',reciternum: 'Fourth' , pagestart: 434, pageend: 437,Surah:"Saad",ayat:'17-88',reciter:'Salah' },
-        { date: '4/1/2024',reciternum: 'Fifth' , pagestart: 438, pageend: 441,Surah:"Zumar",ayat:'1-31',reciter:'Mudasir' },
+        { date: '4/1/2024',reciternum: 'Fourth' , pagestart: 434, pageend: 437,Surah:"Saad",ayat:'17-88',reciter:'Haidar' },
+        { date: '4/1/2024',reciternum: 'Fifth' , pagestart: 438, pageend: 441,Surah:"Zumar",ayat:'1-31',reciter:'Salah' },
 
         { date: '4/2/2024',reciternum: 'First' , pagestart: 442, pageend: 445,Surah:"Zumar",ayat:'32-66',reciter:'Salah' },
         { date: '4/2/2024',reciternum: 'Second' , pagestart: 446, pageend: 449,Surah:'Zumar/Ghafir',ayat:'67-22',reciter:'Zarar' },
-        { date: '4/2/2024',reciternum: 'Third' , pagestart: 450, pageend: 453,Surah:"Ghafir",ayat:'23-58',reciter:'Fahad' },
+        { date: '4/2/2024',reciternum: 'Third' , pagestart: 450, pageend: 453,Surah:"Ghafir",ayat:'23-58',reciter:'Haidar' },
         { date: '4/2/2024',reciternum: 'Fourth' , pagestart: 454, pageend: 457,Surah:"Ghafir",ayat:'59-8',reciter:'Badran' },
         { date: '4/2/2024',reciternum: 'Fifth' , pagestart: 458, pageend: 461,Surah:"Fussilat",ayat:'9-46',reciter:'Mudasir' },
 
@@ -86,21 +86,21 @@ function taraweeh(){
         { date: '4/4/2024',reciternum: 'First' , pagestart: 482, pageend: 485,Surah:"Ahqaf",ayat:'1-28',reciter:'Salah' },
         { date: '4/4/2024',reciternum: 'Second' , pagestart: 486, pageend: 489,Surah:'Ahqaf/Muhammad',ayat:'29-30',reciter:'Irshad' },
         { date: '4/4/2024',reciternum: 'Third' , pagestart: 490, pageend: 493,Surah:"Muhammad/Fath",ayat:'31-23',reciter:'Fawad' },
-        { date: '4/4/2024',reciternum: 'Fourth' , pagestart: 494, pageend: 497,Surah:"Fath/Hujrat",ayat:'24-18',reciter:'Badran' },
+        { date: '4/4/2024',reciternum: 'Fourth' , pagestart: 494, pageend: 497,Surah:"Fath/Hujrat",ayat:'24-18',reciter:'Haidar' },
         { date: '4/4/2024',reciternum: 'Fifth' , pagestart: 498, pageend: 501,Surah:"Qaf/Dhariyat",ayat:'1-23',reciter:'Zarar' },
 
         
-        { date: '4/5/2024',reciternum: 'First' , pagestart: 502, pageend: 505,Surah:"Dhariyat/Toor",ayat:'24-49',reciter:'Zarar' },
-        { date: '4/5/2024',reciternum: 'Second' , pagestart: 506, pageend: 509,Surah:'Najm/Qamar',ayat:'1-22',reciter:'Mudasir' },
+        { date: '4/5/2024',reciternum: 'First' , pagestart: 502, pageend: 505,Surah:"Dhariyat/Toor",ayat:'24-49',reciter:'Tahsin' },
+        { date: '4/5/2024',reciternum: 'Second' , pagestart: 506, pageend: 509,Surah:'Najm/Qamar',ayat:'1-22',reciter:'Badran' },
         { date: '4/5/2024',reciternum: 'Third' , pagestart: 510, pageend: 513,Surah:"Qamar/Rahman",ayat:'23-78',reciter:'Azer' },
-        { date: '4/5/2024',reciternum: 'Fourth' , pagestart: 514, pageend: 517,Surah:"Waqiah",ayat:'waqiah',reciter:'Tahsin' },
-        { date: '4/5/2024',reciternum: 'Fifth' , pagestart: 518, pageend: 521,Surah:"Hadid",ayat:'hadid',reciter:'Badran' },
+        { date: '4/5/2024',reciternum: 'Fourth' , pagestart: 514, pageend: 517,Surah:"Waqiah",ayat:'waqiah',reciter:'Mudasir' },
+        { date: '4/5/2024',reciternum: 'Fifth' , pagestart: 518, pageend: 521,Surah:"Hadid",ayat:'hadid',reciter:'Zarar' },
 
         { date: '4/6/2024',reciternum: 'First' , pagestart: 522, pageend: 525,Surah:"Mujadilah",ayat:'Mujadilah',reciter:'Rayan' },
-        { date: '4/6/2024',reciternum: 'Second' , pagestart: 526, pageend: 529,Surah:'Hashr',ayat:'Hashr-Mu 5',reciter:'Badran' },
+        { date: '4/6/2024',reciternum: 'Second' , pagestart: 526, pageend: 529,Surah:'Hashr',ayat:'Hashr-Mu 5',reciter:'Mudasir' },
         { date: '4/6/2024',reciternum: 'Third' , pagestart: 530, pageend: 533,Surah:"Mumtahinah/Saff",ayat:'6-Jumuah',reciter:'Azer' },
-        { date: '4/6/2024',reciternum: 'Fourth' , pagestart: 534, pageend: 537,Surah:"Munafiqun/Taghabun",ayat:'Munafiqun-tag',reciter:'Mudasir' },
-        { date: '4/6/2024',reciternum: 'Fifth' , pagestart: 538, pageend: 541,Surah:"Talaq/Tahrim",ayat:'Talaq/Tahrim',reciter:'Zarar' },
+        { date: '4/6/2024',reciternum: 'Fourth' , pagestart: 534, pageend: 537,Surah:"Munafiqun/Taghabun",ayat:'Munafiqun-tag',reciter:'Zarar' },
+        { date: '4/6/2024',reciternum: 'Fifth' , pagestart: 538, pageend: 541,Surah:"Talaq/Tahrim",ayat:'Talaq/Tahrim',reciter:'Badran' },
 
         { date: '4/7/2024',reciternum: 'First' , pagestart: 542, pageend: 545,Surah:"Mulk/Qalam",ayat:'Mulk/Qalam',reciter:'Zarar' },
         { date: '4/7/2024',reciternum: 'Second' , pagestart: 546, pageend: 549,Surah:"Haqqah/Mai'rij",ayat:"Haqqah/Mai'rij",reciter:'Mudasir' },
@@ -118,32 +118,32 @@ function taraweeh(){
 
     for (i = 0; i < reciters.length; i++) {
         if (currentdate==reciters[i].date && reciters[i].reciternum=='First') {
-            var First =  reciters[i].reciternum+":"  + reciters[i].reciter +", Page Start:"+reciters[i].pagestart+", Page End:"+reciters[i].pageend+", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
+            var First =  reciters[i].reciternum+":"  + reciters[i].reciter +", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
             document.getElementById("one").innerText = First;
             document.getElementById("one").textContent = First;
         }
 
 
         if (currentdate==reciters[i].date && reciters[i].reciternum=='Second') {
-            var Second =  reciters[i].reciternum+":"  + reciters[i].reciter +", Page Start:"+reciters[i].pagestart+", Page End:"+reciters[i].pageend+", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
+            var Second =   reciters[i].reciternum+":"  + reciters[i].reciter +", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
             document.getElementById("two").innerText = Second;
             document.getElementById("two").textContent = Second;
         }
 
         if (currentdate==reciters[i].date && reciters[i].reciternum=='Third') {
-            var Third =  reciters[i].reciternum+":"  + reciters[i].reciter +", Page Start:"+reciters[i].pagestart+", Page End:"+reciters[i].pageend+", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
+            var Third =   reciters[i].reciternum+":"  + reciters[i].reciter +", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
             document.getElementById("three").innerText = Third;
             document.getElementById("three").textContent = Third;
         }
 
         if (currentdate==reciters[i].date && reciters[i].reciternum=='Fourth') {
-            var Fourth =  reciters[i].reciternum+":"  + reciters[i].reciter +", Page Start:"+reciters[i].pagestart+", Page End:"+reciters[i].pageend+", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
+            var Fourth =   reciters[i].reciternum+":"  + reciters[i].reciter +", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
             document.getElementById("four").innerText = Fourth;
             document.getElementById("four").textContent = Fourth;
         }
 
         if (currentdate==reciters[i].date && reciters[i].reciternum=='Fifth') {
-            var Fifth =  reciters[i].reciternum+":"  + reciters[i].reciter +", Page Start:"+reciters[i].pagestart+", Page End:"+reciters[i].pageend+", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
+            var Fifth =  reciters[i].reciternum+":"  + reciters[i].reciter +", Surah:"+reciters[i].Surah+", Ayat:"+reciters[i].ayat;
             document.getElementById("five").innerText = Fifth;
             document.getElementById("five").textContent = Fifth;
         }
