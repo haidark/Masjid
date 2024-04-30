@@ -1,12 +1,11 @@
 sunset=0;
 negmin=0;
-
+flashing = false; // Variable to track flashing state
 function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
   
 
 
 
-    
 
     var ndfajar_HR=parseInt(ndfajar.split(":")[0]);
     
@@ -226,8 +225,37 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
         ishaminutesRemaining=500;
         ishasecondsRemaining=500;
       }
+//|| maghribminutesRemaining<5 || asrminutesRemaining<5 || dhuhrminutesRemaining<5 || fajarminutesRemaining<5
+      if (ishaminutesRemaining < 5 && (ishaminutesRemaining >=0  && ishasecondsRemaining>=0))
+      {
+        flashing = !flashing;
+      }
+      else{
+        document.getElementById('myLink').style.color = 'blue';
+      }
+  
+    
 
-   
+    
+    
+    // Change timer color based on flashing state
+   /* if((ishahoursRemaining==0 && ishaminutesRemaining>=5 && distance==distance5) || ( maghribminutesRemaining>=5 && distance==distance4)|| (asrminutesRemaining>=5 && distance==distance3) || (dhuhrminutesRemaining>=5 && distance==distance2) || ( fajarminutesRemaining>=5 && distance==distance1) )
+    {
+      document.getElementById('myLink').style.color = 'red';
+      //document.getElementById('myLink').style.visibility = 'visible';
+    }*/
+    if (flashing) {
+        document.getElementById('myLink').style.color = 'red';
+        //document.getElementById('myLink').style.visibility = 'hidden';
+    } 
+
+    else {
+        document.getElementById('myLink').style.color = 'blue';
+        //document.getElementById('myLink').style.visibility = 'visible';
+
+    }
+    
+        
      //distance=distance2;
      
      

@@ -85,9 +85,9 @@ function taraweeh(){
 
         { date: '4/4/2024',reciternum: 'First' , pagestart: 482, pageend: 485,Surah:"Ahqaf",ayat:'1-28',reciter:'Salah' },
         { date: '4/4/2024',reciternum: 'Second' , pagestart: 486, pageend: 489,Surah:'Ahqaf/Muhammad',ayat:'29-30',reciter:'Irshad' },
-        { date: '4/4/2024',reciternum: 'Third' , pagestart: 490, pageend: 493,Surah:"Muhammad/Fath",ayat:'31-23',reciter:'Fawad' },
-        { date: '4/4/2024',reciternum: 'Fourth' , pagestart: 494, pageend: 497,Surah:"Fath/Hujrat",ayat:'24-18',reciter:'Haidar' },
-        { date: '4/4/2024',reciternum: 'Fifth' , pagestart: 498, pageend: 501,Surah:"Qaf/Dhariyat",ayat:'1-23',reciter:'Zarar' },
+        { date: '4/4/2024',reciternum: 'Third' , pagestart: 490, pageend: 493,Surah:"Muhammad/Fath",ayat:'31-23',reciter:'Badran' },
+        { date: '4/4/2024',reciternum: 'Fourth' , pagestart: 494, pageend: 497,Surah:"Fath/Hujrat",ayat:'24-18',reciter:'Zarar' },
+        { date: '4/4/2024',reciternum: 'Fifth' , pagestart: 498, pageend: 501,Surah:"Qaf/Dhariyat",ayat:'1-23',reciter:'Mudasir' },
 
         
         { date: '4/5/2024',reciternum: 'First' , pagestart: 502, pageend: 505,Surah:"Dhariyat/Toor",ayat:'24-49',reciter:'Tahsin' },
