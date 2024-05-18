@@ -170,6 +170,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       }
       if(fajarhoursRemaining<-1 || fajarminutesRemaining<-14 )
       {
+        
         fajarhoursRemaining=500;
         fajarminutesRemaining=500;
         fajarsecondsRemaining=500;
@@ -198,6 +199,7 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       }
       if(asrhoursRemaining<-1 || asrminutesRemaining<-14)
       {
+
         asrhoursRemaining=500;
         asrminutesRemaining=500;
         asrsecondsRemaining=500;
@@ -226,9 +228,10 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
         ishasecondsRemaining=500;
       }
 //|| maghribminutesRemaining<5 || asrminutesRemaining<5 || dhuhrminutesRemaining<5 || fajarminutesRemaining<5
-      if (ishaminutesRemaining < 5 && (ishaminutesRemaining >=0  && ishasecondsRemaining>=0))
+      if (ishaminutesRemaining < 10 && (ishaminutesRemaining >=0  && ishasecondsRemaining>=0))
       {
-        flashing = !flashing;
+       // flashing = !flashing;
+       document.getElementById('myLink').style.color = 'green';
       }
       else{
         document.getElementById('myLink').style.color = 'blue';
@@ -245,12 +248,12 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       //document.getElementById('myLink').style.visibility = 'visible';
     }*/
     if (flashing) {
-        document.getElementById('myLink').style.color = 'red';
+        //document.getElementById('myLink').style.color = 'green';
         //document.getElementById('myLink').style.visibility = 'hidden';
     } 
 
     else {
-        document.getElementById('myLink').style.color = 'blue';
+        //document.getElementById('myLink').style.color = 'blue';
         //document.getElementById('myLink').style.visibility = 'visible';
 
     }
@@ -266,6 +269,8 @@ function countdown(fajr,dhuhr,asr,maghrib,isha,ndfajar){
       if(hoursRemaining==-1)
       {
        
+        document.getElementById('myLink').style.color = 'red';
+
         hoursRemaining='-0';// account for negative time
         minutesRemaining=minutesRemaining-1;
        /* if(now.getSeconds()==0)
