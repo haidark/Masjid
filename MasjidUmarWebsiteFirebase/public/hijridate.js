@@ -77,8 +77,8 @@ async function scrapeWeb() {
 
 
   
-
-    var fulldate = hijridate;
+    //var fulldate="Dhuʻl-Qiʻdah 30, 1445 AH" // added forto make sure it doesnt change when changing months TK
+   var fulldate = hijridate;
     document.getElementById("hijridateval").innerText = fulldate;
     document.getElementById("hijridateval").textContent = fulldate;
 }
