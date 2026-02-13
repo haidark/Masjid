@@ -48,13 +48,22 @@
 		</nav>
 	</header>
 
+	<section class="hero-banner">
+		<h1 class="hero-title">Masjid Umar</h1>
+		<p class="hero-date" id="hero_date"></p>
+	</section>
+
 	<script>
 		var date = new Date();
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		var formattedDate = date.toLocaleDateString('en-US', options);
 		document.getElementById('date_today').textContent = "Today: " + date.toLocaleDateString();
+		document.getElementById('hero_date').textContent = formattedDate;
 	</script>
 
 	<main role="main" class="container py-4">
 		<section class="prayer-times-wrap mb-4">
+			<h2 class="prayer-times-heading">Today's Prayer Times</h2>
 			<table class="table table-bordered table-sm prayer-times-table text-center">
 				<thead id="timingType"></thead>
 				<tbody>
@@ -68,17 +77,17 @@
 			</table>
 		</section>
 
-		<section class="section-card" id="jummah">
-			<h2>Jummah khutbah: 12:45 pm</h2>
+		<section class="section-card jummah-card" id="jummah">
+			<h2>Jummah Khutbah: 12:45 PM</h2>
 		</section>
 
 		<section class="section-card">
 			<h3 id="title">Stay Updated</h3>
-			<p id="text" class="mb-0">
-				Follow the website and join the WhatsApp group for updates.
-				<a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb">Masjid WhatsApp Group</a>.
+			<p id="text" class="mb-2">
+				Follow the website and join our WhatsApp group for the latest updates and announcements.
 				May Allah preserve us all.
 			</p>
+			<a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb" class="whatsapp-btn" target="_blank" rel="noopener">Join WhatsApp Group</a>
 		</section>
 	</main>
 
@@ -89,6 +98,16 @@
 				<p class="mb-1">
 					<a href="https://www.google.com/maps/search/?api=1&query=15+Downs+St+Kingston+NY+12401" target="_blank" rel="noopener">15 Downs St, Kingston, NY 12401</a>
 				</p>
+			</div>
+			<div class="footer-col footer-col-map">
+				<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2952.5!2d-73.9974!3d41.927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDU1JzM3LjIiTiA3M8KwNTknNTAuNiJX!5e0!3m2!1sen!2sus!4v1700000000000"
+					class="footer-map"
+					allowfullscreen=""
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					title="Masjid Umar Location">
+				</iframe>
 			</div>
 			<div class="footer-col footer-col-right">
 				<p class="mb-1"><a href="mailto:masjidumar15@gmail.com">masjidumar15@gmail.com</a></p>
@@ -105,7 +124,7 @@
 		jamaatify(jamaatTimes);
 		var list = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
 
-		document.getElementById('timingType').innerHTML = '<tr><th scope="col"></th><th scope="col">Prayer</th><th scope="col">Iqamah</th></tr>';
+		document.getElementById('timingType').innerHTML = '<tr><th scope="col">Prayer</th><th scope="col">Start Time</th><th scope="col">Iqamah</th></tr>';
 
 		for (var i in list) {
 			var html = '<th scope="row">' + list[i] + '</th>';
