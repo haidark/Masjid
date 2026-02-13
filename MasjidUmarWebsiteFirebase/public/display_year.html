@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
+	<meta charset="UTF-8">
+	<title>Iqamah Times (Year) Print - Masjid Umar</title>
 	<link rel="stylesheet" href="Umar.css" type="text/css">
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,21 +16,63 @@
 	<script type="text/javascript" src="moment.js"></script>  
 	<script type="text/javascript" src="jamaatify.js"></script>    
 
-</head>  
-	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
-<style>
-	    main { padding-top: 20px; }
+</head>
+<body class="page-home">
+	<div id="top"></div>
+	<header class="d-print-none">
+		<nav class="navbar navbar-expand-md navbar-dark navbar-index container-fluid">
+			<a class="navbar-brand d-flex align-items-center" href="./index.html">
+				<img src="Umar.png" width="60" height="60" class="d-inline-block align-top" alt="Masjid Umar">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./index.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="news.html">News</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link text-light" href="./year_prayer.html">Iqamah Times (Year) <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./month_prayer.html">Iqamah Times (Month)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="./display_month.html">Live View</a>
+					</li>
+				</ul>
+				<div class="d-flex align-items-center">
+					<span id="date_today" class="nav-date-pill"></span>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<script>
+		var date = new Date();
+		document.getElementById('date_today').textContent = "Today: " + date.toLocaleDateString();
+	</script>
 
-</style>
-
-
-<body>
-	<img class="d-none d-print-bloc" src="Umar.png" width="75" height="75" style="float:left"> 
-
-	<script type="text/javascript" src="../PrayTimes.js"></script>
-	<div class="container" id="containerDiv" align="center"></div>
+	<img class="d-none d-print-block" src="Umar.png" width="75" height="75" style="float:left" alt="Masjid Umar">
+	<div class="container py-4" id="containerDiv" align="center"></div>
 	
-	<br>
+	<footer class="footer-index container-fluid mt-auto d-print-none">
+		<div id="footer" class="footer-row container">
+			<div class="footer-col footer-col-left">
+				<p class="mb-1"><a href="./index.html" class="footer-brand">Masjid Umar</a></p>
+				<p class="mb-1">
+					<a href="https://www.google.com/maps/search/?api=1&query=15+Downs+St+Kingston+NY+12401" target="_blank" rel="noopener">15 Downs St, Kingston, NY 12401</a>
+				</p>
+			</div>
+			<div class="footer-col footer-col-right">
+				<p class="mb-1"><a href="mailto:masjidumar15@gmail.com">masjidumar15@gmail.com</a></p>
+				<p class="mb-0"><a href="tel:+18454810787">(845) 481-0787</a></p>
+			</div>
+		</div>
+	</footer>
 	
 	<script type="text/javascript">
 	

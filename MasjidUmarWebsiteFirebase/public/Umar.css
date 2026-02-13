@@ -1,173 +1,38 @@
 :root {
-	--bg-color:rgba(72, 121, 122, 0.555);
-	--body-color:rgba(211, 211, 211, 0.527);
+	--bg-color: rgba(72, 121, 122, 0.555);
+	--body-color: rgba(211, 211, 211, 0.527);
 	--edge-color: rgba(238, 238, 238, 0.651);
 }
 
-@font-face {
-	font-family: 'OpenSans';
-	src: url('../fonts/OpenSans-Regular.eot');
-	src: local('â˜º'), url('../fonts/OpenSans-Regular.woff') format('woff'), url('../fonts/OpenSans-Regular.ttf') format('truetype'), url('../fonts/OpenSans-Regular.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
+/* Index page theme: dusty rose, cream, tan, dark brown */
+.page-home {
+	--theme-dark: rgb(126, 69, 68);
+	--theme-cream: rgb(253, 249, 241);
+	--theme-tan: rgb(226, 195, 144);
+	--theme-accent: rgb(195, 113, 110);
 }
 
 body {
 	background-color: var(--bg-color);
-	font-family: 'OpenSans';
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-
-/*------------------------------ HEADER ------------------------------*/
-#header {
-	background-color: var(--edge-color);
-	width: 1000px;
-	height: fit-content;
-	margin: 0 auto;
-}
-
-#hbanner {
-
-	padding: 10px;
-	margin: 0 auto;
-	overflow: auto;
-}
-
-/** Logo **/
-#logo {
-	float: left;
-
-}
-#logo a {
-	background: url(../images/logo.png) no-repeat;
-	height: 80px;
-	width: 100px;
-	display: block;
-}
-
-/** Navigation **/
-#navbar {
-	width: fit-content;
-	margin: 0px auto;
-	overflow: auto;
-}
-
-#navigation {
-	list-style: none;
-	width: fit-content;
-	float: left;
-	padding-inline-start: 0;
-}
-#navigation ul {
-	/* float: left; */
-	display: inline-block;
-	list-style: none;
-	color:#FEFEFE;	
-}
-#navigation li {
-	float: left;
-	text-align:left;
-}
-#navigation li a {
-	border-right: 2px solid black;
-	color: #061296;
-	font-size: 20px;
-	text-decoration: none;
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-#navigation li a:hover {
-	color: #FFFFFF;
-}
-
-#wrapper {
-	float: none;
-	max-width: 600px;
-	margin: 25px auto;
-	background-color: var(--body-color);
+body.page-home {
+	background-color: var(--theme-cream);
 }
 
 #jummah {
-	
 	clear: both;
 	max-width: 600px;
 	margin: 10px auto;
 }
 
 #jummah h2 {
-	
-	color:#000000;
-	font-size:2em;
+	color: #000000;
+	font-size: 2em;
 	padding: 15px;
-	width:fit-content;
+	width: fit-content;
 	margin: 0 auto;
-}
-
-/*--------------------------Timings Tables------------------------*/
-#timingstables{
-	
-	float: none;
-	clear: both;
-	max-width: 600px;
-	margin: 25px auto;
-	padding: 5px;
-	
-}
-
-#timingstables > table, th, td, tr, caption {
-	
-	border: 1px solid black;
-	padding:10px;
-	text-align:center;
-	font-size:1em;  /*changes sizeing of month display*/
-}
-
-/**Prayer Times**/
-#prayertimestable{
-	
-	border-collapse: collapse;
-	border-style: groove;
-	
-}
-#prayertimes{
-	
-	clear: both;
-	margin: 15px auto;
-	width: fit-content;
-}
-
-/**Jamaat Times**/
-#jamaattimestable  {	
-	
-	border-collapse:collapse;
-	border-style: groove;
-	
-}
-#jamaattimes {
-	
-	clear: both;
-	margin: 15px auto;
-	width: fit-content;
-	
-}
-
-
-/*------------------------------ News ------------------------------*/
-#newstable > table, th, td , tr , caption {
-	border: 1px solid black;
-}
-
-#newstable {
-	border-collapse: collapse;
-}
-
-#news {
-	max-width: 600px;
-	float: none;
-	clear: both;
-	margin: 25px auto;
-	padding: 5px;
 }
 
 #title, #time {
@@ -177,29 +42,25 @@ body {
 	margin: 0;
 }
 
-#text{
+#text {
 	clear: left;
 	margin-top: 10px;
 }
-
 
 h1 {
 	color: #000000;
 	font-size: 30px;
 	font-weight: normal;
 	line-height: 30px;
-	margin: 0 0 30px;	
+	margin: 0 0 30px;
 }
 
-
-h2 , b {
+h2, b {
 	color: #000000;
 	font-size: 50px;
 	font-style: bold;
 	font-weight: normal;
 	line-height: 24px;
-
-
 }
 
 p {
@@ -208,131 +69,339 @@ p {
 	line-height: 30px;
 }
 
-/*------------ News Page ----------------*/
-#contents {
-	background-color: var(--body-color);
-	float: none;
-	clear: both;
-	max-width: 600px;
-	margin: 0 auto;
-	padding-top: 50px;
-	padding-bottom: 50px;
+/* Prayer / Iqamah tables (month & year pages) */
+.arrow {
+	display: inline-block;
+	padding: 0.25em 0.5em;
+	color: #007bff;
+	text-decoration: none;
+	font-weight: bold;
+}
+.arrow:hover {
+	color: #0056b3;
+	text-decoration: none;
 }
 
-.main {
-	float: none;
-	min-height: 100px;
-	width: 600px;
-	margin: 0 auto;
-}
-
-.main h1 {
-	font-size: 35px;
-	font-weight: 15px;
-	margin: 0 auto;
-	max-width: 600px;
-	padding: 10px;
+.caption {
+	font-weight: bold;
 	text-align: center;
-	border-bottom: 4px solid black;
+	padding: 0.5em;
 }
 
-.main h2 {
-	display: block;
-	font-size: 25px;
-	text-align: center;
-}
-.main p {
-	text-align:center;
-	margin: 5px auto;
-}
-
-.news {
-	max-width: 600px;
+/* Month view: boxed, clear controls */
+.month-controls {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 360px;
 	margin: 0 auto;
-	padding-inline-start: 0;
+	padding: 0.75rem 1.25rem;
+	border: 2px solid #dee2e6;
+	border-radius: 8px;
+	background-color: #f8f9fa;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-
-.news li {
-	display: block;
-	border-bottom: 2px dashed black;
-}
-
-.date {
+.month-caption {
+	font-weight: bold;
+	font-size: 1.15rem;
+	min-width: 10rem;
 	text-align: center;
+	margin: 0 12px;
 }
-.date p span {
-	font-size: 20px;
+.month-nav {
+	display: inline-block;
+	padding: 0.2rem 0.45rem;
+	line-height: 1.2;
+	color: #000;
+	text-decoration: none;
+	font-weight: 600;
+	border: 1px solid #000;
+	border-radius: 6px;
+	background-color: #fff;
+}
+.month-nav:hover {
+	color: #000;
+	background-color: rgb(126, 69, 68);
+	border-color: rgb(126, 69, 68);
+	text-decoration: none;
 }
 
-.content {
-	text-align: center;
-	padding: 5px;
-}
-/*------------------------------ MONTH ------------------------------*/
-#getMonth {
-	max-width: 600px;
-	margin: 10px auto;
-	padding: 10px;
-	background-color: var(--body-color);
-	border-color: black;
-	
-
-}
-
-#monthTable {
-	margin: 0 auto;
-	width: fit-content;
-}
-/*------------------------------ LOGIN ------------------------------*/
-#loginTable{
-	width: fit-content;
-	margin: 10px auto;
+.timetable {
 	border-collapse: collapse;
-	background-color: var(--body-color);
+	border: 3px solid #495057;
+	margin: 0 auto;
 }
-/*------------------------------ FOOTER ------------------------------*/
+.timetable td, .timetable th {
+	border: 1px solid #dee2e6;
+	padding: 0.5em;
+	text-align: center;
+}
+
+.head-row {
+	background-color: var(--edge-color);
+	font-weight: bold;
+}
+
+
+tr.today-row td {
+	background-color: #fff3cd !important;
+	color: #000;
+  }
+  
+
+/* Nav bar: button-style links and active state (all pages) */
+.nav-links-as-buttons.navbar .navbar-nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem;
+}
+.nav-links-as-buttons.navbar .navbar-nav .nav-item {
+	margin: 0;
+}
+.nav-links-as-buttons.navbar .nav-link {
+	display: block;
+	padding: 0.5rem 0.85rem !important;
+	border-radius: 6px;
+	border: 2px solid rgba(255,255,255,0.4);
+	background-color: rgba(255,255,255,0.1);
+	text-align: center;
+	font-weight: 500;
+}
+.nav-links-as-buttons.navbar .nav-link:hover {
+	background-color: rgba(255,255,255,0.2);
+	border-color: rgba(255,255,255,0.6);
+}
+.nav-links-as-buttons.navbar .nav-item.active .nav-link {
+	background-color: rgba(255,255,255,0.95);
+	border-color: #fff;
+	color: #212529 !important;
+}
+.nav-links-as-buttons.navbar .nav-item.active .nav-link:hover {
+	background-color: #fff;
+	color: #212529 !important;
+}
+
+/* Footer */
+#footerText a:hover {
+	text-decoration: underline;
+}
 
 @media print {
-	.page-breaks {page-break-after: always;}
-	.no-page-break {page-break-inside: avoid;}
-  }
+	.page-breaks { page-break-after: always; }
+	.no-page-break { page-break-inside: avoid; }
+}
 
-
-/* webscrape chicago hilal top*/
+/* Display screen (lobby) */
 .mytitle {
-    position: absolute;
-    top: 1%;
-    left: 48%;
-    transform: translateX(-50%)
-     translateY(-50%);
-    color: rgb(225, 11, 11);
-    font-size: 100px;
-    font-family: Orbitron;
-    letter-spacing: 1px;
-   
-
-
-}
-
-/*
-.qr{
 	position: absolute;
-	width: 250px;
-	height:250px;
-	bottom: 0%;
-	right:0%;
-
-
+	top: 1%;
+	left: 48%;
+	transform: translateX(-50%) translateY(-50%);
+	color: rgb(225, 11, 11);
+	font-size: 100px;
+	font-family: Orbitron, monospace;
+	letter-spacing: 1px;
 }
-*/
 
+.display-title {
+	color: rgb(206, 11, 11);
+	font-size: 250%;
+	font-family: Orbitron, monospace;
+	letter-spacing: 0.5px;
+}
 
-.umar_size{
+.umar_size {
 	position: absolute;
 	width: 100px;
-	height:100px;
+	height: 100px;
 	bottom: 0%;
-	left:0%;
-
+	left: 0%;
 }
 
+/* ========== Index page: Nav, table, sections, footer ========== */
+.page-home .navbar-index {
+	background-color: var(--theme-dark) !important;
+	padding: 0.5rem 1rem;
+}
+.page-home .navbar-index .navbar-nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem;
+}
+@media (min-width: 768px) {
+	.page-home .navbar-index .navbar-nav {
+		gap: 0.5rem;
+	}
+}
+.page-home .navbar-index .navbar-nav .nav-item {
+	margin: 0;
+}
+.page-home .navbar-index .nav-link {
+	display: block;
+	padding: 0.5rem 0.85rem !important;
+	border-radius: 6px;
+	border: 2px solid rgba(255,255,255,0.35);
+	background-color: rgba(255,255,255,0.08);
+	color: var(--theme-cream) !important;
+	font-weight: 500;
+	text-align: center;
+}
+.page-home .navbar-index .nav-link:hover {
+	background-color: rgba(255,255,255,0.18);
+	border-color: rgba(255,255,255,0.5);
+	color: var(--theme-cream) !important;
+}
+.page-home .navbar-index .nav-item.active .nav-link {
+	background-color: var(--theme-tan);
+	border-color: var(--theme-cream);
+	color: var(--theme-dark) !important;
+}
+.page-home .navbar-index .nav-item.active .nav-link:hover {
+	background-color: var(--theme-cream);
+	color: var(--theme-dark) !important;
+}
+.page-home .nav-date-pill {
+	display: inline-block;
+	background-color: var(--theme-tan);
+	color: var(--theme-dark);
+	padding: 0.4rem 0.75rem;
+	border-radius: 6px;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.page-home .prayer-times-wrap {
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.page-home .prayer-times-table {
+	font-size: 0.9rem;
+}
+.page-home .prayer-times-table thead th,
+.page-home .prayer-times-table tbody td,
+.page-home .prayer-times-table tbody th {
+	padding: 0.35rem 0.5rem;
+}
+@media (min-width: 576px) {
+	.page-home .prayer-times-table {
+		font-size: 1rem;
+	}
+	.page-home .prayer-times-table thead th,
+	.page-home .prayer-times-table tbody td,
+	.page-home .prayer-times-table tbody th {
+		padding: 0.5rem 0.75rem;
+	}
+}
+.page-home .prayer-times-table thead th {
+	background-color: var(--theme-dark);
+	color: var(--theme-cream);
+	border-color: var(--theme-dark);
+}
+.page-home .prayer-times-table tbody tr {
+	background-color: var(--theme-cream);
+}
+.page-home .prayer-times-table tbody th {
+	background-color: var(--theme-tan);
+	color: var(--theme-dark);
+	border-color: var(--theme-accent);
+}
+.page-home .prayer-times-table tbody td {
+	border-color: var(--theme-tan);
+}
+
+.page-home .section-card {
+	background-color: var(--theme-tan);
+	border: 1px solid var(--theme-accent);
+	border-radius: 8px;
+	padding: 1.25rem;
+	margin-bottom: 1rem;
+}
+.page-home .section-card h2,
+.page-home .section-card h3 {
+	color: var(--theme-dark);
+	font-size: 1.35rem;
+	margin-bottom: 0.5rem;
+}
+.page-home .section-card h2 {
+	font-size: 1.5rem;
+}
+.page-home .section-card p,
+.page-home .section-card a {
+	color: var(--theme-dark);
+}
+.page-home .section-card a:hover {
+	color: var(--theme-accent);
+}
+
+/* Theme timetables on month/year pages */
+.page-home .timetable {
+	border-color: var(--theme-accent);
+}
+.page-home .timetable td,
+.page-home .timetable th {
+	border-color: var(--theme-tan);
+}
+.page-home .timetable .head-row td,
+.page-home .timetable .head-row th {
+	background-color: var(--theme-dark);
+	color: var(--theme-cream);
+	border-color: var(--theme-dark);
+}
+.page-home .timetable .caption {
+	background-color: var(--theme-tan);
+	color: var(--theme-dark);
+}
+.page-home .timetable .today-row td {
+	background-color: var(--theme-accent);
+}
+.page-home .month-controls .month-nav {
+	color: var(--theme-dark);
+}
+.page-home .month-caption {
+	color: var(--theme-dark);
+	font-weight: bold;
+}
+
+.page-home .footer-index {
+	background-color: var(--theme-dark) !important;
+	color: var(--theme-cream);
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+}
+.page-home .footer-index a {
+	color: var(--theme-cream);
+	text-decoration: none;
+}
+.page-home .footer-index a:hover {
+	color: var(--theme-tan);
+	text-decoration: underline;
+}
+.page-home .footer-index .footer-brand {
+	font-weight: 700;
+}
+.page-home .footer-index .footer-col {
+	margin-bottom: 0.5rem;
+}
+.page-home .footer-index .footer-row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+	text-align: left;
+	gap: 0.5rem 1rem;
+}
+.page-home .footer-index .footer-col-left {
+	text-align: left;
+}
+.page-home .footer-index .footer-col-right {
+	text-align: right;
+}
+@media (max-width: 767px) {
+	.page-home .footer-index .footer-col-right {
+		text-align: left;
+	}
+}

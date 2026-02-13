@@ -1,17 +1,9 @@
 <!DOCTYPE HTML>
 <html>
-	
-
 <head>
-	
-
-	
-		
-	
-	
-	
-	<meta name="viewport" content="width=device-width, initial-scale=">
-	<meta charset="UTF-8"><title>Display - Masjid Umar</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<title>Display - Masjid Umar</title>
 	<link rel="stylesheet" href="Umar.css" type="text/css">
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -27,10 +19,7 @@
 	<script type="text/javascript" src="showdate.js"></script>
 	<script type="text/javascript" src="countdown.js"></script>
 	<script type="text/javascript" src="taraweeh.js"></script>
-	
-
-</head>  
-	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+</head>
 	<style>
 		body{
 			overflow: hidden;
@@ -39,20 +28,8 @@
 		max-height: 48vh;
 		min-width: 100%;
 		padding-bottom: 10;
-	  }
+	}
 	</style>
-
-
-
-
-
-<!-- For setting the time-->
-<!-- <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/New-York/time" style="text-decoration: none" class="clock24" id="tz24-1676685000-c1179-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMSIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjNmMDJlYzgwYjMzOCIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="New York clock" target="_blank" rel="nofollow">New York time</a></p><div id="clock_block_cb63f02ec80b338"></div></div>
-<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>-->
-
-
-
-
 <body>
 
 
@@ -61,35 +38,14 @@
 	<div id="MyClockDisplay" class="text-center"  onload="showTime()" style="color: black;font-size: 800%;font-family: Orbitron;letter-spacing: 1px;"></div>
 	<p></p>
 	<div id="MyDateDisplay" class="text-center"  onload="showDate()" style="color:black;font-size: 250%;font-family: Orbitron;letter-spacing: 0.5px;"></div>
-	<div id="MytitleDisplay" class="text-center"  onload="showscrapeWeb()" style="color:rgb(206, 11, 11);font-size: 250%;font-family: Orbitron;letter-spacing: 0.5px;"></div>
-	<!--<div id="hijridatetxt" class="text-center" style="color: rgba(2, 134, 13, 0.999); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>-->
-	
-	
-	
-	<!--<h3 style="text-align:center;"><iframe src="output.html"  width="300" height="45"  scrolling="no"  onload="showscrapeWeb()"></iframe></h3>-->
-	
-	
-
-	<!--<iframe event-title="0" src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showDate=0&showNav=0&showTitle=0&mode=AGENDA&src=Y2hpY2Fnb2hpbGFsLm9yZ19kZDN2YjhlNDBsNGtpajZpcHRwMDRxbzNyNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23B39DDB" display="block"style="border-width:0" style="display:none" width="150" height="100" frameBorder="0" scrolling="no" ></iframe>-->
-
-	<!--<div style="border: 1px solid rgb(0, 0,0); overflow: hidden; margin: 15px auto; max-width: 150px;">
-		<iframe scrolling="no" src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showDate=0&showNav=0&showTitle=0&mode=AGENDA&src=Y2hpY2Fnb2hpbGFsLm9yZ19kZDN2YjhlNDBsNGtpajZpcHRwMDRxbzNyNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23B39DDB" style="border: 0px none; margin-left: -7px; height: 75px; margin-top: -26px; width: 800px;">
-		</iframe>
-	</div>-->
-	<!--<div style="border: 1px solid rgb(0, 0,0); overflow: hidden; margin: 15px auto; max-width:230px;">
-		<iframe scrolling="no" src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showDate=0&showNav=0&showTitle=0&mode=AGENDA&src=Y2hpY2Fnb2hpbGFsLm9yZ19kZDN2YjhlNDBsNGtpajZpcHRwMDRxbzNyNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23B39DDB" style="border: 0px none; margin-left: -21px; height: 100px; margin-top: -26px; width: 800px;">
-		</iframe>
-	</div>-->
-		
-
+	<div id="MytitleDisplay" class="text-center display-title"></div>
 	<div id="hijridateval" class="text-center" style="color: black; font-size: 250%; font-family: Orbitron; letter-spacing: 1px;"></div>
 	
 </div>
 
 
 <br>
-	<script type="text/javascript" src="../PrayTimes.js"></script>
-	<div class="container" id="containerDiv"  ></div>
+	<div class="container" id="containerDiv"></div>
 	
 	<br>
 	
@@ -104,17 +60,10 @@
 		setInterval(function(){ monthTable.firstChild.remove(); 
 			monthTable.appendChild(displayMonth(currentDate.getMonth()));}, 3600000);
 
-		$("containerDiv").appendChild(monthTable);
-		$(currentDate);
-		// display monthly timetable
-		var fajr;
-		var ndfajar;// next day fajr
-		var dhuhr;
-		var asr;
-		var maghrib;
-		var isha;
-		var f1;
-		function displayMonth(monthID=0) {
+		document.getElementById("containerDiv").appendChild(monthTable);
+		var fajr, ndfajar, dhuhr, asr, maghrib, isha;
+		function displayMonth(monthID) {
+			monthID = monthID !== undefined ? monthID : 0;
 			var lat = 41.9270;
 			var lng = -73.9974;
 			var timeZone = -5;
@@ -130,109 +79,41 @@
 		// make monthly timetable
 
 
-		function makeTable(year, month, lat, lng, timeZone, dst) {		
-			var items = {day: 'Day',  fajr: 'Fajr',sunrise: 'Sunrise', 
-						dhuhr: 'Dhuhr', asr: 'Asr', // sunset: 'Sunset', 
-						maghrib: 'Maghrib', isha: 'Isha'};
-		
+		function makeTable(year, month, lat, lng, timeZone, dst) {
+			var items = {day: 'Day', fajr: 'Fajr', sunrise: 'Sunrise',
+						dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha'};
 			var tbody = document.createElement('tbody');
-			// create the month header row first
-			var monthHeadertr = document.createElement('tr')
-			var monthHeadertd = document.createElement('td')
-			monthHeadertd.innerHTML = monthFullName(month)+ ' '+ year;
+			var monthHeadertr = document.createElement('tr');
+			var monthHeadertd = document.createElement('td');
+			monthHeadertd.innerHTML = monthFullName(month) + ' ' + year;
 			monthHeadertd.style.fontSize = "350%";
 			monthHeadertd.colSpan = 7;
-			monthHeadertd.setAttribute("class", "caption")
-			monthHeadertr.appendChild(monthHeadertd)
-			tbody.appendChild(monthHeadertr)
-
+			monthHeadertd.setAttribute("class", "caption");
+			monthHeadertr.appendChild(monthHeadertd);
+			tbody.appendChild(monthHeadertr);
 			tbody.appendChild(makeTableRow(items, items, 'head-row'));
-			var date = new Date(year, month, currentDate.getDate()); //top of table is set to current date
-			var endDate = new Date(year, month, currentDate.getDate()+7); //shows 7 days in total
-			var nd;
-			var format = timeFormat ? '12hNS' : '24h';
-			var i = date.getDate;
-			var fajrcount=0;
-			while (date< endDate) { // i<15 only keeps first 15 days
-				fajrcount=0;
-				prayTimes.setMethod('ISNA'); 	
+
+			var date = new Date(year, month, currentDate.getDate());
+			var endDate = new Date(year, month, currentDate.getDate() + 7);
+			while (date < endDate) {
+				prayTimes.setMethod('ISNA');
 				var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
-				var jamaatTimes = times;
-				jamaatify(jamaatTimes);
-				var icount;
-				
+				jamaatify(times);
 				times.day = date.getDate();
-				var isToday = (date.getMonth() == currentDate.getMonth()) && (date.getDate() == currentDate.getDate());
-				nd=(date.getMonth() == (currentDate.getMonth())) && (date.getDate() == (currentDate.getDate()));
-				if(isToday==true)
-				{
-					fajr=(times.fajr);
-					dhuhr=(times.dhuhr);
-					asr=(times.asr);
-					maghrib=(times.maghrib);
-					isha=(times.isha);
-					icount=i;
-					fajrcount++;
+				var isToday = (date.getMonth() === currentDate.getMonth()) && (date.getDate() === currentDate.getDate());
+				if (isToday) {
+					fajr = times.fajr;
+					dhuhr = times.dhuhr;
+					asr = times.asr;
+					maghrib = times.maghrib;
+					isha = times.isha;
 				}
-				nd=currentDate.getDay();
-				
-				//if(times.day-15 )//times.day+1
-				//{
-				//	ndfajar=(times.fajr);
-				//}
-				var klass = isToday ? 'bg-dark text-light' : ''; //Select current day of month and highlights
+				if (times.day === currentDate.getDate() + 1 || times.day === 1) {
+					ndfajar = times.fajr;
+				}
+				var klass = isToday ? 'bg-dark text-light' : '';
 				tbody.appendChild(makeTableRow(times, items, klass));
-				date.setDate(date.getDate()+ 1);  // next day
-				//var next=Integer.parseInt(Items.day)+1;
-				//var nexttostr=next.toString();
-				var up= times.day
-
-				/*if(times.day==nd)// nd gets days +1 
-				{
-					ndfajar=times.fajr;	
-					//break;
-				}*/
-				/*if(times.day==up)
-				{	
-					
-				}*/
-				
-				
-				//fafajr_hour[i]= items.length();
-				//console.log(fajr_hour[i]);
-				i++;
-				var ndtest=currentDate.getDate()+1;
-				if(times.day==currentDate.getDate()+1)// nd gets days +1 
-				{
-					ndfajar=times.fajr;	
-					//break;
-				}
-				else if(times.day==1)// account for if next day is the first of the month
-				{
-					ndfajar=times.fajr;	
-					//break;
-				}
-			}
-			
-			/*if(times.day)
-			{
-					f1=times.fajr[5];	
-			}*/
-			
-			//var f1=times.fajr[5];
-
-			fajr=fajr;
-			var daysInMonth = new Date(year,month+1,0).getDate(); //Gets number of days in month for table creation
-			while (i < daysInMonth){
-				var dummy = {day: '&nbsp', fajr: ' ', sunrise: ' ', 
-						dhuhr: ' ', asr: ' ', // sunset: 'Sunset', 
-						maghrib: ' ', isha: ' '};
-				tbody.appendChild(makeTableRow(dummy, items, klass));
-				i++;
-			
-				
-			
-	
+				date.setDate(date.getDate() + 1);
 			}
 			return tbody;
 		}
@@ -287,35 +168,39 @@
 			
 		}
 		
-		//var fajrvar=countdown(fajr);
-		//var dhuhrvar=countdown(dhuhr);
-		//var asrvar=
 		window.onload = function() {
-       //when the document is finished loading, replace everything
-       //between the <a ...> </a> tags with the value of splitText
-   		document.getElementById("myLink").innerHTML=countdown(fajr,dhuhr,asr,maghrib,isha);
-		} 	
-		
-		window.onload = function() {
-       //when the document is finished loading, replace everything
-       //between the <a ...> </a> tags with the value of splitText
-	   document.getElementById("countdowntxt").innerHTML="Next prayer time in:";
+			var myLinkEl = document.getElementById("myLink");
+			if (myLinkEl && typeof countdown === 'function') {
+				myLinkEl.innerHTML = countdown(fajr, dhuhr, asr, maghrib, isha);
+			}
+			var countdowntxtEl = document.getElementById("countdowntxt");
+			if (countdowntxtEl) countdowntxtEl.innerHTML = "Next prayer time in:";
+			var reciterEl = document.getElementById("reciter");
+			if (reciterEl) reciterEl.innerHTML = "Today's Taraweeh Reciters:";
+			var threeEl = document.getElementById("three");
+			if (threeEl) threeEl.innerHTML = "Second:Mudasir";
+			var fiveEl = document.getElementById("five");
+			if (fiveEl) fiveEl.innerHTML = "Third:Fawad";
+			var sevenEl = document.getElementById("seven");
+			if (sevenEl) sevenEl.innerHTML = "Fourth:Badran";
+			var nineEl = document.getElementById("nine");
+			if (nineEl) nineEl.innerHTML = "Fifth:Badran";
+			var hijridatetxtEl = document.getElementById("hijridatetxt");
+			if (hijridatetxtEl) hijridatetxtEl.innerHTML = "Hijri Date :";
+		};
 
-	   document.getElementById("reciter").innerHTML="Today's Taraweeh Reciters:";
-	   //document.getElementById("one").innerHTML="First:Zarar";
-	   document.getElementById("three").innerHTML="Second:Mudasir";
-	   document.getElementById("five").innerHTML="Third:Fawad";
-	   document.getElementById("seven").innerHTML="Fourth:Badran";
-	   document.getElementById("nine").innerHTML="Fifth:Badran";
-	  
-
-	   // document.getElementById("countdowntxtss").innerHTML="Next prayer time in:";
-	  // document.getElementById("hijridateval").innerHTML="Ramadan 7, 1444";
-
-		document.getElementById("hijridatetxt").innerHTML="Hijri Date :";
-		
-		} 	
-		
+		function showscrapeWeb() {
+			var el = document.getElementById("MytitleDisplay");
+			if (!el) return;
+			fetch("output.html").then(function(r) { return r.text(); }).then(function(html) {
+				var parser = new DOMParser();
+				var doc = parser.parseFromString(html, "text/html");
+				var h1 = doc.querySelector("h1");
+				if (h1) el.textContent = h1.textContent.trim();
+			}).catch(function() {});
+		}
+		showscrapeWeb();
+		setInterval(showscrapeWeb, 60000);
 	</script>
 
 
@@ -326,52 +211,17 @@
 <div id="countdowntxt" class="text-center" style="margin-top:10%;color: rgb(22, 11, 93); font-size: 450%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 <div id="myLink" class="text-center" onload="countdown(fajr,dhuhr,asr,maghrib,isha)" style="margin: -8%;color: rgba(33, 6, 240, 0.924);font-size: 800%;font-family: Orbitron;letter-spacing: 1px;"  ></div>
-<div id="second" class="text-center" onload="taraweeh()" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<!--
-<p></p>
-
-<div id="reciter" class="text-center" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="one" class="text-center" onload="taraweeh()" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="two" class="text-center" onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="three" class="text-center"onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="four" class="text-center" onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
-<div id="five" class="text-center" onload="taraweeh()" style="margin-top:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
--->
-
-<!--
-<p></p>
- 
-<h6 style="color:blue;text-align:center;">First Ramdan is March 12th, Tuesday. </h6>
-<h6 style="color:blue;text-align:center;">First Ramdan is March 12th, Tuesday. </h6>
-<h6 style="color:blue;text-align:center;">First Ramdan is March 12th, Tuesday. </h6>
-<h6 style="color:blue;text-align:center;">First Ramdan is March 12th, Tuesday. </h6>
--->
+<div id="second" class="text-center" style="margin-bottom:0%;color: rgb(14, 13, 13); font-size: 111%; font-family: Orbitron; letter-spacing: 1px;"></div>
 
 
 
 
-<img id = "masjidLogo" class="img-responsive" src="Umar.png" width="20%" height="20%" > <!--style="margin-top: -5%;"-->
-
-<!--<img class="qr" src="qrmasjid.png" width="250" height="250"> -->    <!--For showing qr code comment this out and in umar.css-->
+<img id="masjidLogo" class="img-responsive" src="Umar.png" width="20%" height="20%" alt="Masjid Umar">
 
 
 
 
 
-
-<!--<div id="MytitleDisplay" class="mytitle"  onload="scrapeWeb()"></div>-->
-
-<script src="clock.js"></script>
-
-<script src="countdown.js"></script>
-
-
-
-<script src="hijridate.js"></script>
-
-<script src="showdate.js"></script>
-
-<script src="taraweeh.js"></script>
 
 </body>
 

@@ -1,25 +1,11 @@
-sunset=0;
-//const puppeteer=require('puppeteer');
-function showDate(){
-  
+function showDate() {
     var date = new Date();
-    var day = date.getDate(); // 1 - 31
-    var month=date.getMonth();//0-11
-    var months="d";
-    year=date.getFullYear();
-
-    var weekday = date.getDay(); // 0 - 6
-    var weekdaysnow="d";
-
-    var s = date.getSeconds(); // 0 - 59
-   // const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-   // const days=["Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday", "Sunday"]
-    var session = "AM";
-    if(day)
-    {
-      sunset=sunset+1;
-
-    }
+    var day = date.getDate();
+    var month = date.getMonth();
+    var months = "d";
+    var year = date.getFullYear();
+    var weekday = date.getDay();
+    var weekdaysnow = "d";
 
     switch (weekday) {
         case 0:
@@ -81,27 +67,16 @@ function showDate(){
           break; 
         case 11:
             months = "December";
-          break; 
-    
+          break;
       }
 
-      //const browser =await puppeteer.launch();
-      //const page = await browser.newPage();
-      //url='https://chicagohilal.org/';
-      //await page.goto(url);
-  
-      //const[el1]=await page.$x('//*[@id="post-3108"]/div/p[1]');
-      //const txt=await el1.getProperty('textContent');
-      //const title= await txt.jsonValue();
-    
-  
-    
     var fulldate = weekdaysnow + ", " + months + " " + day + ", " + year;
-    document.getElementById("MyDateDisplay").innerText = fulldate;
-    document.getElementById("MyDateDisplay").textContent = fulldate;
-    
+    var el = document.getElementById("MyDateDisplay");
+    if (el) {
+      el.innerText = fulldate;
+      el.textContent = fulldate;
+    }
     setTimeout(showDate, 1000);
-    
 }
 
 showDate();

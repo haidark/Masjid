@@ -3,15 +3,12 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
-	<title>Home - Masjid Umar</title>
+	<title>News - Masjid Umar</title>
 	<link rel="stylesheet" href="Umar.css" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="PrayTimes.js"></script>
-	<script type="text/javascript" src="moment.js"></script>
-	<script type="text/javascript" src="jamaatify.js"></script>
 </head>
 <body class="page-home">
 	<div id="top"></div>
@@ -25,11 +22,11 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link text-light" href="./index.html">Home <span class="sr-only">(current)</span></a>
-					</li>
 					<li class="nav-item">
-						<a class="nav-link text-light" href="news.html">News</a>
+						<a class="nav-link text-light" href="./index.html">Home</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link text-light" href="news.html">News <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link text-light" href="./year_prayer.html">Iqamah Times (Year)</a>
@@ -54,31 +51,19 @@
 	</script>
 
 	<main role="main" class="container py-4">
-		<section class="prayer-times-wrap mb-4">
-			<table class="table table-bordered table-sm prayer-times-table text-center">
-				<thead id="timingType"></thead>
-				<tbody>
-					<tr class="text-center" id="FajrTable"></tr>
-					<tr class="text-center" id="SunriseTable"></tr>
-					<tr class="text-center" id="DhuhrTable"></tr>
-					<tr class="text-center" id="AsrTable"></tr>
-					<tr class="text-center" id="MaghribTable"></tr>
-					<tr class="text-center" id="IshaTable"></tr>
-				</tbody>
-			</table>
-		</section>
+		<h1 class="mb-4">News &amp; Updates</h1>
 
-		<section class="section-card" id="jummah">
-			<h2>Jummah khutbah: 12:45 pm</h2>
+		<section class="section-card mb-4">
+			<h2>Stay Updated</h2>
+			<p>Follow the website and join the WhatsApp group for updates.</p>
+			<p><a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb">Masjid WhatsApp Group</a></p>
+			<p class="mb-0">May Allah preserve us all.</p>
 		</section>
 
 		<section class="section-card">
-			<h3 id="title">Stay Updated</h3>
-			<p id="text" class="mb-0">
-				Follow the website and join the WhatsApp group for updates.
-				<a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb">Masjid WhatsApp Group</a>.
-				May Allah preserve us all.
-			</p>
+			<h2>Latest News</h2>
+			<p>For announcements, Eid timings, Ramadan updates, and community news, please join the WhatsApp group above or check the homepage.</p>
+			<p class="mb-0"><a href="./index.html">Back to Home</a></p>
 		</section>
 	</main>
 
@@ -96,23 +81,5 @@
 			</div>
 		</div>
 	</footer>
-
-	<script>
-		var date = new Date();
-		prayTimes.setMethod('ISNA');
-		var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
-		var jamaatTimes = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
-		jamaatify(jamaatTimes);
-		var list = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-
-		document.getElementById('timingType').innerHTML = '<tr><th scope="col"></th><th scope="col">Prayer</th><th scope="col">Iqamah</th></tr>';
-
-		for (var i in list) {
-			var html = '<th scope="row">' + list[i] + '</th>';
-			html += '<td>' + times[list[i].toLowerCase()] + '</td>';
-			html += '<td>' + jamaatTimes[list[i].toLowerCase()] + '</td>';
-			document.getElementById(list[i] + 'Table').innerHTML = html;
-		}
-	</script>
 </body>
 </html>
