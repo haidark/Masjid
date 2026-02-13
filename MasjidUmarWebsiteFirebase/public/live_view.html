@@ -1,0 +1,485 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<title>Display - Masjid Umar</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="PrayTimes.js"></script>
+	<script type="text/javascript" src="moment.js"></script>
+	<script type="text/javascript" src="jamaatify.js"></script>
+	<script type="text/javascript" src="hijridate.js"></script>
+	<script type="text/javascript" src="showdate.js"></script>
+	<script type="text/javascript" src="countdown.js"></script>
+	<script type="text/javascript" src="taraweeh.js"></script>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html, body {
+			width: 100vw;
+			height: 100vh;
+			overflow: hidden;
+			background: #fdf9f1;
+			color: #1a1a1a;
+			font-family: 'Orbitron', monospace;
+		}
+
+		/* ===== Main grid: fills entire viewport ===== */
+		.live-grid {
+			display: grid;
+			grid-template-rows: auto 1fr auto;
+			width: 100vw;
+			height: 100vh;
+			padding: 1.5vh 2vw;
+			gap: 1vh;
+		}
+
+		/* ===== HOME BUTTON: hides in fullscreen ===== */
+		.home-btn {
+			position: fixed;
+			top: 1vh;
+			right: 1vw;
+			z-index: 100;
+			padding: 0.4em 1em;
+			background: #7e4544;
+			color: #fdf9f1;
+			border: none;
+			border-radius: 6px;
+			font-family: sans-serif;
+			font-size: clamp(0.7rem, 1.2vw, 1rem);
+			font-weight: 600;
+			text-decoration: none;
+			cursor: pointer;
+			transition: background 0.2s, opacity 0.3s;
+		}
+
+		.home-btn:hover {
+			background: #5c3232;
+			color: #fdf9f1;
+			text-decoration: none;
+		}
+
+		/* Hide home button when fullscreen (JS-driven class) */
+		.home-btn.hidden {
+			display: none;
+		}
+
+		/* ===== TOP BAR: Date, Hijri, Time - all centered ===== */
+		.top-bar {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.3vh;
+		}
+
+		#MyClockDisplay {
+			font-size: clamp(2rem, 6vw, 5.5rem);
+			font-weight: 700;
+			color: #1a1a1a;
+			letter-spacing: 2px;
+			line-height: 1;
+			text-align: center;
+		}
+
+		#MyDateDisplay {
+			font-size: clamp(1rem, 2.5vw, 2.2rem);
+			font-weight: 700;
+			color: #7e4544;
+			white-space: nowrap;
+			text-align: center;
+		}
+
+		#hijridateval {
+			font-size: clamp(0.8rem, 2vw, 1.6rem);
+			color: #9c6b3a;
+			white-space: nowrap;
+			text-align: center;
+		}
+
+		/* ===== MIDDLE: Table centered, countdown below ===== */
+		.middle-section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 0;
+			gap: 1.5vh;
+		}
+
+		/* Prayer table */
+		.prayer-table-wrap {
+			overflow: auto;
+			min-height: 0;
+			max-width: 100%;
+		}
+
+		#containerDiv table {
+			width: auto;
+			margin: 0 auto;
+			border-collapse: collapse;
+			border: 2px solid #333;
+		}
+
+		#containerDiv .caption {
+			font-size: clamp(1rem, 2.5vw, 2rem);
+			font-weight: 700;
+			color: #000000;
+			text-align: center;
+			padding: 1vh 0;
+			background: #e2c390;
+			border-bottom: 2px solid #c9a86c;
+		}
+
+		#containerDiv .head-row td {
+			background: #d4b896;
+			color: #000000;
+			font-weight: 700;
+			font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+			padding: 1vh 1.5vw;
+			text-align: center;
+			border: 1px solid #b89b6a;
+		}
+
+		#containerDiv tr td {
+			font-size: clamp(0.8rem, 1.7vw, 1.35rem);
+			padding: 0.8vh 1.5vw;
+			text-align: center;
+			color: #000000;
+			font-weight: 500;
+			border: 1px solid #ccc;
+		}
+
+		#containerDiv tr:nth-child(odd) td {
+			background: #ffffff;
+		}
+
+		#containerDiv tr:nth-child(even) td {
+			background: #f5ebe0;
+		}
+
+		/* Today's row highlight */
+		#containerDiv tr.bg-dark td,
+		#containerDiv tr.bg-dark.text-light td {
+			background: #fff3cd !important;
+			color: #000000 !important;
+			font-weight: 700;
+		}
+
+		/* Countdown section */
+		#countdowntxt {
+			text-align: center;
+			color: rgb(22, 11, 93);
+			font-size: clamp(1.2rem, 3vw, 2.5rem);
+			font-family: Orbitron, monospace;
+			letter-spacing: 1px;
+		}
+
+		#myLink {
+			text-align: center;
+			color: rgba(33, 6, 240, 0.924);
+			font-size: clamp(2.5rem, 7vw, 5rem);
+			font-family: Orbitron, monospace;
+			letter-spacing: 1px;
+			line-height: 1.1;
+		}
+
+		/* ===== BOTTOM BAR: Logo + QR codes ===== */
+		.bottom-bar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 2vw;
+			padding-top: 0.5vh;
+			border-top: 2px solid #e2c390;
+		}
+
+		.logo-section {
+			display: flex;
+			align-items: center;
+			gap: 1vw;
+		}
+
+		.logo-section img {
+			height: clamp(40px, 7vh, 80px);
+			width: auto;
+		}
+
+		.logo-text {
+			font-size: clamp(0.9rem, 2vw, 1.6rem);
+			font-weight: 700;
+			color: #7e4544;
+			line-height: 1.2;
+		}
+
+		.logo-text span {
+			display: block;
+			font-size: 0.6em;
+			color: #9c6b3a;
+			font-weight: 400;
+		}
+
+		.qr-section {
+			display: flex;
+			align-items: center;
+			gap: 2vw;
+		}
+
+		.qr-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.5vh;
+		}
+
+		.qr-item img,
+		.qr-placeholder {
+			height: clamp(50px, 9vh, 100px);
+			width: clamp(50px, 9vh, 100px);
+			object-fit: contain;
+			border-radius: 6px;
+			background: #ffffff;
+			padding: 4px;
+			border: 1px solid #e2c390;
+		}
+
+		.qr-placeholder {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 0.6rem;
+			color: #666;
+			font-family: sans-serif;
+			text-align: center;
+		}
+
+		.qr-label {
+			font-size: clamp(0.5rem, 1.2vw, 0.85rem);
+			color: #7e4544;
+			text-align: center;
+			font-family: sans-serif;
+			font-weight: 600;
+		}
+
+		/* ===== Responsive adjustments ===== */
+
+		/* Very small screens */
+		@media (max-height: 500px) {
+			.live-grid {
+				padding: 0.5vh 1vw;
+				gap: 0.5vh;
+			}
+
+			#containerDiv .caption {
+				padding: 0.3vh 0;
+			}
+
+			#containerDiv .head-row td,
+			#containerDiv tr td {
+				padding: 0.3vh 0.5vw;
+			}
+		}
+
+		/* Large / wide screens */
+		@media (min-width: 1920px) {
+			.live-grid {
+				padding: 2vh 3vw;
+			}
+		}
+	</style>
+</head>
+<body>
+
+<!-- Home button: hidden in fullscreen (F11 or API) -->
+<a href="./index.html" class="home-btn" id="homeBtn">Home</a>
+
+<div class="live-grid">
+
+	<!-- TOP BAR: Clock, Date, Hijri - centered -->
+	<div class="top-bar">
+		<div id="MyClockDisplay" onload="showTime()"></div>
+		<div id="MyDateDisplay" onload="showDate()"></div>
+		<div id="hijridateval" onload="showHijri()"></div>
+	</div>
+
+	<!-- MIDDLE: Table centered, countdown below -->
+	<div class="middle-section">
+		<div class="prayer-table-wrap">
+			<div id="containerDiv"></div>
+		</div>
+		<div id="countdowntxt"></div>
+		<div id="myLink" onload="countdown(fajr,dhuhr,asr,maghrib,isha)"></div>
+	</div>
+
+	<!-- BOTTOM BAR -->
+	<div class="bottom-bar">
+		<div class="logo-section">
+			<img src="Umar.png" alt="Masjid Umar">
+			<div class="logo-text">
+				Masjid Umar
+				<span>Kingston, NY</span>
+			</div>
+		</div>
+		<div class="qr-section">
+			<div class="qr-item">
+				<img src="qrmasjid.png" alt="Website QR">
+				<div class="qr-label">masjidumar.us</div>
+			</div>
+			<div class="qr-item">
+				<img src="qrwhatsapp.jpeg" alt="WhatsApp QR">
+				<div class="qr-label">WhatsApp</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	// Fullscreen detection: covers both F11 and Fullscreen API
+	var homeBtn = document.getElementById('homeBtn');
+	function checkFullscreen() {
+		var isApiFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+		var isF11Fullscreen = (window.innerHeight === screen.height && window.innerWidth === screen.width);
+		if (isApiFullscreen || isF11Fullscreen) {
+			homeBtn.classList.add('hidden');
+		} else {
+			homeBtn.classList.remove('hidden');
+		}
+	}
+	// Listen for Fullscreen API changes
+	document.addEventListener('fullscreenchange', checkFullscreen);
+	document.addEventListener('webkitfullscreenchange', checkFullscreen);
+	document.addEventListener('mozfullscreenchange', checkFullscreen);
+	document.addEventListener('MSFullscreenChange', checkFullscreen);
+	// Listen for F11 fullscreen (resize-based detection)
+	window.addEventListener('resize', checkFullscreen);
+	// Initial check
+	checkFullscreen();
+
+	var currentDate = new Date();
+	var timeFormat = 1;
+	var monthTable = document.createElement("table");
+	monthTable.id = "table" + (currentDate.getMonth()).toString();
+	monthTable.setAttribute("class", "d-flex justify-content-center table-striped");
+	monthTable.appendChild(displayMonth(currentDate.getMonth()));
+	setInterval(function () {
+		monthTable.firstChild.remove();
+		monthTable.appendChild(displayMonth(currentDate.getMonth()));
+	}, 3600000);
+
+	document.getElementById("containerDiv").appendChild(monthTable);
+	var fajr, ndfajar, dhuhr, asr, maghrib, isha;
+
+	function displayMonth(monthID) {
+		monthID = monthID !== undefined ? monthID : 0;
+		var lat = 41.9270;
+		var lng = -73.9974;
+		var timeZone = -5;
+		var dst = 'auto';
+		var method = 'ISNA';
+
+		prayTimes.setMethod(method);
+		currentDate.setMonth(monthID);
+		var month = currentDate.getMonth();
+		var year = currentDate.getFullYear();
+		return makeTable(year, month, lat, lng, timeZone, dst);
+	}
+
+	function makeTable(year, month, lat, lng, timeZone, dst) {
+		var items = {
+			day: 'Day', fajr: 'Fajr', sunrise: 'Sunrise',
+			dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha'
+		};
+		var tbody = document.createElement('tbody');
+		var monthHeadertr = document.createElement('tr');
+		var monthHeadertd = document.createElement('td');
+		monthHeadertd.innerHTML = monthFullName(month) + ' ' + year;
+		monthHeadertd.colSpan = 7;
+		monthHeadertd.setAttribute("class", "caption");
+		monthHeadertr.appendChild(monthHeadertd);
+		tbody.appendChild(monthHeadertr);
+		tbody.appendChild(makeTableRow(items, items, 'head-row'));
+
+		var date = new Date(year, month, currentDate.getDate());
+		var endDate = new Date(year, month, currentDate.getDate() + 7);
+		while (date < endDate) {
+			prayTimes.setMethod('ISNA');
+			var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
+			jamaatify(times);
+			times.day = date.getDate();
+			var isToday = (date.getMonth() === currentDate.getMonth()) && (date.getDate() === currentDate.getDate());
+			if (isToday) {
+				fajr = times.fajr;
+				dhuhr = times.dhuhr;
+				asr = times.asr;
+				maghrib = times.maghrib;
+				isha = times.isha;
+			}
+			if (times.day === currentDate.getDate() + 1 || times.day === 1) {
+				ndfajar = times.fajr;
+			}
+			var klass = isToday ? 'bg-dark text-light' : '';
+			tbody.appendChild(makeTableRow(times, items, klass));
+			date.setDate(date.getDate() + 1);
+		}
+		return tbody;
+	}
+
+	function makeTableRow(data, items, klass) {
+		var row = document.createElement('tr');
+		for (var i in items) {
+			var cell = document.createElement('td');
+			cell.innerHTML = data[i];
+			row.appendChild(cell);
+		}
+		row.className = klass;
+		return row;
+	}
+
+	function removeAllChild(node) {
+		if (node == undefined || node == null) return;
+		while (node.firstChild) node.removeChild(node.firstChild);
+	}
+
+	function switchFormat(offset) {
+		var formats = ['24-hour', '12-hour'];
+		timeFormat = (timeFormat + offset) % 2;
+		$('time-format').innerHTML = formats[timeFormat];
+		update();
+	}
+
+	function update() {
+		displayMonth(0);
+	}
+
+	function monthFullName(month) {
+		var monthName = new Array('January', 'February', 'March', 'April', 'May', 'June',
+			'July', 'August', 'September', 'October', 'November', 'December');
+		return monthName[month];
+	}
+
+	function $(id) {
+		return document.getElementById(id);
+	}
+
+	window.onload = function () {
+		var myLinkEl = document.getElementById("myLink");
+		if (myLinkEl && typeof countdown === 'function' && fajr && ndfajar) {
+			countdown(fajr, dhuhr, asr, maghrib, isha, ndfajar);
+		}
+		var countdowntxtEl = document.getElementById("countdowntxt");
+		if (countdowntxtEl) countdowntxtEl.innerHTML = "Next prayer time in:";
+	};
+</script>
+
+</body>
+</html>

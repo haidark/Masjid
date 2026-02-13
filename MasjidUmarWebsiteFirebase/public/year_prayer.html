@@ -38,7 +38,7 @@
 						<a class="nav-link text-light" href="./month_prayer.html">Iqamah Times (Month)</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-light" href="./display_month.html">Live View</a>
+						<a class="nav-link text-light" href="./live_view.html">Live View</a>
 					</li>
 				</ul>
 				<div class="d-flex align-items-center">
@@ -53,24 +53,22 @@
 		document.getElementById('date_today').textContent = "Today: " + date.toLocaleDateString();
 	</script>
 
-	<img class="d-none d-print-block" src="Umar.png" width="75" height="75" style="float:left" alt="Masjid Umar">
-	<div class="container" id="containerDiv" style="padding-top: 20px;" align="center"></div>
-	
-	<br>
-	
+	<main role="main" class="container py-4">
+	<h1 class="page-heading" id="yearHeading"></h1>
+	<div class="year-grid" id="containerDiv"></div>
+	</main>
+
 	<script type="text/javascript">
-	
+
 		var currentDate = new Date();
-		var timeFormat = 1; 
-		// switchFormat(0);
+		var timeFormat = 1;
+		document.getElementById('yearHeading').textContent = 'Iqamah Times \u2014 ' + currentDate.getFullYear();
 		for(var i=0; i<12; i++){
 			var monthTable = document.createElement("table");
 			monthTable.id = "table"+i.toString();
-			monthTable.setAttribute("class", "col-sm-6 timetable table-sm page-breaks");
+			monthTable.setAttribute("class", "timetable table-sm page-breaks");
 			monthTable.appendChild(displayMonth(i));
-			$("containerDiv").appendChild(document.createElement("br"));
 			$("containerDiv").appendChild(monthTable);
-			
 		}
 		// display monthly timetable
 		function displayMonth(monthID) {
@@ -180,6 +178,16 @@
 				<p class="mb-1">
 					<a href="https://www.google.com/maps/search/?api=1&query=15+Downs+St+Kingston+NY+12401" target="_blank" rel="noopener">15 Downs St, Kingston, NY 12401</a>
 				</p>
+			</div>
+			<div class="footer-col footer-col-map">
+				<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2952.5!2d-73.9974!3d41.927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDU1JzM3LjIiTiA3M8KwNTknNTAuNiJX!5e0!3m2!1sen!2sus!4v1700000000000"
+					class="footer-map"
+					allowfullscreen=""
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					title="Masjid Umar Location">
+				</iframe>
 			</div>
 			<div class="footer-col footer-col-right">
 				<p class="mb-1"><a href="mailto:masjidumar15@gmail.com">masjidumar15@gmail.com</a></p>

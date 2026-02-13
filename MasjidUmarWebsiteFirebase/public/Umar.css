@@ -367,7 +367,7 @@ tr.today-row td {
 
 /* Section cards: elevated, more padding */
 .page-home .section-card {
-	background-color: var(--theme-tan);
+	background-color: rgba(226, 195, 144, 0.35);
 	border: 1px solid var(--theme-accent);
 	border-radius: 10px;
 	padding: 1.5rem 1.75rem;
@@ -508,4 +508,28 @@ tr.today-row td {
 		max-width: 320px;
 		height: 140px;
 	}
+}
+
+/* Year grid: 2 tables per row */
+.year-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+}
+.year-grid .timetable {
+	width: 100%;
+}
+@media (max-width: 767px) {
+	.year-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Page heading (year / month pages) */
+.page-home .page-heading {
+	text-align: center;
+	color: var(--theme-dark);
+	font-size: 1.75rem;
+	font-weight: 700;
+	margin-bottom: 1.25rem;
 }
