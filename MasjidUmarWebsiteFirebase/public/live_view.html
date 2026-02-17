@@ -40,27 +40,37 @@
 			grid-template-rows: auto 1fr auto;
 			width: 100vw;
 			height: 100vh;
-			padding: 1.5vh 2vw;
-			gap: 1vh;
+			padding: 1vh 1.5vw;
+			gap: 0.8vh;
 		}
 
-		/* ===== HOME BUTTON: hides in fullscreen ===== */
-		.home-btn {
+		/* ===== BUTTON GROUP OVERLAY: hides together in fullscreen ===== */
+		.btn-group-overlay {
 			position: fixed;
 			top: 1vh;
 			right: 1vw;
 			z-index: 100;
+			display: flex;
+			align-items: center;
+			gap: 0.5em;
+		}
+		.btn-group-overlay.hidden {
+			display: none;
+		}
+
+		/* ===== HOME BUTTON ===== */
+		.home-btn {
 			padding: 0.4em 1em;
 			background: #7e4544;
 			color: #fdf9f1;
 			border: none;
 			border-radius: 6px;
 			font-family: sans-serif;
-			font-size: clamp(0.7rem, 1.2vw, 1rem);
+			font-size: clamp(0.65rem, 1.6vmin, 1.6rem);
 			font-weight: 600;
 			text-decoration: none;
 			cursor: pointer;
-			transition: background 0.2s, opacity 0.3s;
+			transition: background 0.2s;
 		}
 
 		.home-btn:hover {
@@ -69,21 +79,16 @@
 			text-decoration: none;
 		}
 
-		/* Hide home button when fullscreen (JS-driven class) */
-		.home-btn.hidden {
-			display: none;
-		}
-
 		/* ===== TOP BAR: Date, Hijri, Time - all centered ===== */
 		.top-bar {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 0.3vh;
+			gap: 0.2vh;
 		}
 
 		#MyClockDisplay {
-			font-size: clamp(2rem, 6vw, 5.5rem);
+			font-size: clamp(1.8rem, 8vmin, 9rem);
 			font-weight: 700;
 			color: #1a1a1a;
 			letter-spacing: 2px;
@@ -92,50 +97,72 @@
 		}
 
 		#MyDateDisplay {
-			font-size: clamp(1rem, 2.5vw, 2.2rem);
+			font-size: clamp(0.8rem, 3vmin, 3.5rem);
 			font-weight: 700;
 			color: #7e4544;
 			white-space: nowrap;
 			text-align: center;
+			max-width: 96vw;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		#hijridateval {
-			font-size: clamp(0.8rem, 2vw, 1.6rem);
+			font-size: clamp(0.7rem, 2.4vmin, 2.8rem);
 			color: #9c6b3a;
 			white-space: nowrap;
 			text-align: center;
+			max-width: 96vw;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
-		/* ===== MIDDLE: Table centered, countdown below ===== */
+		/* ===== MIDDLE: Table fills remaining space, countdown below ===== */
 		.middle-section {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-start;
 			min-height: 0;
-			gap: 1.5vh;
+			gap: 0.8vh;
+			width: 100%;
 		}
 
-		/* Prayer table */
+		/* Prayer table: grows to fill available vertical space */
 		.prayer-table-wrap {
-			overflow: auto;
+			overflow: hidden;
 			min-height: 0;
 			max-width: 100%;
+			flex: 1 1 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+		}
+
+		#containerDiv {
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 
 		#containerDiv table {
-			width: auto;
+			height: 100%;
+			width: 100%;
 			margin: 0 auto;
 			border-collapse: collapse;
 			border: 2px solid #333;
 		}
 
 		#containerDiv .caption {
-			font-size: clamp(1rem, 2.5vw, 2rem);
+			font-size: clamp(0.75rem, 3vmin, 3rem);
 			font-weight: 700;
 			color: #000000;
 			text-align: center;
-			padding: 1vh 0;
+			padding: 0.6vh 0;
 			background: #e2c390;
 			border-bottom: 2px solid #c9a86c;
 		}
@@ -144,15 +171,15 @@
 			background: #d4b896;
 			color: #000000;
 			font-weight: 700;
-			font-size: clamp(0.8rem, 1.8vw, 1.4rem);
-			padding: 1vh 1.5vw;
+			font-size: clamp(0.6rem, 2.4vmin, 2.4rem);
+			padding: clamp(2px, 0.8vh, 10px) clamp(4px, 1vw, 16px);
 			text-align: center;
 			border: 1px solid #b89b6a;
 		}
 
 		#containerDiv tr td {
-			font-size: clamp(0.8rem, 1.7vw, 1.35rem);
-			padding: 0.8vh 1.5vw;
+			font-size: clamp(0.55rem, 2.2vmin, 2.2rem);
+			padding: clamp(2px, 0.7vh, 9px) clamp(4px, 1vw, 14px);
 			text-align: center;
 			color: #000000;
 			font-weight: 500;
@@ -179,7 +206,7 @@
 		#countdowntxt {
 			text-align: center;
 			color: rgb(22, 11, 93);
-			font-size: clamp(1.2rem, 3vw, 2.5rem);
+			font-size: clamp(0.75rem, 2.8vmin, 3rem);
 			font-family: Orbitron, monospace;
 			letter-spacing: 1px;
 		}
@@ -187,7 +214,7 @@
 		#myLink {
 			text-align: center;
 			color: rgba(33, 6, 240, 0.924);
-			font-size: clamp(2.5rem, 7vw, 5rem);
+			font-size: clamp(1.8rem, 7.5vmin, 8rem);
 			font-family: Orbitron, monospace;
 			letter-spacing: 1px;
 			line-height: 1.1;
@@ -210,12 +237,12 @@
 		}
 
 		.logo-section img {
-			height: clamp(40px, 7vh, 80px);
+			height: clamp(36px, 7vh, 90px);
 			width: auto;
 		}
 
 		.logo-text {
-			font-size: clamp(0.9rem, 2vw, 1.6rem);
+			font-size: clamp(0.8rem, 2vmin, 2rem);
 			font-weight: 700;
 			color: #7e4544;
 			line-height: 1.2;
@@ -243,8 +270,8 @@
 
 		.qr-item img,
 		.qr-placeholder {
-			height: clamp(50px, 9vh, 100px);
-			width: clamp(50px, 9vh, 100px);
+			height: clamp(44px, 8.5vh, 110px);
+			width: clamp(44px, 8.5vh, 110px);
 			object-fit: contain;
 			border-radius: 6px;
 			background: #ffffff;
@@ -263,29 +290,97 @@
 		}
 
 		.qr-label {
-			font-size: clamp(0.5rem, 1.2vw, 0.85rem);
+			font-size: clamp(0.5rem, 1.4vmin, 1.4rem);
 			color: #7e4544;
 			text-align: center;
 			font-family: sans-serif;
 			font-weight: 600;
 		}
 
-		/* ===== Responsive adjustments ===== */
+		/* ===== B&W Toggle Button ===== */
+		.bw-toggle-btn {
+			padding: 0.4em 0.8em;
+			background: #555;
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			font-family: sans-serif;
+			font-size: clamp(0.6rem, 1.4vmin, 1.4rem);
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+		.bw-toggle-btn:hover {
+			background: #333;
+		}
+
+		/* ===== B&W Mode Overrides ===== */
+		body.bw-mode {
+			background: #ffffff !important;
+		}
+		body.bw-mode #MyClockDisplay {
+			color: #000000 !important;
+		}
+		body.bw-mode #MyDateDisplay {
+			color: #333333 !important;
+		}
+		body.bw-mode #hijridateval {
+			color: #555555 !important;
+		}
+		body.bw-mode #containerDiv .caption {
+			background: #333333 !important;
+			color: #000000 !important;
+			border-bottom-color: #333333 !important;
+		}
+		body.bw-mode #containerDiv .head-row td {
+			background: #555555 !important;
+			color: #000000 !important;
+			border-color: #444444 !important;
+		}
+		body.bw-mode #containerDiv tr td {
+			color: #000000 !important;
+			border-color: #cccccc !important;
+		}
+		body.bw-mode #containerDiv tr:nth-child(odd) td {
+			background: #ffffff !important;
+		}
+		body.bw-mode #containerDiv tr:nth-child(even) td {
+			background: #f0f0f0 !important;
+		}
+		body.bw-mode #containerDiv tr.bg-dark td,
+		body.bw-mode #containerDiv tr.bg-dark.text-light td {
+			background: #dddddd !important;
+			color: #000000 !important;
+		}
+		body.bw-mode .bottom-bar {
+			border-top-color: #cccccc !important;
+		}
+		body.bw-mode .logo-text {
+			color: #000000 !important;
+		}
+		body.bw-mode .logo-text span {
+			color: #555555 !important;
+		}
+		body.bw-mode .qr-label {
+			color: #333333 !important;
+		}
+		body.bw-mode .qr-item img,
+		body.bw-mode .qr-placeholder {
+			border-color: #cccccc !important;
+		}
+		body.bw-mode .btn-group-overlay .home-btn {
+			background: #333333 !important;
+			color: #ffffff !important;
+		}
+		body.bw-mode .bw-toggle-btn {
+			background: #7e4544;
+		}
 
 		/* Very small screens */
 		@media (max-height: 500px) {
 			.live-grid {
 				padding: 0.5vh 1vw;
 				gap: 0.5vh;
-			}
-
-			#containerDiv .caption {
-				padding: 0.3vh 0;
-			}
-
-			#containerDiv .head-row td,
-			#containerDiv tr td {
-				padding: 0.3vh 0.5vw;
 			}
 		}
 
@@ -295,12 +390,52 @@
 				padding: 2vh 3vw;
 			}
 		}
+
+		/* Portrait orientation */
+		@media (orientation: portrait) {
+			.qr-item img,
+			.qr-placeholder {
+				height: clamp(36px, 7vh, 95px);
+				width: clamp(36px, 7vh, 95px);
+			}
+			.logo-section img {
+				height: clamp(28px, 6vh, 80px);
+			}
+			.middle-section {
+				justify-content: space-between;
+			}
+			#countdowntxt {
+				font-size: clamp(0.9rem, 4.5vw, 2.5rem);
+			}
+			#myLink {
+				font-size: clamp(1.6rem, 12vw, 7rem);
+			}
+			.live-grid {
+				padding: 0.8vh 1.5vw;
+				gap: 0.5vh;
+			}
+		}
+
+		/* Very narrow portrait phones */
+		@media (orientation: portrait) and (max-width: 480px) {
+			#containerDiv .head-row td,
+			#containerDiv tr td {
+				font-size: clamp(0.5rem, 2.5vw, 1.5rem);
+				padding: clamp(1px, 0.5vh, 6px) clamp(2px, 0.8vw, 8px);
+			}
+			.bottom-bar {
+				gap: 1vw;
+			}
+		}
 	</style>
 </head>
 <body>
 
-<!-- Home button: hidden in fullscreen (F11 or API) -->
-<a href="./index.html" class="home-btn" id="homeBtn">Home</a>
+<!-- Button group: hidden together in fullscreen (F11 or API) -->
+<div class="btn-group-overlay" id="btnGroupOverlay">
+	<button class="bw-toggle-btn" id="bwToggleBtn">B&W</button>
+	<a href="./index.html" class="home-btn" id="homeBtn">Home</a>
+</div>
 
 <div class="live-grid">
 
@@ -345,14 +480,15 @@
 
 <script type="text/javascript">
 	// Fullscreen detection: covers both F11 and Fullscreen API
-	var homeBtn = document.getElementById('homeBtn');
+	var btnGroupOverlay = document.getElementById('btnGroupOverlay');
+	var bwToggleBtn = document.getElementById('bwToggleBtn');
 	function checkFullscreen() {
 		var isApiFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
 		var isF11Fullscreen = (window.innerHeight === screen.height && window.innerWidth === screen.width);
 		if (isApiFullscreen || isF11Fullscreen) {
-			homeBtn.classList.add('hidden');
+			btnGroupOverlay.classList.add('hidden');
 		} else {
-			homeBtn.classList.remove('hidden');
+			btnGroupOverlay.classList.remove('hidden');
 		}
 	}
 	// Listen for Fullscreen API changes
@@ -369,7 +505,7 @@
 	var timeFormat = 1;
 	var monthTable = document.createElement("table");
 	monthTable.id = "table" + (currentDate.getMonth()).toString();
-	monthTable.setAttribute("class", "d-flex justify-content-center table-striped");
+	monthTable.setAttribute("class", "table-striped");
 	monthTable.appendChild(displayMonth(currentDate.getMonth()));
 	setInterval(function () {
 		monthTable.firstChild.remove();
@@ -470,6 +606,15 @@
 	function $(id) {
 		return document.getElementById(id);
 	}
+
+	// B&W toggle: persist in localStorage
+	if (localStorage.getItem('masjidUmar_bwMode') === 'true') {
+		document.body.classList.add('bw-mode');
+	}
+	bwToggleBtn.addEventListener('click', function() {
+		document.body.classList.toggle('bw-mode');
+		localStorage.setItem('masjidUmar_bwMode', document.body.classList.contains('bw-mode'));
+	});
 
 	window.onload = function () {
 		var myLinkEl = document.getElementById("myLink");
