@@ -9,6 +9,9 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+	<script src="firebase-config.js"></script>
 </head>
 <body class="page-home">
 	<div id="top"></div>
@@ -55,18 +58,13 @@
 	</section>
 
 	<main role="main" class="container py-4">
-		<section class="section-card mb-4">
-			<h2>Stay Updated</h2>
-			<p>Follow the website and join the WhatsApp group for updates.</p>
+		<section class="section-card mb-4" id="currentNewsSection">
+			<h2 id="currentNewsTitle">Stay Updated</h2>
+			<p id="currentNewsMessage">Follow the website and join the WhatsApp group for updates.</p>
 			<p><a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb" class="whatsapp-btn" target="_blank" rel="noopener">Join WhatsApp Group</a></p>
-			<p class="mb-0">May Allah preserve us all.</p>
 		</section>
 
-		<section class="section-card">
-			<h2>Latest News</h2>
-			<p>For announcements, Eid timings, Ramadan updates, and community news, please join the WhatsApp group above or check the homepage.</p>
-			<p class="mb-0"><a href="./index.html">Back to Home</a></p>
-		</section>
+		<section id="newsArchive"></section>
 	</main>
 
 	<footer class="footer-index container-fluid mt-auto">
@@ -93,5 +91,59 @@
 			</div>
 		</div>
 	</footer>
+
+	<script>
+		function escapeHtml(str) {
+			var div = document.createElement('div');
+			div.appendChild(document.createTextNode(str));
+			return div.innerHTML;
+		}
+
+		// Load current news
+		db.ref('news/current').on('value', function(snapshot) {
+			var val = snapshot.val();
+			if (val) {
+				document.getElementById('currentNewsTitle').textContent = val.title || 'Stay Updated';
+				document.getElementById('currentNewsMessage').textContent = val.message || '';
+			}
+		});
+
+		// Load archive (newest first)
+		db.ref('news/archive').orderByChild('timestamp').on('value', function(snapshot) {
+			var archiveEl = document.getElementById('newsArchive');
+			archiveEl.innerHTML = '';
+			var items = [];
+			snapshot.forEach(function(child) {
+				items.push(child.val());
+			});
+			// Reverse for newest first
+			items.reverse();
+
+			if (items.length === 0) return;
+
+			var heading = document.createElement('h2');
+			heading.className = 'prayer-times-heading';
+			heading.textContent = 'Past Updates';
+			archiveEl.appendChild(heading);
+
+			for (var i = 0; i < items.length; i++) {
+				var item = items[i];
+				var card = document.createElement('div');
+				card.className = 'section-card mb-3';
+
+				var dateStr = '';
+				if (item.timestamp) {
+					var d = new Date(item.timestamp);
+					dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+				}
+
+				card.innerHTML =
+					(dateStr ? '<div class="news-date">' + escapeHtml(dateStr) + '</div>' : '') +
+					'<h3>' + escapeHtml(item.title || '') + '</h3>' +
+					'<p class="mb-0">' + escapeHtml(item.message || '') + '</p>';
+				archiveEl.appendChild(card);
+			}
+		});
+	</script>
 </body>
 </html>

@@ -533,3 +533,131 @@ tr.today-row td {
 	font-weight: 700;
 	margin-bottom: 1.25rem;
 }
+
+/* ========== Admin UI: edit buttons, modals, forms ========== */
+.admin-edit-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: none;
+	background: var(--theme-dark);
+	color: var(--theme-cream);
+	font-size: 0.85rem;
+	opacity: 0.5;
+	cursor: pointer;
+	margin-left: 0.5rem;
+	vertical-align: middle;
+	transition: opacity 0.2s;
+	padding: 0;
+	line-height: 1;
+}
+.admin-edit-btn:hover {
+	opacity: 1;
+}
+
+.admin-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.admin-modal-overlay.hidden {
+	display: none;
+}
+
+.admin-modal {
+	background: #fff;
+	border-radius: 12px;
+	padding: 1.75rem;
+	width: 90%;
+	max-width: 420px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+.admin-modal h3 {
+	color: var(--theme-dark);
+	font-size: 1.25rem;
+	font-weight: 700;
+	margin: 0 0 1rem;
+	line-height: 1.3;
+}
+.admin-modal label {
+	display: block;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 0.25rem;
+}
+.admin-modal input[type="text"],
+.admin-modal input[type="password"],
+.admin-modal textarea {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	border: 1.5px solid #ccc;
+	border-radius: 6px;
+	font-size: 0.95rem;
+	font-family: inherit;
+	margin-bottom: 0.75rem;
+	box-sizing: border-box;
+}
+.admin-modal textarea {
+	resize: vertical;
+	min-height: 80px;
+}
+.admin-modal input:focus,
+.admin-modal textarea:focus {
+	outline: none;
+	border-color: var(--theme-dark);
+}
+.admin-modal .modal-error {
+	color: #c0392b;
+	font-size: 0.85rem;
+	margin-bottom: 0.5rem;
+	display: none;
+}
+.admin-modal .modal-btns {
+	display: flex;
+	gap: 0.75rem;
+	justify-content: flex-end;
+	margin-top: 0.5rem;
+}
+.admin-modal .btn-save {
+	background: var(--theme-dark);
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1.25rem;
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	font-size: 0.9rem;
+}
+.admin-modal .btn-save:hover {
+	background: var(--theme-accent);
+}
+.admin-modal .btn-cancel {
+	background: #e0e0e0;
+	color: #333;
+	border: none;
+	padding: 0.5rem 1.25rem;
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	font-size: 0.9rem;
+}
+.admin-modal .btn-cancel:hover {
+	background: #ccc;
+}
+
+.news-date {
+	font-size: 0.8rem;
+	color: #888;
+	margin-bottom: 0.25rem;
+}
