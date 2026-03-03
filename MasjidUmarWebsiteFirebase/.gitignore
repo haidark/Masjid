@@ -9,6 +9,7 @@ firebase-debug.*.log*
 
 #Claude
 .claude/
+CLAUDE.md
 
 # Firebase cache
 .firebase/

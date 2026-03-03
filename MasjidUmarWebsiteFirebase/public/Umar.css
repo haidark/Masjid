@@ -661,3 +661,11 @@ tr.today-row td {
 	color: #888;
 	margin-bottom: 0.25rem;
 }
+
+.notice-card {
+	font-size: 0.95rem;
+	color: #5c3232;
+	background: #fdf3e7;
+	border-left: 4px solid #e2c390;
+	padding: 10px 16px;
+}

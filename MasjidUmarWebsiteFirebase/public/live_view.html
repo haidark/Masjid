@@ -5,7 +5,6 @@
 	<meta charset="UTF-8">
 	<title>Display - Masjid Umar</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -17,6 +16,10 @@
 	<script type="text/javascript" src="showdate.js"></script>
 	<script type="text/javascript" src="countdown.js"></script>
 	<script type="text/javascript" src="taraweeh.js"></script>
+	<script type="text/javascript" src="clock.js" defer></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+	<script src="firebase-config.js"></script>
 
 	<style>
 		* {
@@ -31,7 +34,8 @@
 			overflow: hidden;
 			background: #fdf9f1;
 			color: #1a1a1a;
-			font-family: 'Orbitron', monospace;
+			font-family: 'Times New Roman', Times, serif;
+			font-weight: 400;
 		}
 
 		/* ===== Main grid: fills entire viewport ===== */
@@ -65,7 +69,6 @@
 			color: #fdf9f1;
 			border: none;
 			border-radius: 6px;
-			font-family: sans-serif;
 			font-size: clamp(0.65rem, 1.6vmin, 1.6rem);
 			font-weight: 600;
 			text-decoration: none;
@@ -88,8 +91,9 @@
 		}
 
 		#MyClockDisplay {
-			font-size: clamp(1.8rem, 8vmin, 9rem);
-			font-weight: 700;
+			font-size: clamp(2.25rem, 10vmin, 11.25rem);
+			font-weight: 400;
+			font-variant-numeric: tabular-nums;
 			color: #1a1a1a;
 			letter-spacing: 2px;
 			line-height: 1;
@@ -97,7 +101,7 @@
 		}
 
 		#MyDateDisplay {
-			font-size: clamp(0.8rem, 3vmin, 3.5rem);
+			font-size: clamp(1rem, 3.75vmin, 4.4rem);
 			font-weight: 700;
 			color: #7e4544;
 			white-space: nowrap;
@@ -108,7 +112,7 @@
 		}
 
 		#hijridateval {
-			font-size: clamp(0.7rem, 2.4vmin, 2.8rem);
+			font-size: clamp(0.9rem, 3vmin, 3.5rem);
 			color: #9c6b3a;
 			white-space: nowrap;
 			text-align: center;
@@ -124,13 +128,13 @@
 			align-items: center;
 			justify-content: flex-start;
 			min-height: 0;
-			gap: 0.8vh;
+			gap: 0.4vh;
 			width: 100%;
 		}
 
 		/* Prayer table: grows to fill available vertical space */
 		.prayer-table-wrap {
-			overflow: hidden;
+\t\t\toverflow: hidden;
 			min-height: 0;
 			max-width: 100%;
 			flex: 1 1 0;
@@ -154,7 +158,6 @@
 			width: 100%;
 			margin: 0 auto;
 			border-collapse: collapse;
-			border: 2px solid #333;
 		}
 
 		#containerDiv .caption {
@@ -206,16 +209,21 @@
 		#countdowntxt {
 			text-align: center;
 			color: rgb(22, 11, 93);
-			font-size: clamp(0.75rem, 2.8vmin, 3rem);
-			font-family: Orbitron, monospace;
+			font-size: clamp(0.95rem, 3.5vmin, 3.75rem);
+			letter-spacing: 1px;
+		}
+
+		#jummahLiveDisplay {
+			text-align: center;
+			font-size: clamp(0.95rem, 3.1vmin, 3.25rem);
+			color: #7e4544;
 			letter-spacing: 1px;
 		}
 
 		#myLink {
 			text-align: center;
 			color: rgba(33, 6, 240, 0.924);
-			font-size: clamp(1.8rem, 7.5vmin, 8rem);
-			font-family: Orbitron, monospace;
+			font-size: clamp(2.25rem, 9.4vmin, 10rem);
 			letter-spacing: 1px;
 			line-height: 1.1;
 		}
@@ -285,7 +293,6 @@
 			justify-content: center;
 			font-size: 0.6rem;
 			color: #666;
-			font-family: sans-serif;
 			text-align: center;
 		}
 
@@ -293,8 +300,6 @@
 			font-size: clamp(0.5rem, 1.4vmin, 1.4rem);
 			color: #7e4544;
 			text-align: center;
-			font-family: sans-serif;
-			font-weight: 600;
 		}
 
 		/* ===== B&W Toggle Button ===== */
@@ -304,7 +309,6 @@
 			color: #fff;
 			border: none;
 			border-radius: 6px;
-			font-family: sans-serif;
 			font-size: clamp(0.6rem, 1.4vmin, 1.4rem);
 			font-weight: 600;
 			cursor: pointer;
@@ -361,6 +365,9 @@
 		body.bw-mode .logo-text span {
 			color: #555555 !important;
 		}
+		body.bw-mode #jummahLiveDisplay {
+			color: #333333 !important;
+		}
 		body.bw-mode .qr-label {
 			color: #333333 !important;
 		}
@@ -405,10 +412,10 @@
 				justify-content: space-between;
 			}
 			#countdowntxt {
-				font-size: clamp(0.9rem, 4.5vw, 2.5rem);
+				font-size: clamp(1.1rem, 5.6vw, 3.1rem);
 			}
 			#myLink {
-				font-size: clamp(1.6rem, 12vw, 7rem);
+				font-size: clamp(2rem, 15vw, 8.75rem);
 			}
 			.live-grid {
 				padding: 0.8vh 1.5vw;
@@ -451,6 +458,7 @@
 		<div class="prayer-table-wrap">
 			<div id="containerDiv"></div>
 		</div>
+		<div id="jummahLiveDisplay">Jummah Khutbah: 12:45 PM</div>
 		<div id="countdowntxt"></div>
 		<div id="myLink" onload="countdown(fajr,dhuhr,asr,maghrib,isha)"></div>
 	</div>
@@ -616,6 +624,27 @@
 		localStorage.setItem('masjidUmar_bwMode', document.body.classList.contains('bw-mode'));
 	});
 
+	function fitTableToContainer() {
+		var wrap = document.querySelector('.prayer-table-wrap');
+		var tbody = monthTable.querySelector('tbody');
+		var minRows = 4;
+
+		function getDataRows() {
+			var allRows = tbody.querySelectorAll('tr');
+			var dataRows = [];
+			for (var i = 2; i < allRows.length; i++) dataRows.push(allRows[i]);
+			return dataRows;
+		}
+
+		monthTable.style.height = 'auto';
+		var dataRows = getDataRows();
+		while (monthTable.offsetHeight > wrap.offsetHeight && dataRows.length > minRows) {
+			tbody.removeChild(dataRows[dataRows.length - 1]);
+			dataRows.pop();
+		}
+		monthTable.style.height = '100%';
+	}
+
 	window.onload = function () {
 		var myLinkEl = document.getElementById("myLink");
 		if (myLinkEl && typeof countdown === 'function' && fajr && ndfajar) {
@@ -624,6 +653,34 @@
 		var countdowntxtEl = document.getElementById("countdowntxt");
 		if (countdowntxtEl) countdowntxtEl.innerHTML = "Next prayer time in:";
 	};
+
+	// ResizeObserver fires whenever .prayer-table-wrap height settles,
+	// including after images/fonts load — more reliable than window.onload
+	var lastWrapHeight = 0;
+	var wrapObserver = new ResizeObserver(function () {
+		var h = document.querySelector('.prayer-table-wrap').offsetHeight;
+		if (h === lastWrapHeight) return;
+		lastWrapHeight = h;
+		monthTable.firstChild.remove();
+		monthTable.appendChild(displayMonth(currentDate.getMonth()));
+		fitTableToContainer();
+	});
+	wrapObserver.observe(document.querySelector('.prayer-table-wrap'));
+
+	var resizeTimer;
+	window.addEventListener('resize', function () {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function () {
+			monthTable.firstChild.remove();
+			monthTable.appendChild(displayMonth(currentDate.getMonth()));
+			fitTableToContainer();
+		}, 150);
+	});
+	db.ref('jummahTime').on('value', function(snapshot) {
+		var val = snapshot.val();
+		var el = document.getElementById('jummahLiveDisplay');
+		if (el) el.textContent = 'Jummah Khutbah: ' + (val || '12:45 PM');
+	});
 </script>
 
 </body>
