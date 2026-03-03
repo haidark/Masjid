@@ -20,7 +20,7 @@ print(xpath_strtxt)
 
 @app.route('/')
 def home():
-    return render_template('display_month.html',xpath_strtxt=xpath_strtxt)
+    return render_template('live_view.html',xpath_strtxt=xpath_strtxt)
 
 
 

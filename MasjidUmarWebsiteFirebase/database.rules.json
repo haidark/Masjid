@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "config": {
+      ".read": true,
+      ".write": false
+    },
+    "jummahTime": {
+      ".read": true,
+      ".write": true
+    },
+    "news": {
+      ".read": true,
+      "current": {
+        ".write": true
+      },
+      "archive": {
+        ".write": true,
+        "$item": {
+          ".validate": "newData.hasChildren(['title', 'message', 'timestamp'])"
+        }
+      }
+    }
+  }
+}

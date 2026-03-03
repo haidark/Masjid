@@ -1,173 +1,38 @@
 :root {
-	--bg-color:rgba(72, 121, 122, 0.555);
-	--body-color:rgba(211, 211, 211, 0.527);
+	--bg-color: rgba(72, 121, 122, 0.555);
+	--body-color: rgba(211, 211, 211, 0.527);
 	--edge-color: rgba(238, 238, 238, 0.651);
 }
 
-@font-face {
-	font-family: 'OpenSans';
-	src: url('../fonts/OpenSans-Regular.eot');
-	src: local('â˜º'), url('../fonts/OpenSans-Regular.woff') format('woff'), url('../fonts/OpenSans-Regular.ttf') format('truetype'), url('../fonts/OpenSans-Regular.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
+/* Index page theme: dusty rose, cream, tan, dark brown */
+.page-home {
+	--theme-dark: rgb(126, 69, 68);
+	--theme-cream: rgb(253, 249, 241);
+	--theme-tan: rgb(226, 195, 144);
+	--theme-accent: rgb(195, 113, 110);
 }
 
 body {
 	background-color: var(--bg-color);
-	font-family: 'OpenSans';
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-
-/*------------------------------ HEADER ------------------------------*/
-#header {
-	background-color: var(--edge-color);
-	width: 1000px;
-	height: fit-content;
-	margin: 0 auto;
-}
-
-#hbanner {
-
-	padding: 10px;
-	margin: 0 auto;
-	overflow: auto;
-}
-
-/** Logo **/
-#logo {
-	float: left;
-
-}
-#logo a {
-	background: url(../images/logo.png) no-repeat;
-	height: 80px;
-	width: 100px;
-	display: block;
-}
-
-/** Navigation **/
-#navbar {
-	width: fit-content;
-	margin: 0px auto;
-	overflow: auto;
-}
-
-#navigation {
-	list-style: none;
-	width: fit-content;
-	float: left;
-	padding-inline-start: 0;
-}
-#navigation ul {
-	/* float: left; */
-	display: inline-block;
-	list-style: none;
-	color:#FEFEFE;	
-}
-#navigation li {
-	float: left;
-	text-align:left;
-}
-#navigation li a {
-	border-right: 2px solid black;
-	color: #061296;
-	font-size: 20px;
-	text-decoration: none;
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-#navigation li a:hover {
-	color: #FFFFFF;
-}
-
-#wrapper {
-	float: none;
-	max-width: 600px;
-	margin: 25px auto;
-	background-color: var(--body-color);
+body.page-home {
+	background-color: var(--theme-cream);
 }
 
 #jummah {
-	
 	clear: both;
 	max-width: 600px;
 	margin: 10px auto;
 }
 
 #jummah h2 {
-	
-	color:#000000;
-	font-size:2em;
+	color: #000000;
+	font-size: 2em;
 	padding: 15px;
-	width:fit-content;
+	width: fit-content;
 	margin: 0 auto;
-}
-
-/*--------------------------Timings Tables------------------------*/
-#timingstables{
-	
-	float: none;
-	clear: both;
-	max-width: 600px;
-	margin: 25px auto;
-	padding: 5px;
-	
-}
-
-#timingstables > table, th, td, tr, caption {
-	
-	border: 1px solid black;
-	padding:10px;
-	text-align:center;
-	font-size:1em;  /*changes sizeing of month display*/
-}
-
-/**Prayer Times**/
-#prayertimestable{
-	
-	border-collapse: collapse;
-	border-style: groove;
-	
-}
-#prayertimes{
-	
-	clear: both;
-	margin: 15px auto;
-	width: fit-content;
-}
-
-/**Jamaat Times**/
-#jamaattimestable  {	
-	
-	border-collapse:collapse;
-	border-style: groove;
-	
-}
-#jamaattimes {
-	
-	clear: both;
-	margin: 15px auto;
-	width: fit-content;
-	
-}
-
-
-/*------------------------------ News ------------------------------*/
-#newstable > table, th, td , tr , caption {
-	border: 1px solid black;
-}
-
-#newstable {
-	border-collapse: collapse;
-}
-
-#news {
-	max-width: 600px;
-	float: none;
-	clear: both;
-	margin: 25px auto;
-	padding: 5px;
 }
 
 #title, #time {
@@ -177,29 +42,25 @@ body {
 	margin: 0;
 }
 
-#text{
+#text {
 	clear: left;
 	margin-top: 10px;
 }
-
 
 h1 {
 	color: #000000;
 	font-size: 30px;
 	font-weight: normal;
 	line-height: 30px;
-	margin: 0 0 30px;	
+	margin: 0 0 30px;
 }
 
-
-h2 , b {
+h2, b {
 	color: #000000;
 	font-size: 50px;
 	font-style: bold;
 	font-weight: normal;
 	line-height: 24px;
-
-
 }
 
 p {
@@ -208,131 +69,603 @@ p {
 	line-height: 30px;
 }
 
-/*------------ News Page ----------------*/
-#contents {
-	background-color: var(--body-color);
-	float: none;
-	clear: both;
-	max-width: 600px;
-	margin: 0 auto;
-	padding-top: 50px;
-	padding-bottom: 50px;
+/* Prayer / Iqamah tables (month & year pages) */
+.arrow {
+	display: inline-block;
+	padding: 0.25em 0.5em;
+	color: #007bff;
+	text-decoration: none;
+	font-weight: bold;
+}
+.arrow:hover {
+	color: #0056b3;
+	text-decoration: none;
 }
 
-.main {
-	float: none;
-	min-height: 100px;
-	width: 600px;
-	margin: 0 auto;
-}
-
-.main h1 {
-	font-size: 35px;
-	font-weight: 15px;
-	margin: 0 auto;
-	max-width: 600px;
-	padding: 10px;
+.caption {
+	font-weight: bold;
 	text-align: center;
-	border-bottom: 4px solid black;
+	padding: 0.5em;
 }
 
-.main h2 {
-	display: block;
-	font-size: 25px;
-	text-align: center;
-}
-.main p {
-	text-align:center;
-	margin: 5px auto;
-}
-
-.news {
-	max-width: 600px;
+/* Month view: boxed, clear controls */
+.month-controls {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 360px;
 	margin: 0 auto;
-	padding-inline-start: 0;
+	padding: 0.75rem 1.25rem;
+	border: 2px solid #dee2e6;
+	border-radius: 8px;
+	background-color: #f8f9fa;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-
-.news li {
-	display: block;
-	border-bottom: 2px dashed black;
-}
-
-.date {
+.month-caption {
+	font-weight: bold;
+	font-size: 1.15rem;
+	min-width: 10rem;
 	text-align: center;
+	margin: 0 12px;
 }
-.date p span {
-	font-size: 20px;
+.month-nav {
+	display: inline-block;
+	padding: 0.2rem 0.45rem;
+	line-height: 1.2;
+	color: #000;
+	text-decoration: none;
+	font-weight: 600;
+	border: 1px solid #000;
+	border-radius: 6px;
+	background-color: #fff;
+}
+.month-nav:hover {
+	color: #000;
+	background-color: rgb(126, 69, 68);
+	border-color: rgb(126, 69, 68);
+	text-decoration: none;
 }
 
-.content {
-	text-align: center;
-	padding: 5px;
-}
-/*------------------------------ MONTH ------------------------------*/
-#getMonth {
-	max-width: 600px;
-	margin: 10px auto;
-	padding: 10px;
-	background-color: var(--body-color);
-	border-color: black;
-	
-
-}
-
-#monthTable {
-	margin: 0 auto;
-	width: fit-content;
-}
-/*------------------------------ LOGIN ------------------------------*/
-#loginTable{
-	width: fit-content;
-	margin: 10px auto;
+.timetable {
 	border-collapse: collapse;
-	background-color: var(--body-color);
+	border: 3px solid #495057;
+	margin: 0 auto;
 }
-/*------------------------------ FOOTER ------------------------------*/
+.timetable td, .timetable th {
+	border: 1px solid #dee2e6;
+	padding: 0.5em;
+	text-align: center;
+}
 
-@media print {
-	.page-breaks {page-break-after: always;}
-	.no-page-break {page-break-inside: avoid;}
+.head-row {
+	background-color: var(--edge-color);
+	font-weight: bold;
+}
+
+
+tr.today-row td {
+	background-color: #fff3cd !important;
+	color: #000;
   }
 
 
-/* webscrape chicago hilal top*/
+/* Nav bar: button-style links and active state (all pages) */
+.nav-links-as-buttons.navbar .navbar-nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem;
+}
+.nav-links-as-buttons.navbar .navbar-nav .nav-item {
+	margin: 0;
+}
+.nav-links-as-buttons.navbar .nav-link {
+	display: block;
+	padding: 0.5rem 0.85rem !important;
+	border-radius: 6px;
+	border: 2px solid rgba(255,255,255,0.4);
+	background-color: rgba(255,255,255,0.1);
+	text-align: center;
+	font-weight: 500;
+}
+.nav-links-as-buttons.navbar .nav-link:hover {
+	background-color: rgba(255,255,255,0.2);
+	border-color: rgba(255,255,255,0.6);
+}
+.nav-links-as-buttons.navbar .nav-item.active .nav-link {
+	background-color: rgba(255,255,255,0.95);
+	border-color: #fff;
+	color: #212529 !important;
+}
+.nav-links-as-buttons.navbar .nav-item.active .nav-link:hover {
+	background-color: #fff;
+	color: #212529 !important;
+}
+
+/* Footer */
+#footerText a:hover {
+	text-decoration: underline;
+}
+
+@media print {
+	.page-breaks { page-break-after: always; }
+	.no-page-break { page-break-inside: avoid; }
+}
+
+/* Display screen (lobby) */
 .mytitle {
-    position: absolute;
-    top: 1%;
-    left: 48%;
-    transform: translateX(-50%)
-     translateY(-50%);
-    color: rgb(225, 11, 11);
-    font-size: 100px;
-    font-family: Orbitron;
-    letter-spacing: 1px;
-   
-
-
-}
-
-/*
-.qr{
 	position: absolute;
-	width: 250px;
-	height:250px;
-	bottom: 0%;
-	right:0%;
-
-
+	top: 1%;
+	left: 48%;
+	transform: translateX(-50%) translateY(-50%);
+	color: rgb(225, 11, 11);
+	font-size: 100px;
+	font-family: Orbitron, monospace;
+	letter-spacing: 1px;
 }
-*/
 
+.display-title {
+	color: rgb(206, 11, 11);
+	font-size: 250%;
+	font-family: Orbitron, monospace;
+	letter-spacing: 0.5px;
+}
 
-.umar_size{
+.umar_size {
 	position: absolute;
 	width: 100px;
-	height:100px;
+	height: 100px;
 	bottom: 0%;
-	left:0%;
-
+	left: 0%;
 }
 
+/* ========== Index page: Nav, table, sections, footer ========== */
+.page-home .navbar-index {
+	background-color: var(--theme-dark) !important;
+	padding: 0.5rem 1rem;
+}
+.page-home .navbar-index .navbar-nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem;
+}
+@media (min-width: 768px) {
+	.page-home .navbar-index .navbar-nav {
+		gap: 0.5rem;
+	}
+}
+.page-home .navbar-index .navbar-nav .nav-item {
+	margin: 0;
+}
+.page-home .navbar-index .nav-link {
+	display: block;
+	padding: 0.5rem 0.85rem !important;
+	border-radius: 6px;
+	border: 2px solid rgba(255,255,255,0.35);
+	background-color: rgba(255,255,255,0.08);
+	color: var(--theme-cream) !important;
+	font-weight: 500;
+	text-align: center;
+}
+.page-home .navbar-index .nav-link:hover {
+	background-color: rgba(255,255,255,0.18);
+	border-color: rgba(255,255,255,0.5);
+	color: var(--theme-cream) !important;
+}
+.page-home .navbar-index .nav-item.active .nav-link {
+	background-color: var(--theme-tan);
+	border-color: var(--theme-cream);
+	color: var(--theme-dark) !important;
+}
+.page-home .navbar-index .nav-item.active .nav-link:hover {
+	background-color: var(--theme-cream);
+	color: var(--theme-dark) !important;
+}
+.page-home .nav-date-pill {
+	display: inline-block;
+	background-color: var(--theme-tan);
+	color: var(--theme-dark);
+	padding: 0.4rem 0.75rem;
+	border-radius: 6px;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+/* Hero banner */
+.page-home .hero-banner {
+	background-color: var(--theme-dark);
+	color: var(--theme-cream);
+	text-align: center;
+	padding: 1rem 1rem 0.75rem;
+}
+.page-home .hero-banner .hero-title {
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: var(--theme-cream);
+	margin: 0 0 0.25rem;
+	line-height: 1.2;
+	letter-spacing: 0.5px;
+}
+.page-home .hero-banner .hero-date {
+	font-size: 1rem;
+	color: var(--theme-tan);
+	margin: 0;
+	font-weight: 500;
+}
+@media (min-width: 576px) {
+	.page-home .hero-banner {
+		padding: 1.25rem 1rem 1rem;
+	}
+	.page-home .hero-banner .hero-title {
+		font-size: 2rem;
+	}
+}
+
+/* Prayer times heading */
+.page-home .prayer-times-heading {
+	text-align: center;
+	color: var(--theme-dark);
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+	line-height: 1.3;
+}
+
+/* Prayer times table: wider, larger, alternating rows, rounded */
+.page-home .prayer-times-wrap {
+	max-width: 560px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.page-home .prayer-times-table {
+	font-size: 1rem;
+	border-radius: 10px;
+	overflow: hidden;
+	border-collapse: separate;
+	border-spacing: 0;
+	box-shadow: 0 2px 8px rgba(126, 69, 68, 0.12);
+}
+.page-home .prayer-times-table thead th,
+.page-home .prayer-times-table tbody td,
+.page-home .prayer-times-table tbody th {
+	padding: 0.65rem 0.75rem;
+}
+@media (min-width: 576px) {
+	.page-home .prayer-times-table {
+		font-size: 1.1rem;
+	}
+	.page-home .prayer-times-table thead th,
+	.page-home .prayer-times-table tbody td,
+	.page-home .prayer-times-table tbody th {
+		padding: 0.75rem 1rem;
+	}
+}
+.page-home .prayer-times-table thead th {
+	background-color: var(--theme-dark);
+	color: var(--theme-cream);
+	border-color: var(--theme-dark);
+	font-weight: 600;
+	letter-spacing: 0.3px;
+}
+.page-home .prayer-times-table tbody tr:nth-child(odd) {
+	background-color: var(--theme-cream);
+}
+.page-home .prayer-times-table tbody tr:nth-child(even) {
+	background-color: rgba(226, 195, 144, 0.25);
+}
+.page-home .prayer-times-table tbody th {
+	background-color: var(--theme-tan);
+	color: var(--theme-dark);
+	border-color: var(--theme-accent);
+	font-weight: 600;
+}
+.page-home .prayer-times-table tbody td {
+	border-color: var(--theme-tan);
+}
+
+/* Section cards: elevated, more padding */
+.page-home .section-card {
+	background-color: rgba(226, 195, 144, 0.35);
+	border: 1px solid var(--theme-accent);
+	border-radius: 10px;
+	padding: 1.5rem 1.75rem;
+	margin-bottom: 1.25rem;
+	box-shadow: 0 2px 8px rgba(126, 69, 68, 0.1);
+	max-width: 560px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.page-home .section-card h2,
+.page-home .section-card h3 {
+	color: var(--theme-dark);
+	font-size: 1.4rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	line-height: 1.4;
+}
+.page-home .section-card h2 {
+	font-size: 1.6rem;
+}
+.page-home .section-card p,
+.page-home .section-card a {
+	color: var(--theme-dark);
+}
+.page-home .section-card a:hover {
+	color: var(--theme-accent);
+}
+
+/* Jummah card: accent left border */
+.page-home .jummah-card {
+	border-left: 5px solid var(--theme-dark);
+	background: linear-gradient(135deg, var(--theme-tan) 0%, rgba(253, 249, 241, 0.7) 100%);
+}
+
+/* WhatsApp button */
+.page-home .whatsapp-btn {
+	display: inline-block;
+	background-color: var(--theme-accent);
+	color: #fff !important;
+	padding: 0.6rem 1.5rem;
+	border-radius: 25px;
+	font-weight: 600;
+	font-size: 1rem;
+	text-decoration: none;
+	transition: background-color 0.2s, box-shadow 0.2s;
+}
+.page-home .whatsapp-btn:hover {
+	background-color: var(--theme-dark);
+	color: #fff !important;
+	text-decoration: none;
+	box-shadow: 0 2px 8px rgba(126, 69, 68, 0.3);
+}
+
+/* Theme timetables on month/year pages */
+.page-home .timetable {
+	border-color: var(--theme-accent);
+}
+.page-home .timetable td,
+.page-home .timetable th {
+	border-color: var(--theme-tan);
+}
+.page-home .timetable .head-row td,
+.page-home .timetable .head-row th {
+	background-color: var(--theme-dark);
+	color: var(--theme-cream);
+	border-color: var(--theme-dark);
+}
+.page-home .timetable .caption {
+	background-color: var(--theme-tan);
+	color: var(--theme-dark);
+}
+.page-home .timetable .today-row td {
+	background-color: var(--theme-accent);
+}
+.page-home .month-controls .month-nav {
+	color: var(--theme-dark);
+}
+.page-home .month-caption {
+	color: var(--theme-dark);
+	font-weight: bold;
+}
+
+/* Footer */
+.page-home .footer-index {
+	background-color: var(--theme-dark) !important;
+	color: var(--theme-cream);
+	padding: 1.25rem 1rem;
+	font-size: 0.9rem;
+}
+.page-home .footer-index a {
+	color: var(--theme-cream);
+	text-decoration: none;
+}
+.page-home .footer-index a:hover {
+	color: var(--theme-tan);
+	text-decoration: underline;
+}
+.page-home .footer-index .footer-brand {
+	font-weight: 700;
+	font-size: 1.05rem;
+}
+.page-home .footer-index .footer-col {
+	margin-bottom: 0.5rem;
+}
+.page-home .footer-index .footer-row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+	text-align: left;
+	gap: 0.75rem 1.5rem;
+}
+.page-home .footer-index .footer-col-left {
+	text-align: left;
+}
+.page-home .footer-index .footer-col-right {
+	text-align: right;
+}
+.page-home .footer-index .footer-col-map {
+	flex: 0 0 auto;
+}
+.page-home .footer-index .footer-map {
+	width: 220px;
+	height: 120px;
+	border: 2px solid var(--theme-tan);
+	border-radius: 8px;
+}
+@media (max-width: 767px) {
+	.page-home .footer-index .footer-row {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.page-home .footer-index .footer-col-right {
+		text-align: left;
+	}
+	.page-home .footer-index .footer-map {
+		width: 100%;
+		max-width: 320px;
+		height: 140px;
+	}
+}
+
+/* Year grid: 2 tables per row */
+.year-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+}
+.year-grid .timetable {
+	width: 100%;
+}
+@media (max-width: 767px) {
+	.year-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Page heading (year / month pages) */
+.page-home .page-heading {
+	text-align: center;
+	color: var(--theme-dark);
+	font-size: 1.75rem;
+	font-weight: 700;
+	margin-bottom: 1.25rem;
+}
+
+/* ========== Admin UI: edit buttons, modals, forms ========== */
+.admin-edit-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: none;
+	background: var(--theme-dark);
+	color: var(--theme-cream);
+	font-size: 0.85rem;
+	opacity: 0.5;
+	cursor: pointer;
+	margin-left: 0.5rem;
+	vertical-align: middle;
+	transition: opacity 0.2s;
+	padding: 0;
+	line-height: 1;
+}
+.admin-edit-btn:hover {
+	opacity: 1;
+}
+
+.admin-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.admin-modal-overlay.hidden {
+	display: none;
+}
+
+.admin-modal {
+	background: #fff;
+	border-radius: 12px;
+	padding: 1.75rem;
+	width: 90%;
+	max-width: 420px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+.admin-modal h3 {
+	color: var(--theme-dark);
+	font-size: 1.25rem;
+	font-weight: 700;
+	margin: 0 0 1rem;
+	line-height: 1.3;
+}
+.admin-modal label {
+	display: block;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 0.25rem;
+}
+.admin-modal input[type="text"],
+.admin-modal input[type="password"],
+.admin-modal textarea {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	border: 1.5px solid #ccc;
+	border-radius: 6px;
+	font-size: 0.95rem;
+	font-family: inherit;
+	margin-bottom: 0.75rem;
+	box-sizing: border-box;
+}
+.admin-modal textarea {
+	resize: vertical;
+	min-height: 80px;
+}
+.admin-modal input:focus,
+.admin-modal textarea:focus {
+	outline: none;
+	border-color: var(--theme-dark);
+}
+.admin-modal .modal-error {
+	color: #c0392b;
+	font-size: 0.85rem;
+	margin-bottom: 0.5rem;
+	display: none;
+}
+.admin-modal .modal-btns {
+	display: flex;
+	gap: 0.75rem;
+	justify-content: flex-end;
+	margin-top: 0.5rem;
+}
+.admin-modal .btn-save {
+	background: var(--theme-dark);
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1.25rem;
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	font-size: 0.9rem;
+}
+.admin-modal .btn-save:hover {
+	background: var(--theme-accent);
+}
+.admin-modal .btn-cancel {
+	background: #e0e0e0;
+	color: #333;
+	border: none;
+	padding: 0.5rem 1.25rem;
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	font-size: 0.9rem;
+}
+.admin-modal .btn-cancel:hover {
+	background: #ccc;
+}
+
+.news-date {
+	font-size: 0.8rem;
+	color: #888;
+	margin-bottom: 0.25rem;
+}
+
+.notice-card {
+	font-size: 0.95rem;
+	color: #5c3232;
+	background: #fdf3e7;
+	border-left: 4px solid #e2c390;
+	padding: 10px 16px;
+}

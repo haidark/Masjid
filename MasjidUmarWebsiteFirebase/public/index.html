@@ -1,33 +1,28 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8"><title>Homepage - Masjid Umar</title>
+	<meta charset="UTF-8">
+	<title>Home - Masjid Umar</title>
 	<link rel="stylesheet" href="Umar.css" type="text/css">
-	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	
-	
-	<script type="text/javascript" src="PrayTimes.js"></script> 
-	<script type="text/javascript" src="moment.js"></script> 
-	<script type="text/javascript" src="jamaatify.js"></script>    
-
-</head>  
-	<!-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
-<style>
-	    main { padding-top: 20px; }
-
-</style>
-
-<body class="bg-white">
+	<script type="text/javascript" src="PrayTimes.js"></script>
+	<script type="text/javascript" src="moment.js"></script>
+	<script type="text/javascript" src="jamaatify.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+	<script src="firebase-config.js"></script>
+</head>
+<body class="page-home">
+	<div id="top"></div>
 	<header>
-		<!-- Fixed navbar -->
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark container-fluid ">
-			<img class="navbar-brand" src="Umar.png" width="75" height="75" style="float:left"> 
+		<nav class="navbar navbar-expand-md navbar-dark navbar-index container-fluid">
+			<a class="navbar-brand d-flex align-items-center" href="#top">
+				<img src="Umar.png" width="60" height="60" class="d-inline-block align-top" alt="Masjid Umar">
+			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -37,7 +32,7 @@
 						<a class="nav-link text-light" href="./index.html">Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-light" href="news.php">News</a>
+						<a class="nav-link text-light" href="news.html">News</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link text-light" href="./year_prayer.html">Iqamah Times (Year)</a>
@@ -46,146 +41,261 @@
 						<a class="nav-link text-light" href="./month_prayer.html">Iqamah Times (Month)</a>
 					</li>
 				</ul>
-				
-				<ul class="ml-auto">
-						<a class="text-light" id = "date_today"></a>
-				</ul>
-				
-
+				<div class="d-flex align-items-center">
+					<span id="date_today" class="nav-date-pill"></span>
+				</div>
 			</div>
 		</nav>
-		<!-- <nav class="navbar navbar-dark bg-dark">
-			<li class="nav-item">
-				<table class="table text-light">
-					<thead id="salahNames"> </thead>
-					<tr class="  " id="prayerTable"></tr>
-					<tr class=" " id="jamaatTable"></tr>
-				</table> 					
-			</li>
-		</nav> -->
-		
 	</header>
 
-	<script>
-		var date = new Date(); // today
-		var html = "Today's Date: " + date.toLocaleDateString();
-		document.getElementById('date_today').innerHTML = html;
+	<section class="hero-banner">
+		<h1 class="hero-title">Masjid Umar</h1>
+		<p class="hero-date" id="hero_date"></p>
+	</section>
 
+	<script>
+		var date = new Date();
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		var formattedDate = date.toLocaleDateString('en-US', options);
+		document.getElementById('date_today').textContent = "Today: " + date.toLocaleDateString();
+		document.getElementById('hero_date').textContent = formattedDate;
 	</script>
 
-	<main role="main" class="container">
-		<div align="center">
-			<table class="table-bordered table-responsive-lg table-responsive-xl table-responsive-sm table-responsive-md table-secondary text-center">
-				<thead id="timingType"> </thead>
-				<tr class="  table-light text-center" id="FajrTable"></tr>
-				<tr class="  table-light text-center" id="SunriseTable"></tr>
-				<tr class="  table-light text-center" id="DhuhrTable"></tr>
-				<tr class="  table-light text-center" id="AsrTable"></tr>
-				<tr class="  table-light text-center" id="MaghribTable"></tr>
-				<tr class="  table-light text-center" id="IshaTable"></tr>
-			</table> 
-			</div>
+	<main role="main" class="container py-4">
+		<section class="prayer-times-wrap mb-4">
+			<h2 class="prayer-times-heading">Today's Prayer Times</h2>
+			<table class="table table-bordered table-sm prayer-times-table text-center">
+				<thead id="timingType"></thead>
+				<tbody>
+					<tr class="text-center" id="FajrTable"></tr>
+					<tr class="text-center" id="SunriseTable"></tr>
+					<tr class="text-center" id="DhuhrTable"></tr>
+					<tr class="text-center" id="AsrTable"></tr>
+					<tr class="text-center" id="MaghribTable"></tr>
+					<tr class="text-center" id="IshaTable"></tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section-card notice-card">
+			<p class="mb-0">* Masjid is open 10 minutes before and closed 10 minutes after prayer times.</p>
+		</section>
+
+		<section class="section-card jummah-card" id="jummah">
+			<h2>Jummah Khutbah: <span id="jummahTimeDisplay">12:45 PM</span>
+				<button class="admin-edit-btn" id="jummahEditBtn" title="Edit Jummah time">&#9998;</button>
+			</h2>
+		</section>
+
+		<section class="section-card">
+			<h3>
+				<span id="newsTitle">Stay Updated</span>
+				<button class="admin-edit-btn" id="newsPostBtn" title="Post news update">&#43;</button>
+			</h3>
+			<p id="newsMessage" class="mb-2">
+				Follow the website and join our WhatsApp group for the latest updates and announcements.
+				May Allah preserve us all.
+			</p>
+			<a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb" class="whatsapp-btn" target="_blank" rel="noopener">Join WhatsApp Group</a>
+		</section>
 	</main>
 
-	<p><div class="container">
-		<div>
-			<table >
-				<!-- <caption><a href="news.php">Latest News</a></caption> -->
-
-				<div id="jummah">
-					<!--<h3 class="text-success">Eid-al-Adha will be on Saturday, July 9th 2022, at 7:30 AM! </h2>-->
-					<h2>Jummah khutbah: 12:45 pm</h2>
-				</div>
-					<tr><td><h3 id="title">Stay Updated
-					<!-- </h3></td></tr><tr><td><h4 id="time">1/5/2021 -->
-					
-					</h4></td></tr><tr><td><p id="text" align="left">
-	<!-- 					Please fill out this <a href="https://forms.gle/176u3RjYKM4BHQKu6">Google Form</a>  before attending Jumu'ah prayers.
-						<br>
-						Please note that Masjid Umar is only open for obligatory prayer services only.
-Due to ongoing concern about COVID pandemic, Masjid Umar requires all worshippers to adhere to all direction provided. This includes, but is not limited to the following rules:
-<br>
-1.	You must wear a mask that properly covers your nose and mouth prior to entering the building and preferably upon leaving your vehicle.
-<br>
-2.	Plan to enter the building in a state of wudu; Bathrooms will remain closed.
-<br>
-3.	Please bring your own prayer rug to limit shared usage and contamination of the carpets.
-<br>
-4.	Keep your shoes with you using the plastic bag provided at the entrance.
-<br>
-5.	Children will not be permitted.
-<br>
-6.	You are required to adhere to social distancing guidelines at all times during the Jummah and five daily prayers in the building and on the grounds of the Masjid. Avoid shaking hands and hugging, enter and leave masjid in an orderly and safe manner.
-<br>
-<b>Eid Mubarak! The moon was sighted in San Antonio, Texas.</b>
-<br>
-<br>
-<b>The Eid prayers will begin at 8AM tomorrow on Friday(April 21,2023), please be on time.  </b>
-<br>
-<br>
-<b>The men will pray outside of the Masjid in the parking lot in the back, and the women will pray inside the Masjid in the main hall.  </b>
-<br>
-<br>
-<b>If there is rain, men and women will pray in their usual area inside the Masjid.  </b>-->
-<!--<h1 style="color:blue;text-align:left;">The moon was not sighted in North America. </h1>
-<h1 style="color:blue;text-align:left;">First Ramadan is March 12th, Tuesday. </h1>
-<br>-->
-
-<!--<h1 style="color:blue;text-align:left;">The Eid prayers will begin at 8AM tomorrow on Wednesday(April 10,2024), please be on time.</h1> 
-<h1 style="color:blue;text-align:left;">The men will pray outside of the Masjid in the parking lot in the back, and the women will pray inside the Masjid in the main hall. </h1>
-<br>  -->
-
-<!-- <h1 style="color:black;text-align:left;">The men will pray outside of the Masjid in the parking lot in the back, and the women will pray inside the Masjid in the main hall.If there is rain, men and women will pray in their usual area inside the Masjid. </h1>-->
-<!--<h1 style="color:black;text-align:left;">If there is rain, men and women will pray in their usual area inside the Masjid. </h1>-->
-<!--<h1 style="color:blue;text-align:left;">The moon was not sighted.Therefore, Dhul-Qadah will complete a 30-day cycle. </h1>
-<h1 style="color:blue;text-align:left;">The Eid prayers will begin at 7AM on Monday(June 17th,2024), please be on time.</h1> -->
-
-<h1 style="color:blue;text-align:left;"> Thursday, February 19th, 2026 will be the 1st of Ramadan 1447. </h1>
-<h1 style="color:blue;text-align:left;">There were no reports of the moon being sighted, therefore, Shaban will complete its 30 day cycle. </h1>
- 
-
-<!--<h1 style="color:blue;text-align:left;">The moon was sighted.Therefore, Dhul-Qadah will complete a 29-day cycle. </h1>-->
-<!--<h1 style="color:rgb(10, 150, 10);text-align:left;">The Eid prayers will be on Friday,June 6th,2025.</h1> 
-<h1 style="color:blue;text-align:left;">The Eid prayer time will be announced by this weekend,inshallah.</h1> -->
-<!--<h1 style="color:rgb(10, 150, 10);text-align:left;">The Eid prayers will begin at 7AM on Friday(June 6th,2025), please be on time.</h1>-->
-<br>
-
-						Follow the website and join the WhatsApp group for updates.
-					<a href="https://chat.whatsapp.com/E5j0Ebl8ztZ8VTFhwzYOqb">Masjid WhatsApp Group</a> 
-					May Allah preserve us all.</p></td></tr>		</table>				
-		</div>
-	</div>
-
-	<br>
-	<footer class="bg-secondary text-light container-fluid">
-		<div id="footer">
-			<div id="footerText" class="text-light">
-				<p>Masjid Umar</p>
-				<p>15 Downs St.</p>
-				<p>Kingston, NY 12401</p>
-				<p>masjidumar15@gmail.com</p>
+	<footer class="footer-index container-fluid mt-auto">
+		<div id="footer" class="footer-row container">
+			<div class="footer-col footer-col-left">
+				<p class="mb-1"><a href="#top" class="footer-brand">Masjid Umar</a></p>
+				<p class="mb-1">
+					<a href="https://www.google.com/maps/search/?api=1&query=15+Downs+St+Kingston+NY+12401" target="_blank" rel="noopener">15 Downs St, Kingston, NY 12401</a>
+				</p>
+			</div>
+			<div class="footer-col footer-col-map">
+				<iframe
+					src="https://maps.google.com/maps?q=15+Downs+St,+Kingston,+NY+12401&output=embed"
+					class="footer-map"
+					allowfullscreen=""
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					title="Masjid Umar Location">
+				</iframe>
+			</div>
+			<div class="footer-col footer-col-right">
+				<p class="mb-1"><a href="mailto:masjidumar15@gmail.com">masjidumar15@gmail.com</a></p>
+				<p class="mb-0"><a href="tel:+18454810787">(845) 481-0787</a></p>
 			</div>
 		</div>
 	</footer>
 
+	<!-- Jummah Edit Modal -->
+	<div class="admin-modal-overlay hidden" id="jummahModal">
+		<div class="admin-modal">
+			<h3>Edit Jummah Time</h3>
+			<label for="jummahTimeInput">New Time (e.g. 12:45 PM)</label>
+			<input type="text" id="jummahTimeInput" placeholder="12:45 PM">
+			<label for="jummahPhraseInput">Confirmation Phrase</label>
+			<input type="password" id="jummahPhraseInput" placeholder="Enter phrase">
+			<div class="modal-error" id="jummahError"></div>
+			<div class="modal-btns">
+				<button class="btn-cancel" id="jummahCancel">Cancel</button>
+				<button class="btn-save" id="jummahSave">Save</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- News Post Modal -->
+	<div class="admin-modal-overlay hidden" id="newsModal">
+		<div class="admin-modal">
+			<h3>Post News Update</h3>
+			<label for="newsTitleInput">Title</label>
+			<input type="text" id="newsTitleInput" placeholder="News title">
+			<label for="newsMessageInput">Message</label>
+			<textarea id="newsMessageInput" placeholder="News message"></textarea>
+			<label for="newsPhraseInput">Confirmation Phrase</label>
+			<input type="password" id="newsPhraseInput" placeholder="Enter phrase">
+			<div class="modal-error" id="newsError"></div>
+			<div class="modal-btns">
+				<button class="btn-cancel" id="newsCancel">Cancel</button>
+				<button class="btn-save" id="newsSave">Save</button>
+			</div>
+		</div>
+	</div>
+
 	<script>
-		var date = new Date(); // today
-		prayTimes.setMethod('ISNA'); 	
-		var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS' );
-		var jamaatTimes = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS' );
+		var date = new Date();
+		prayTimes.setMethod('ISNA');
+		var times = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
+		var jamaatTimes = prayTimes.getTimes(date, [41.9270, -73.9974], -5, 'auto', '12hNS');
 		jamaatify(jamaatTimes);
 		var list = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-	
-		var timingType ="<th></th><th>Prayer</th><th>Iqamah</th>"
-		document.getElementById('timingType').innerHTML = timingType;
 
-		for(var i in list){
-			var html = '<tbody><tr><th rowspan = "1" style="text-orientation:mixed;"> '+list[i]+' </th>';
-			html += '<td>'+ times[list[i].toLowerCase()]  +  '</td>';
-			html += '<td>'+ jamaatTimes[list[i].toLowerCase()]  +  '</td></tr></tbody>';
-			document.getElementById(list[i]+'Table').innerHTML = html;
-		}		
+		document.getElementById('timingType').innerHTML = '<tr><th scope="col">Prayer</th><th scope="col">Start Time</th><th scope="col">Iqamah</th></tr>';
 
+		for (var i in list) {
+			var html = '<th scope="row">' + list[i] + '</th>';
+			html += '<td>' + times[list[i].toLowerCase()] + '</td>';
+			html += '<td>' + jamaatTimes[list[i].toLowerCase()] + '</td>';
+			document.getElementById(list[i] + 'Table').innerHTML = html;
+		}
+
+		// === Feature 1: Jummah Time from Firebase ===
+		var jummahDisplay = document.getElementById('jummahTimeDisplay');
+		db.ref('jummahTime').on('value', function(snapshot) {
+			var val = snapshot.val();
+			if (val) jummahDisplay.textContent = val;
+		});
+
+		// Jummah edit modal
+		var jummahModal = document.getElementById('jummahModal');
+		document.getElementById('jummahEditBtn').addEventListener('click', function() {
+			jummahModal.classList.remove('hidden');
+			document.getElementById('jummahTimeInput').value = jummahDisplay.textContent;
+			document.getElementById('jummahPhraseInput').value = '';
+			document.getElementById('jummahError').style.display = 'none';
+		});
+		document.getElementById('jummahCancel').addEventListener('click', function() {
+			jummahModal.classList.add('hidden');
+		});
+		document.getElementById('jummahSave').addEventListener('click', function() {
+			var timeVal = document.getElementById('jummahTimeInput').value.trim();
+			var phrase = document.getElementById('jummahPhraseInput').value;
+			var errEl = document.getElementById('jummahError');
+
+			// Validate time format: H:MM AM/PM
+			if (!/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(timeVal)) {
+				errEl.textContent = 'Invalid Format. Use H:MM AM/PM.';
+				errEl.style.display = 'block';
+				return;
+			}
+
+			validatePhrase(phrase).then(function(valid) {
+				if (!valid) {
+					errEl.textContent = 'Failure to Confirm. Not Authorized.';
+					errEl.style.display = 'block';
+					return;
+				}
+				db.ref('jummahTime').set(timeVal).then(function() {
+					jummahModal.classList.add('hidden');
+				}).catch(function(err) {
+					errEl.textContent = 'Save Failed. Please try again.';
+					errEl.style.display = 'block';
+				});
+			}).catch(function(err) {
+				errEl.textContent = 'Connection Failed. Please try again.';
+				errEl.style.display = 'block';
+			});
+		});
+
+		// === Feature 2: News from Firebase ===
+		var newsTitle = document.getElementById('newsTitle');
+		var newsMessage = document.getElementById('newsMessage');
+		db.ref('news/current').on('value', function(snapshot) {
+			var val = snapshot.val();
+			if (val) {
+				newsTitle.textContent = val.title || 'Stay Updated';
+				newsMessage.textContent = val.message || '';
+			}
+		});
+
+		// News post modal
+		var newsModal = document.getElementById('newsModal');
+		document.getElementById('newsPostBtn').addEventListener('click', function() {
+			newsModal.classList.remove('hidden');
+			document.getElementById('newsTitleInput').value = '';
+			document.getElementById('newsMessageInput').value = '';
+			document.getElementById('newsPhraseInput').value = '';
+			document.getElementById('newsError').style.display = 'none';
+		});
+		document.getElementById('newsCancel').addEventListener('click', function() {
+			newsModal.classList.add('hidden');
+		});
+		document.getElementById('newsSave').addEventListener('click', function() {
+			var title = document.getElementById('newsTitleInput').value.trim();
+			var message = document.getElementById('newsMessageInput').value.trim();
+			var phrase = document.getElementById('newsPhraseInput').value;
+			var errEl = document.getElementById('newsError');
+
+			if (!title || !message) {
+				errEl.textContent = 'Missing Fields. Title and message are required.';
+				errEl.style.display = 'block';
+				return;
+			}
+
+			validatePhrase(phrase).then(function(valid) {
+				if (!valid) {
+					errEl.textContent = 'Failure to Confirm. Not Authorized.';
+					errEl.style.display = 'block';
+					return;
+				}
+
+				// Read current news, archive it, then set new
+				db.ref('news/current').once('value').then(function(snapshot) {
+					var oldNews = snapshot.val();
+					var updates = {};
+					// Archive old news if it exists
+					if (oldNews && oldNews.title) {
+						var archiveKey = db.ref('news/archive').push().key;
+						updates['news/archive/' + archiveKey] = oldNews;
+					}
+					// Set new current news
+					updates['news/current'] = {
+						title: title,
+						message: message,
+						timestamp: firebase.database.ServerValue.TIMESTAMP
+					};
+					db.ref().update(updates).then(function() {
+						newsModal.classList.add('hidden');
+					}).catch(function(err) {
+						errEl.textContent = 'Save Failed. Please try again.';
+						errEl.style.display = 'block';
+					});
+				}).catch(function(err) {
+					errEl.textContent = 'Save Failed. Please try again.';
+					errEl.style.display = 'block';
+				});
+			}).catch(function(err) {
+				errEl.textContent = 'Connection Failed. Please try again.';
+				errEl.style.display = 'block';
+			});
+		});
 	</script>
 </body>
 </html>
