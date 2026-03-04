@@ -10,7 +10,7 @@ firebase-debug.*.log*
 #Claude
 .claude/
 CLAUDE.md
-
+.playwright-mcp/
 # Firebase cache
 .firebase/
 

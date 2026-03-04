@@ -163,6 +163,7 @@ tr.today-row td {
 .nav-links-as-buttons.navbar .nav-link {
 	display: block;
 	padding: 0.5rem 0.85rem !important;
+	min-width: 7rem;
 	border-radius: 6px;
 	border: 2px solid rgba(255,255,255,0.4);
 	background-color: rgba(255,255,255,0.1);
@@ -242,6 +243,7 @@ tr.today-row td {
 .page-home .navbar-index .nav-link {
 	display: block;
 	padding: 0.5rem 0.85rem !important;
+	min-width: 13rem;
 	border-radius: 6px;
 	border: 2px solid rgba(255,255,255,0.35);
 	background-color: rgba(255,255,255,0.08);
@@ -271,6 +273,19 @@ tr.today-row td {
 	border-radius: 6px;
 	font-size: 0.9rem;
 	font-weight: 500;
+	min-width: 13rem;
+	text-align: center;
+}
+@media (max-width: 767px) {
+	.page-home .navbar-index .navbar-nav {
+		justify-content: center;
+	}
+	.page-home .navbar-index #navbarCollapse > div {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		margin-top: 0.35rem;
+	}
 }
 
 /* Hero banner */
