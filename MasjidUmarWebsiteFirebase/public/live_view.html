@@ -62,6 +62,13 @@
 			display: none;
 		}
 
+		/* CSS-level fullscreen hide (Fullscreen API, all browsers) */
+		:fullscreen .btn-group-overlay,
+		:-webkit-full-screen .btn-group-overlay,
+		:-moz-full-screen .btn-group-overlay {
+			display: none !important;
+		}
+
 		/* ===== HOME BUTTON ===== */
 		.home-btn {
 			padding: 0.4em 1em;
@@ -134,7 +141,7 @@
 
 		/* Prayer table: grows to fill available vertical space */
 		.prayer-table-wrap {
-\t\t\toverflow: hidden;
+			overflow: hidden;
 			min-height: 0;
 			max-width: 100%;
 			flex: 1 1 0;
@@ -318,6 +325,43 @@
 			background: #333;
 		}
 
+		/* ===== Fullscreen Button ===== */
+		.fs-btn {
+			padding: 0.4em 0.8em;
+			background: #7e4544;
+			color: #fdf9f1;
+			border: none;
+			border-radius: 6px;
+			font-size: clamp(0.6rem, 1.4vmin, 1.4rem);
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+		.fs-btn:hover { background: #5c3232; }
+
+		/* ===== Exit Fullscreen Button (touch devices) ===== */
+		.exit-fs-btn {
+			opacity: 0;
+			pointer-events: none;
+			position: fixed;
+			top: 1vh;
+			right: 1vw;
+			z-index: 200;
+			padding: 0.4em 0.8em;
+			background: rgba(126,69,68,0.9);
+			color: #fdf9f1;
+			border: none;
+			border-radius: 6px;
+			font-size: clamp(0.55rem, 1.3vmin, 1.3rem);
+			font-weight: 600;
+			cursor: pointer;
+			transition: opacity 0.3s;
+		}
+		.exit-fs-btn.visible {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
 		/* ===== B&W Mode Overrides ===== */
 		body.bw-mode {
 			background: #ffffff !important;
@@ -382,6 +426,10 @@
 		body.bw-mode .bw-toggle-btn {
 			background: #7e4544;
 		}
+		body.bw-mode .fs-btn {
+			background: #333333 !important;
+			color: #ffffff !important;
+		}
 
 		/* Very small screens */
 		@media (max-height: 500px) {
@@ -440,9 +488,13 @@
 
 <!-- Button group: hidden together in fullscreen (F11 or API) -->
 <div class="btn-group-overlay" id="btnGroupOverlay">
+	<button class="fs-btn" id="fsBtn">&#x26F6; Fullscreen</button>
 	<button class="bw-toggle-btn" id="bwToggleBtn">B&W</button>
 	<a href="./index.html" class="home-btn" id="homeBtn">Home</a>
 </div>
+
+<!-- Exit fullscreen button: fades in when cursor/touch nears top-right corner -->
+<button class="exit-fs-btn" id="exitFsBtn">&#x2716; Exit</button>
 
 <div class="live-grid">
 
@@ -490,13 +542,58 @@
 	// Fullscreen detection: covers both F11 and Fullscreen API
 	var btnGroupOverlay = document.getElementById('btnGroupOverlay');
 	var bwToggleBtn = document.getElementById('bwToggleBtn');
+	var exitFsBtn = document.getElementById('exitFsBtn');
+	var exitFsHideTimer;
+	var inFullscreen = false;
+
+	function showExitBtn() {
+		clearTimeout(exitFsHideTimer);
+		exitFsBtn.classList.add('visible');
+	}
+	function scheduleHideExitBtn() {
+		clearTimeout(exitFsHideTimer);
+		exitFsHideTimer = setTimeout(function () {
+			exitFsBtn.classList.remove('visible');
+		}, 1000);
+	}
+
+	// Show exit button when cursor is in top-right corner area
+	document.addEventListener('mousemove', function (e) {
+		if (!inFullscreen) return;
+		var nearRight = (window.innerWidth - e.clientX) < 160;
+		var nearTop = e.clientY < 100;
+		if (nearRight && nearTop) {
+			showExitBtn();
+		} else {
+			scheduleHideExitBtn();
+		}
+	});
+
+	// Touch: tap near top-right corner to reveal
+	document.addEventListener('touchstart', function (e) {
+		if (!inFullscreen) return;
+		var touch = e.touches[0];
+		var nearRight = (window.innerWidth - touch.clientX) < 160;
+		var nearTop = touch.clientY < 100;
+		if (nearRight && nearTop) {
+			showExitBtn();
+			scheduleHideExitBtn();
+		}
+	});
+
 	function checkFullscreen() {
 		var isApiFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-		var isF11Fullscreen = (window.innerHeight === screen.height && window.innerWidth === screen.width);
-		if (isApiFullscreen || isF11Fullscreen) {
+		var isF11Fullscreen = (
+			Math.abs(window.innerHeight - screen.height) <= 5 &&
+			Math.abs(window.innerWidth - screen.width) <= 5
+		);
+		inFullscreen = isApiFullscreen || isF11Fullscreen;
+		if (inFullscreen) {
 			btnGroupOverlay.classList.add('hidden');
 		} else {
 			btnGroupOverlay.classList.remove('hidden');
+			clearTimeout(exitFsHideTimer);
+			exitFsBtn.classList.remove('visible');
 		}
 	}
 	// Listen for Fullscreen API changes
@@ -676,6 +773,34 @@
 			fitTableToContainer();
 		}, 150);
 	});
+	// Fullscreen button logic
+	var fsBtn = document.getElementById('fsBtn');
+	var fsApiAvailable = !!(
+		document.documentElement.requestFullscreen ||
+		document.documentElement.webkitRequestFullscreen ||
+		document.documentElement.mozRequestFullScreen ||
+		document.documentElement.msRequestFullscreen
+	);
+	if (!fsApiAvailable) {
+		// iOS Safari: API not available — guide user to Add to Home Screen
+		fsBtn.textContent = 'Add to Home Screen for Fullscreen';
+		fsBtn.style.fontSize = 'clamp(0.5rem, 1.1vmin, 1.1rem)';
+	}
+	fsBtn.addEventListener('click', function () {
+		if (!fsApiAvailable) return;
+		var el = document.documentElement;
+		if (el.requestFullscreen)            el.requestFullscreen();
+		else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+		else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+		else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+	});
+	exitFsBtn.addEventListener('click', function () {
+		if (document.exitFullscreen)            document.exitFullscreen();
+		else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+		else if (document.mozCancelFullScreen)  document.mozCancelFullScreen();
+		else if (document.msExitFullscreen)     document.msExitFullscreen();
+	});
+
 	db.ref('jummahTime').on('value', function(snapshot) {
 		var val = snapshot.val();
 		var el = document.getElementById('jummahLiveDisplay');
