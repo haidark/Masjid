@@ -1,8 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="Masjid Umar">
+	<link rel="manifest" href="manifest.json">
 	<title>Display - Masjid Umar</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -466,6 +470,76 @@
 				gap: 1vw;
 			}
 		}
+
+		/* ===== Safe-area insets for iOS notch / home indicator ===== */
+		@supports (padding-top: env(safe-area-inset-top)) {
+			.live-grid {
+				padding-top: calc(1vh + env(safe-area-inset-top));
+				padding-left: calc(1.5vw + env(safe-area-inset-left));
+				padding-right: calc(1.5vw + env(safe-area-inset-right));
+				padding-bottom: calc(0px + env(safe-area-inset-bottom));
+			}
+			.btn-group-overlay {
+				top: calc(1vh + env(safe-area-inset-top));
+				right: calc(1vw + env(safe-area-inset-right));
+			}
+		}
+
+		/* ===== iOS "Add to Home Screen" instruction modal ===== */
+		.ios-modal-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 300;
+			background: rgba(0, 0, 0, 0.55);
+			align-items: center;
+			justify-content: center;
+		}
+		.ios-modal-overlay.visible {
+			display: flex;
+		}
+		.ios-modal-box {
+			background: #fdf9f1;
+			border-radius: 14px;
+			padding: 1.5em 2em;
+			max-width: 340px;
+			width: 88vw;
+			font-family: 'Times New Roman', Times, serif;
+			text-align: center;
+			box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+		}
+		.ios-modal-box h3 {
+			color: #7e4544;
+			margin-bottom: 0.5em;
+			font-size: 1.15rem;
+			font-weight: 700;
+		}
+		.ios-modal-box p {
+			font-size: 0.92rem;
+			color: #333;
+			margin-bottom: 0.4em;
+		}
+		.ios-modal-box ol {
+			text-align: left;
+			margin: 0.5em 0 1em 1.2em;
+			line-height: 1.8;
+			font-size: 0.92rem;
+			color: #1a1a1a;
+		}
+		.ios-modal-box .ios-close-btn {
+			background: #7e4544;
+			color: #fdf9f1;
+			border: none;
+			border-radius: 8px;
+			padding: 0.5em 1.6em;
+			font-size: 1rem;
+			cursor: pointer;
+			font-family: inherit;
+			font-weight: 600;
+		}
+		.ios-modal-box .ios-close-btn:hover {
+			background: #5c3232;
+		}
 	</style>
 </head>
 <body>
@@ -521,6 +595,20 @@
 
 </div>
 
+<!-- iOS "Add to Home Screen" instruction modal -->
+<div class="ios-modal-overlay" id="iosModalOverlay">
+	<div class="ios-modal-box">
+		<h3>Fullscreen on iPhone / iPad</h3>
+		<p>Add this page to your Home Screen to run it fullscreen:</p>
+		<ol>
+			<li>Tap the <strong>Share</strong> button (&#x2B06;) in Safari</li>
+			<li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
+			<li>Tap <strong>Add</strong> &mdash; then open the icon from your Home Screen</li>
+		</ol>
+		<button class="ios-close-btn" id="iosModalClose">Got it</button>
+	</div>
+</div>
+
 <script type="text/javascript">
 	// Fullscreen detection: covers both F11 and Fullscreen API
 	var btnGroupOverlay = document.getElementById('btnGroupOverlay');
@@ -528,6 +616,10 @@
 	var exitFsBtn = document.getElementById('exitFsBtn');
 	var exitFsHideTimer;
 	var inFullscreen = false;
+
+	// iOS / standalone (PWA home screen) detection
+	var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+	var isStandalone = !!navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
 
 	function showExitBtn() {
 		clearTimeout(exitFsHideTimer);
@@ -570,7 +662,7 @@
 			Math.abs(window.innerHeight - screen.height) <= 5 &&
 			Math.abs(window.innerWidth - screen.width) <= 5
 		);
-		inFullscreen = isApiFullscreen || isF11Fullscreen;
+		inFullscreen = isApiFullscreen || isF11Fullscreen || (isIOS && isStandalone);
 		if (inFullscreen) {
 			btnGroupOverlay.classList.add('hidden');
 		} else {
@@ -792,17 +884,37 @@
 		document.documentElement.msRequestFullscreen
 	);
 	if (!fsApiAvailable) {
-		// iOS Safari: API not available — guide user to Add to Home Screen
-		fsBtn.textContent = 'Add to Home Screen for Fullscreen';
-		fsBtn.style.fontSize = 'clamp(0.5rem, 1.1vmin, 1.1rem)';
+		if (isIOS && isStandalone) {
+			// Running as home screen PWA — already fullscreen, hide the button
+			fsBtn.style.display = 'none';
+		} else if (isIOS) {
+			// iOS Safari regular browser — show "Add to Home Screen" with instruction modal
+			fsBtn.textContent = '\u2B06 Add to Home Screen';
+			fsBtn.style.fontSize = 'clamp(0.5rem, 1.2vmin, 1.2rem)';
+			fsBtn.addEventListener('click', function () {
+				document.getElementById('iosModalOverlay').classList.add('visible');
+			});
+		} else {
+			// Other browser without Fullscreen API
+			fsBtn.textContent = 'Add to Home Screen for Fullscreen';
+			fsBtn.style.fontSize = 'clamp(0.5rem, 1.1vmin, 1.1rem)';
+		}
+	} else {
+		fsBtn.addEventListener('click', function () {
+			var el = document.documentElement;
+			if (el.requestFullscreen)            el.requestFullscreen();
+			else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+			else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+			else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+		});
 	}
-	fsBtn.addEventListener('click', function () {
-		if (!fsApiAvailable) return;
-		var el = document.documentElement;
-		if (el.requestFullscreen)            el.requestFullscreen();
-		else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-		else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
-		else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+
+	// iOS modal close handlers
+	document.getElementById('iosModalClose').addEventListener('click', function () {
+		document.getElementById('iosModalOverlay').classList.remove('visible');
+	});
+	document.getElementById('iosModalOverlay').addEventListener('click', function (e) {
+		if (e.target === this) this.classList.remove('visible');
 	});
 	exitFsBtn.addEventListener('click', function () {
 		if (document.exitFullscreen)            document.exitFullscreen();

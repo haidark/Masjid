@@ -1,0 +1,8 @@
+{
+  "name": "Masjid Umar Prayer Times",
+  "short_name": "Masjid Umar",
+  "start_url": "/live_view.html",
+  "display": "standalone",
+  "background_color": "#fdf9f1",
+  "theme_color": "#7e4544"
+}
