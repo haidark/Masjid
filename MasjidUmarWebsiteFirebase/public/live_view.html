@@ -69,25 +69,6 @@
 			display: none !important;
 		}
 
-		/* ===== HOME BUTTON ===== */
-		.home-btn {
-			padding: 0.4em 1em;
-			background: #7e4544;
-			color: #fdf9f1;
-			border: none;
-			border-radius: 6px;
-			font-size: clamp(0.65rem, 1.6vmin, 1.6rem);
-			font-weight: 600;
-			text-decoration: none;
-			cursor: pointer;
-			transition: background 0.2s;
-		}
-
-		.home-btn:hover {
-			background: #5c3232;
-			color: #fdf9f1;
-			text-decoration: none;
-		}
 
 		/* ===== TOP BAR: Date, Hijri, Time - all centered ===== */
 		.top-bar {
@@ -98,7 +79,7 @@
 		}
 
 		#MyClockDisplay {
-			font-size: clamp(2.25rem, 10vmin, 11.25rem);
+			font-size: clamp(3rem, 13vmin, 16rem);
 			font-weight: 400;
 			font-variant-numeric: tabular-nums;
 			color: #1a1a1a;
@@ -165,6 +146,7 @@
 			width: 100%;
 			margin: 0 auto;
 			border-collapse: collapse;
+			table-layout: fixed;
 		}
 
 		#containerDiv .caption {
@@ -181,18 +163,20 @@
 			background: #d4b896;
 			color: #000000;
 			font-weight: 700;
-			font-size: clamp(0.6rem, 2.4vmin, 2.4rem);
-			padding: clamp(2px, 0.8vh, 10px) clamp(4px, 1vw, 16px);
+			font-size: clamp(0.75rem, 3.2vmin, 3.2rem);
+			padding: clamp(1px, 0.3vh, 5px) clamp(2px, 0.5vw, 8px);
+			line-height: 1;
 			text-align: center;
 			border: 1px solid #b89b6a;
 		}
 
 		#containerDiv tr td {
-			font-size: clamp(0.55rem, 2.2vmin, 2.2rem);
-			padding: clamp(2px, 0.7vh, 9px) clamp(4px, 1vw, 14px);
+			font-size: clamp(0.7rem, 3vmin, 3rem);
+			padding: 0 clamp(2px, 0.5vw, 8px);
+			line-height: 1;
 			text-align: center;
 			color: #000000;
-			font-weight: 500;
+			font-weight: 700;
 			border: 1px solid #ccc;
 		}
 
@@ -230,7 +214,7 @@
 		#myLink {
 			text-align: center;
 			color: rgba(33, 6, 240, 0.924);
-			font-size: clamp(2.25rem, 9.4vmin, 10rem);
+			font-size: clamp(3rem, 13vmin, 16rem);
 			letter-spacing: 1px;
 			line-height: 1.1;
 		}
@@ -419,10 +403,6 @@
 		body.bw-mode .qr-placeholder {
 			border-color: #cccccc !important;
 		}
-		body.bw-mode .btn-group-overlay .home-btn {
-			background: #333333 !important;
-			color: #ffffff !important;
-		}
 		body.bw-mode .bw-toggle-btn {
 			background: #7e4544;
 		}
@@ -459,11 +439,14 @@
 			.middle-section {
 				justify-content: space-between;
 			}
+			#MyClockDisplay {
+				font-size: clamp(3rem, 18vw, 12rem);
+			}
 			#countdowntxt {
-				font-size: clamp(1.1rem, 5.6vw, 3.1rem);
+				font-size: clamp(1.2rem, 5vw, 4rem);
 			}
 			#myLink {
-				font-size: clamp(2rem, 15vw, 8.75rem);
+				font-size: clamp(2.5rem, 18vw, 12rem);
 			}
 			.live-grid {
 				padding: 0.8vh 1.5vw;
@@ -475,8 +458,9 @@
 		@media (orientation: portrait) and (max-width: 480px) {
 			#containerDiv .head-row td,
 			#containerDiv tr td {
-				font-size: clamp(0.5rem, 2.5vw, 1.5rem);
-				padding: clamp(1px, 0.5vh, 6px) clamp(2px, 0.8vw, 8px);
+				font-size: clamp(0.6rem, 3.5vw, 2rem);
+				padding: 0 clamp(1px, 0.5vw, 5px);
+				line-height: 1;
 			}
 			.bottom-bar {
 				gap: 1vw;
@@ -490,7 +474,6 @@
 <div class="btn-group-overlay" id="btnGroupOverlay">
 	<button class="fs-btn" id="fsBtn">&#x26F6; Fullscreen</button>
 	<button class="bw-toggle-btn" id="bwToggleBtn">B&W</button>
-	<a href="./index.html" class="home-btn" id="homeBtn">Home</a>
 </div>
 
 <!-- Exit fullscreen button: fades in when cursor/touch nears top-right corner -->
@@ -741,6 +724,31 @@
 		}
 		monthTable.style.height = '100%';
 	}
+	function fitTableFont() {
+		var wrap = document.querySelector('.prayer-table-wrap');
+		var tbody = monthTable.querySelector('tbody');
+		var rows = tbody.querySelectorAll('tr');
+		if (rows.length < 3) return;
+
+		// Clear all inline font-sizes so caption/header revert to CSS clamp
+		var allCells = monthTable.querySelectorAll('td');
+		for (var i = 0; i < allCells.length; i++) allCells[i].style.fontSize = '';
+
+		var rowH = rows[2].offsetHeight;
+		if (!rowH) return;
+
+		// Vertical: fill 90% of row height
+		var maxByHeight = Math.floor(rowH * 0.90);
+		// Horizontal: longest data content is "12:30" ≈ 2.3× font width
+		var maxByWidth = Math.floor((wrap.offsetWidth / 7 - 4) / 2.3);
+		var fontSize = Math.max(8, Math.min(maxByHeight, maxByWidth));
+
+		// Apply only to data rows (skip caption row 0 and header row 1)
+		for (var r = 2; r < rows.length; r++) {
+			var cells = rows[r].querySelectorAll('td');
+			for (var c = 0; c < cells.length; c++) cells[c].style.fontSize = fontSize + 'px';
+		}
+	}
 
 	window.onload = function () {
 		var myLinkEl = document.getElementById("myLink");
@@ -761,6 +769,7 @@
 		monthTable.firstChild.remove();
 		monthTable.appendChild(displayMonth(currentDate.getMonth()));
 		fitTableToContainer();
+		fitTableFont();
 	});
 	wrapObserver.observe(document.querySelector('.prayer-table-wrap'));
 
@@ -771,6 +780,7 @@
 			monthTable.firstChild.remove();
 			monthTable.appendChild(displayMonth(currentDate.getMonth()));
 			fitTableToContainer();
+			fitTableFont();
 		}, 150);
 	});
 	// Fullscreen button logic
