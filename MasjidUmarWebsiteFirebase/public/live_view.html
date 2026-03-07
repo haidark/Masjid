@@ -659,8 +659,8 @@
 	function checkFullscreen() {
 		var isApiFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
 		var isF11Fullscreen = (
-			Math.abs(window.innerHeight - screen.height) <= 5 &&
-			Math.abs(window.innerWidth - screen.width) <= 5
+			Math.abs(window.innerHeight - screen.height) <= 80 &&
+			Math.abs(window.innerWidth - screen.width) <= 80
 		);
 		inFullscreen = isApiFullscreen || isF11Fullscreen || (isIOS && isStandalone);
 		if (inFullscreen) {
